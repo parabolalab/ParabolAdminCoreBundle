@@ -1,0 +1,6 @@
+{% if menuItems is not empty %}
+    {% for item in menuItems %}
+            {{ separator is defined and loop.index > 1  ? separator : ' '}}
+            <a href="{{ (app.environment == 'dev' ? '/app_dev.php' : '') ~ item.url }}">{{ item.name }}</a>
+    {% endfor %}
+{% endif %}

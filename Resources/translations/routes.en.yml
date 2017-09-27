@@ -1,0 +1,17 @@
+# Desc: /blog/{slug}
+app_parabol_admin_core_bundle_blog_post: '/en/blog/{slug}'   # FIXME
+
+# Desc: /blog
+app_parabol_admin_core_bundle_blog_post_list: /en/blog   # FIXME
+
+# Desc: /aktualnosci/{slug}
+app_parabol_admin_core_bundle_news_post: '/news/{slug}'
+
+# Desc: /aktualnosci
+app_parabol_admin_core_bundle_news_post_list: /news
+
+# Desc: /media/cache/resolve/{filter}/{path}
+liip_imagine_filter: '/media/cache/resolve/{filter}/{path}'   # FIXME
+
+# Desc: /media/cache/resolve/{filter}/rc/{hash}/{path}
+liip_imagine_filter_runtime: '/media/cache/resolve/{filter}/rc/{hash}/{path}'   # FIXME

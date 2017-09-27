@@ -1,0 +1,9 @@
+{% extends "AdmingeneratorGeneratorBundle:Sidebar:layout.html.twig" %}
+
+{# {% block sidebar_menu %}
+    {{ knp_menu_render('ParabolAdminCoreBundle:AdminMenuBuilder:sidebarMenu', {'allow_safe_labels': true}) }}
+{% endblock sidebar_menu %} #}
+
+{% block sidebar_profile_authenticated %}
+                {% include "ParabolAdminCoreBundle:Sidebar:authenticated.html.twig" %}
+{% endblock sidebar_profile_authenticated %}

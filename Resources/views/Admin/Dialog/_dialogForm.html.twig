@@ -1,0 +1,11 @@
+{% trans_default_domain "Admingenerator" %}
+
+{% use "AdmingeneratorGeneratorBundle::flash.html.twig" %}
+{{ block('flash_messages') }}
+<section class="content-header">
+     <h4>{{ title }}</h4>
+</section>
+
+{{ form_start(form) }}
+{% include "ParabolAdminCoreBundle:FileEdit:form.html.twig" with formParams %}
+{{ form_end(form) }}

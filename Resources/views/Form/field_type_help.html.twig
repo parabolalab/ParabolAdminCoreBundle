@@ -1,0 +1,32 @@
+{# Widgets #}
+
+{% block field_help %}!!!!!!!!!!!!
+    {% if help is defined %}
+        <span class="help-block">{{ help | raw }}</span>
+    {% endif %}
+{% endblock %}
+
+{% block form_row %}
+{% spaceless %}
+    <div>
+        {{ form_label(form, label|default(null)) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        {{ block('field_help') }}
+    </div>
+{% endspaceless %}
+{% endblock form_row %}
+
+
+
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+    {% if form.parent %}<span class="help-block error">{% else %}<div class="alert alert-danger">{% endif %}
+    <ul class="list-unstyled">
+        {%- for error in errors -%}
+            <li><span class="glyphicon glyphicon-exclamation-sign"></span> {{ error.message }}</li>
+        {%- endfor -%}
+    </ul>
+    {% if form.parent %}</span>{% else %}</div>{% endif %}
+    {%- endif %}
+{%- endblock form_errors %}

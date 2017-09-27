@@ -1,0 +1,75 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Parabol\AdminCoreBundle\Entity\Attraction
+    namespace_prefix: Parabol
+    concurrency_lock: ~
+    bundle_name: AdminCoreBundle
+    pk_requirement: ~
+    i18n_catalog: Admingenerator
+    fields: 
+        title:
+            sortOn: translations.title
+        type:
+            formType: Parabol\AdminCoreBundle\Form\Type\ExtChoiceType
+        # products:
+        #     formType: entity
+        #     addFormOptions:
+        #         class: Parabol\ProductBundle\Entity\Product
+        #         expanded: true
+        #         multiple: true
+        #         property: name
+        files:
+            formType: Parabol\FilesUploadBundle\Form\Type\BlueimpType
+            label: Zdjęcie
+            addFormOptions:
+                cropper:
+                    aspectRatio: 340:230
+        translations:
+            addFormOptions:
+                exclude_fields: [lead]
+
+    object_actions:
+        delete: ~
+    batch_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: List for AdminCoreBundle
+            display: [title, createdAt, isEnabled]
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                delete: ~
+    excel:
+        params: ~
+        filename: ~
+        filetype: ~
+    new:
+        params:
+            title: New object for AdminCoreBundle
+            display: [isEnabled, translations, files]
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "You're editing the object \"%object%\"|{ %object%: Attraction.title }|"
+            display: [isEnabled, translations, files]
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: Attraction.title }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~

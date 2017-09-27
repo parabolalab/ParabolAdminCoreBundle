@@ -1,0 +1,56 @@
+{% extends 'AdmingeneratorGeneratorBundle::base.html.twig' %}
+{#% extends 'AdmingeneratorGeneratorBundle::base_admin.html.twig' %#}
+
+{# {% block stylesheets %}
+	{{ parent() }}
+    {% stylesheets package='admingenerator_custom_css' filter='cssrewrite,?uglifycss'
+        output='assetic/css/compiled/admingenerator-custom.min.css'
+        '@ParabolAdminCoreBundle/Resources/public/css/admin/admin_core.css'
+        'admin/components/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
+        'admin/components/bootstrap-colorpickersliders/dist/bootstrap.colorpickersliders.min.css'            
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all" />
+    {% endstylesheets %}
+     
+{% endblock %} #}
+
+{% block javascripts_head %}
+    {{ parent() }}
+    <script type="text/javascript">
+    var sf_env = '{{ app.environment == 'prod' ? '' : '/app_' ~ app.environment ~ '.php' }}'
+    </script>
+ {% endblock %} 
+
+{# {% block javascripts %}
+	{{ parent() }}
+    {% javascripts package='admingenerator_custom_js' filter='?uglifyjs2'
+    	output='assetic/js/compiled/admingenerator-custom.min.js'
+        'admin/components/moment/min/moment.min.js'
+        'admin/components/moment/locale/pl.js'
+        'admin/components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
+        'admin/components/blueimp-file-upload/js/vendor/jquery.ui.widget.js'
+        'admin/components/blueimp-tmpl/js/tmpl.min.js'
+        'admin/components/blueimp-file-upload/js/jquery.fileupload.js'
+        'admin/components/blueimp-load-image/js/load-image.all.min.js'
+        'admin/components/blueimp-file-upload/js/jquery.fileupload-process.js'
+        'admin/components/blueimp-file-upload/js/jquery.fileupload-validate.js'
+        'admin/components/blueimp-file-upload/js/jquery.fileupload-image.js'
+        'admin/components/blueimp-file-upload/js/jquery.fileupload-ui.js'
+        'admin/components/jquery-sortable/source/js/jquery-sortable-min.js'
+        'admin/components/tinycolor/tinycolor.js'
+        'admin/components/bootstrap-colorpickersliders/dist/bootstrap.colorpickersliders.min.js'
+        'admin/components/admin-lte/plugins/chartjs/Chart.min.js'
+        'admin/components/bernii/gauge.js/dist/gauge.min.js'
+        '@ParabolAdminCoreBundle/Resources/public/js/admin/admin_core.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    
+{% endblock %} #}
+
+{% block sidebar %}
+	<aside class="left-side sidebar-offcanvas">
+        {% include "ParabolAdminCoreBundle:Sidebar:layout.html.twig" %}
+    </aside>
+{% endblock %}
+

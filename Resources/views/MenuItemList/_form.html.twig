@@ -1,0 +1,45 @@
+	<div class="col-md-12">
+		<div class="box box-primary">
+	        <div class="box-header list-header list-nb-results"> 
+	        <form id="CustomFilter" class="form-inline" method="POST" action="{{ path('Parabol_AdminCoreBundle_MenuItem_filters') }}">
+	        	<fieldset>
+	        	<div class="form-group">	
+	        		<label for="filters_menu">Menu</label><br />
+		        	<select id="filters_menu" name="filters[:menu]" data-option="menu" class="form-control">
+		        		{% for menu in menus %}
+		        		<option {{ filters[':menu'] is defined and filters[':menu'] == menu.value ? 'selected="selected"' : '' }} value="{{ menu.value }}">{{ menu.key }}</option>
+		        		{% endfor %}
+		        	</select>
+		        </div>		
+		        <div class="form-group">
+		        	<label for="filters_type">Rodzaj</label><br />
+		        	<select id="filters_type" name="filters[:type]" data-option="type" class="form-control">
+		        		{% for type in types %}
+		        		<option {{ filters[':type'] is defined and filters[':type'] == type.value ? 'selected="selected"' : '' }} value="{{ type.value }}">{{ type.key }}</option>
+		        		{% endfor %}
+		        	</select>
+		        </div>	
+		        <div class="form-group">
+		        	<label for="filters_url">Adres wyświetlania</label><br />
+		        	<select id="filters_url" name="filters[:url]" data-option="url" class="form-control">
+		        		{% for url in urls %}
+		        		<option {{ filters[':url'] is defined and filters[':url'] == url.value ? 'selected="selected"' : '' }} value="{{ url.value }}">{{ url.key }}</option>
+		        		{% endfor %}
+	        		</select>
+	        	</div>	
+		        <div class="form-group">
+		        	<label for="filters_parent">Rodzic</label><br />
+		        	<select id="filters_parent" name="filters[:parent]" data-option="parent" data-nointeract="yes" class="form-control">
+		        		{% for parent in parents %}
+		        		<option {{ filters[':parent'] is defined and filters[':parent'] == parent.value ? 'selected="selected"' : '' }} value="{{ parent.value }}">{{ parent.key }}</option>
+		        		{% endfor %}
+	        		</select>
+	        	</div>	
+	        	
+	        	<button class="btn btn-primary" style="margin-top: 24px;">Filtruj</button>
+
+	        	</fieldset>
+	        </form>	
+	        </div>
+	    </div>
+	</div>

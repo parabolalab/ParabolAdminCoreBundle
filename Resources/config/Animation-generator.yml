@@ -1,0 +1,62 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Parabol\AdminCoreBundle\Entity\Animation
+    namespace_prefix: Parabol
+    concurrency_lock: ~
+    bundle_name: AdminCoreBundle
+    pk_requirement: ~
+    fields: 
+        name:
+            formType: Symfony\Component\Form\Extension\Core\Type\ChoiceType
+            addFormOptions:
+                choices:
+                    none: none
+                    fadeInUpBig: fadeInUpBig
+                    fadeIn: fadeIn
+                    slideInLeft: slideInLeft
+                    slideInRight: slideInRight
+    object_actions:
+        delete: ~
+    batch_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: List for AdminCoreBundle
+            display: ~
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                delete: ~
+    excel:
+        params: ~
+        filename: ~
+        filetype: ~
+    new:
+        params:
+            title: New object for AdminCoreBundle
+            display: [name, delay]
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "You're editing the object \"%object%\"|{ %object%: Animation.title }|"
+            display: [name, delay]
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: Animation.title }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~

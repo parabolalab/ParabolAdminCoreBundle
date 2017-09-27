@@ -1,0 +1,24 @@
+<div class="row" style="margin-top: 15px";>
+	{% block pagination_wrapper %}
+    <div class="list-results-pagination">
+        <div class="list-results-pagination-pages col-md-12">
+        {% block list_paginator_pages %}
+	        {% if pager.haveToPaginate %}
+	            {{ pagerfanta(pager, 'admingenerator', {routeName: 'parabol_files_browser', css_custom_class: 'no-margin pull-right'}) }}
+	        {% endif %}
+    	{% endblock list_paginator_pages %}
+
+    	</div>
+	    <div class="list-results-pagination-perpage col-md-4">
+	            {% block list_paginator_perpage %}
+	    		{% endblock list_paginator_perpage %}
+	    </div>
+	</div>
+    {% endblock pagination_wrapper %}
+</div> 
+<script type="text/javascript">
+
+	var parabol_file_browser_maxPerPage = {{ pager.maxPerPage }}
+	var dataFiles = {{ files | raw }};
+
+</script>

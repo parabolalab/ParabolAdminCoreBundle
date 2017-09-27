@@ -1,0 +1,5 @@
+{% for index, website in websites %}
+	<a class="btn btn-default {{ (scopes['websites'] is defined and scopes['websites'] == index) ? 'active': 'inactive' }}"
+                       href="{{ path("Parabol_AdminCoreBundle_Page_scopes", { 'group': 'websites', 'scope': index }) }}
+                       ">{{ website|trans({}, "Admingenerator")|raw }}</a>
+{% endfor %}

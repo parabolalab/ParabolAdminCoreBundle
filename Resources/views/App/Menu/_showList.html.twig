@@ -1,0 +1,32 @@
+{% if menuItems is not empty %}
+<div class="navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ path('homepage') }}"><img src="/images/logo_{{ portalAlias }}.svg"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {% for item in menuItems %}
+                <li class="{{ item.url == path_info ? 'active' : '' }} {{ item.children is not empty ? 'dropdown' : '' }}">
+                  <a {{ item.children is not empty ? 'data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true" class="dropdown-toggle"' : '' }} href="{{ (app.environment == 'dev' ? '/app_dev.php' : '') ~ item.url }}">{{ item.name }}</a>
+                    {% if item.children is not empty %}
+                        <ul class="dropdown-menu hidden-xs">
+                        {% for child in item.children %}
+                            <li class="{{ child.url == path_info ? 'active' : '' }}"><a href="{{ (app.environment == 'dev' ? '/app_dev.php' : '') ~ child.url }}"></span>{{ child.name }}</a></li>
+                            <li class="hr"><hr /></li>
+                        {% endfor %}    
+                       </ul>
+                    {% endif %}   
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endif %}

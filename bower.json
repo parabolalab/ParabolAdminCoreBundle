@@ -1,0 +1,21 @@
+{
+    "name"        : "ParabolAdminCoreBundle",
+    "version"     : "1.0.0",
+    "authors"     : [
+        "Marcin Kalota <marcin@parabolalab.com>"
+    ],
+    "description" : "Assets for the admin core bundle based on Symfony2AdmingenGeneratorBundle and AdminLTE template",
+    "dependencies": {
+        "eonasdan-bootstrap-datetimepicker": "~4.15",
+        "blueimp-file-upload": "~9.11",
+        "jquery-sortable": "~0.9",
+        "tinycolor": "~1.2",
+        "bootstrap-colorpickersliders": "~3.0",
+        "bootbox": "~4.4",
+        "animate.css": "~3.5",
+        "cropperjs": "~0.8"
+    },
+    "resolutions": {
+        "jquery": ">=1.9.1"
+    }
+}

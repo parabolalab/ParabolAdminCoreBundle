@@ -1,0 +1,57 @@
+{% trans_default_domain "Admingenerator" %}
+
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>{{ total['ga:avgSessionDuration'] / 60 > 0 ? (total['ga:avgSessionDuration'] / 60) | number_format ~ 'm' : '' }} {{ ((total['ga:avgSessionDuration']  | round) % 60) | number_format ~ 's' }} </h3>
+                  <p>{% trans %}Avg. Time{% endtrans %}</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-ios-speedometer"></i>
+                </div>
+                <!--a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a-->
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>{{ total['ga:bounceRate'] | round(1) }}<sup style="font-size: 20px">%</sup></h3>
+                  <p>{% trans %}Bounce Rate{% endtrans %}</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-stats-bars"></i>
+                </div>
+                <!--a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a-->
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box  bg-green">
+                <div class="inner">
+                  <h3>{{ total['ga:users'] }}</h3>
+                  <p>{% trans %}Unique Visitors{% endtrans %}</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <!--a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a-->
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>{{ total['ga:pageviewsPerSession'] | round(1) }}</h3>
+                  <p>{% trans %}Pages/Visit{% endtrans %}</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+                </div>
+                <!--a href="#" class="small-box-footer">{% trans %}More info{% endtrans %} <i class="fa fa-arrow-circle-right"></i></a-->
+              </div>
+            </div><!-- ./col -->
+
+    
+  	

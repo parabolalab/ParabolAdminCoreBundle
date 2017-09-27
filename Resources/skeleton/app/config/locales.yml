@@ -1,0 +1,4 @@
+parameters:
+    locales: [pl]
+    required_locales: [pl]
+    locale: pl

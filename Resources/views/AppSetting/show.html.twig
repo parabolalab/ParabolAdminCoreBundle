@@ -1,0 +1,66 @@
+{% extends "ParabolAdminCoreBundle::base_admin_uncompressed.html.twig" %}
+
+{# {% import "A2lixTranslationFormBundle::macros.html.twig" as a2lixTranslations %} #}
+
+{% trans_default_domain "Admingenerator" %}
+
+{% block page_header_content %}
+        <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> {{ "Application Setting"|trans }}</h1>
+{% endblock page_header_content %}
+
+{% block page_content %}
+	 <div class="row">
+        <div class="form-model form-model-page col-md-12 form-setting-container">
+        	{# {{ dump(form) }} #}
+			{{ form_start(form) }}
+                    	{% set fieldset = null %}
+						{% for row in form.children %}
+							{% if 'hidden' not in row.vars.block_prefixes %}
+								{% if row.vars.attr.fieldset != fieldset %}
+									{% if fieldset %}
+												</fieldset>
+											</div>
+										</div>
+									{% endif %}
+									{% set fieldset = row.vars.attr.fieldset %}
+									<div class="box box-primary">
+	                    				<div class="box-body form-model-content">	
+											<fieldset class="tab-pane">
+												<legend><span>{{ row.vars.attr.fieldset }}</span></legend>	
+								{% endif %}	
+								<div class="col-lg-{{ row.vars.attr.grid }}">	
+									<div class="col-lg-12"> 
+										 <div class="form-group">	
+										 	 	{{ form_row(row) }}
+											 	{{ row.vars.attr['data-file'] is defined ? ('<div style="margin-bottom: 15px;">' ~ ('uploaded' | trans) ~ ': <b>' ~ row.vars.attr['data-file'] ~ '</b></div>') | raw : null }}
+											 	{{ row.vars.attr['help'] ? ('<small class="help" style="color: #777; position: relative; top: -15px">' ~ row.vars.attr['help']  ~ '</small>') | raw : ''  }}
+										</div>
+									</div>
+								</div>
+								{% if row.vars.attr.grid == 12 %}
+								<div style="clear: both"></div>
+								{% endif %}
+							{% endif %}	
+						{% endfor %}
+								</fieldset>
+							</div>
+						</div>
+						{{ form_rest(form) }}	
+						<div class="box-footer">
+               
+	                        <div class="form-model-actions row">
+		                        <div class="form-model-actions-object col-md-6 btn-group" role="object-actions">
+		                        </div>
+		                        <div class="form-model-actions-generic col-md-6 text-right" role="generic-actions">
+		                        	<button type="submit" name="save" class="generic-action btn btn-success"><i class="fa fa-fw fa-check"></i> {{ "action.generic.save"|trans({}, "Admingenerator")|raw }}</button>    
+		                        </div>
+                   			</div>
+                
+                    	</div>
+			{{ form_end(form) }}
+		</div>	
+	</div>
+
+
+{% endblock %}
+

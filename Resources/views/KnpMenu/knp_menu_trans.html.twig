@@ -1,0 +1,8 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% block label %}
+    {% if item.getExtra('icon') is defined and item.getExtra('icon') is not empty %}<i class="{{ item.getExtra('icon') }}"></i>{% endif %}
+    {% set labelText = item.label|trans(item.getExtra('translation_params', {}), item.getExtra('translation_domain', 'messages')) %}
+    <span>{% if options.allow_safe_labels and item.getExtra('safe_label', false) %}{{ labelText|raw }}{% else %}{{ labelText }}{% endif %}</span>
+    {% if item.getExtra('caret') %}<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>{% endif %}
+{% endblock %}

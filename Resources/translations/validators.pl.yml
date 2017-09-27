@@ -1,0 +1,2 @@
+"Password must be at least {{ limit }} characters long.": "Hasło musi mieć conajmniej {{ limit }} znaków."
+"Fields \"plainPassword\" and \"plainPasswordConfirmation\" must have same value": "Pola \"hasło\" i \"potwierdź hasło\" muszą mieć tą samą wartość"

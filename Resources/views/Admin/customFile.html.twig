@@ -1,0 +1,59 @@
+{% extends "ParabolAdminCoreBundle::base_admin_uncompressed.html.twig" %}
+
+{% trans_default_domain "Admin" %}
+
+{% block page_header_content %}
+        <h1><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> {{ "Custom"|trans }} {{ app.request.get('type') | upper }}</h1>
+{% endblock page_header_content %}
+
+{% block page_content %}
+	 <div class="row">
+        <div class="form-model form-model-page col-md-12">
+			{{ form_start(form) }}
+			{{ form_widget(form) }}
+				{# <div class="box box-primary">
+                    <div class="box-body form-model-content">
+                    	{% set fieldset = null %}
+						{% for row in form.children %}
+							{% if 'hidden' not in row.vars.block_prefixes %}
+								{% if row.vars.fieldset != fieldset %}
+									{% if fieldset %}
+									</fieldset>
+									{% endif %}
+									{% set fieldset = row.vars.fieldset %}
+									<fieldset class="tab-pane">
+									<legend><span>{{ row.vars.fieldset }}</span></legend>	
+								{% endif %}	
+								<div class="col-lg-6">	
+									<div class="col-lg-10">	
+									{{ form_row(row) }}
+									</div>
+								</div>
+								{% if row.vars.grid == 12 %}
+								<div style="clear: both"></div>
+								{% endif %}
+							{% endif %}	
+						{% endfor %}
+						</fieldset>
+						{{ form_rest(form) }}	
+						<div class="box-footer">
+               
+	                        <div class="form-model-actions row">
+		                        <div class="form-model-actions-object col-md-6 btn-group" role="object-actions">
+		                        </div>
+		                        <div class="form-model-actions-generic col-md-6 text-right" role="generic-actions">
+		                        	<button type="submit" name="save" class="generic-action btn btn-success"><i class="fa fa-fw fa-check"></i> {{ "action.generic.save"|trans({}, "Admingenerator")|raw }}</button>    
+		                        </div>
+                   			</div>
+                
+                    	</div>
+						
+					</div>
+				</div> #}
+			{{ form_end(form) }}
+		</div>	
+	</div>
+
+
+{% endblock %}
+

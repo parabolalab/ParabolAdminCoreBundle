@@ -1,0 +1,95 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Parabol\UserBundle\Entity\User
+    namespace_prefix: Parabol
+    concurrency_lock: ~
+    bundle_name: AdminCoreBundle
+    pk_requirement: ~
+    i18n_catalog: Admingenerator
+    fields:
+        username:
+            label: Nazwa użytkownika
+        email:
+            label: Email
+        enabled:
+            label: Aktywne
+            addFormOptions:
+                required: false
+                data: true
+        roles:
+            label: Role
+        lastLogin:
+            label: Ostatnie logowanie
+        plainPassword:
+            formType: Symfony\Component\Form\Extension\Core\Type\PasswordType
+            label: Password
+        plainPasswordConfirmation:
+            formType: Symfony\Component\Form\Extension\Core\Type\PasswordType
+            label: Password Confirmation
+            # addFormOptions:
+            #     first_name: new_password
+            #     first_options:
+            #         inherit_data: true
+            #         error_bubbling: true
+            #     second_name: confirm_password
+            #     second_options:
+            #         inherit_data: true
+            #         error_bubbling: true
+            #     type: password
+            #     inherit_data: true
+            #     required: true
+            #     error_bubbling: true
+      
+            
+    object_actions:
+        delete: ~
+    batch_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: List of Users
+            display: [id, username, email, enabled, roles, lastLogin, createdAt, updatedAt]
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                delete: ~
+    excel:
+        params: ~
+        filename: ~
+        filetype: ~
+    new:
+        params:
+            title: New User
+            display: [username, email, plainPassword, plainPasswordConfirmation, enabled, roles]
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "Edit User \"%object%\"|{ %object%: User.username }|"
+            display: [username, email, plainPassword, plainPasswordConfirmation, enabled, roles]
+            actions:
+                save: ~
+                list: ~
+            fields:
+                plainPassword:
+                    addFormOptions:
+                        required: false
+                plainPasswordConfirmation:
+                    addFormOptions:
+                        required: false
+    show:
+        params:
+            title: "\"%object%\"|{ %object%: User.username }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~

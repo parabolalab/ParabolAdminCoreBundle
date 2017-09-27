@@ -1,0 +1,59 @@
+{% extends 'AdmingeneratorGeneratorBundle::base_uncompressed.html.twig' %}
+{#% extends 'AdmingeneratorGeneratorBundle::base_admin.html.twig' %#}
+
+{% block stylesheets %}
+	{{ parent() }}
+    
+        <link rel="stylesheet" href="{{ asset('bundles/paraboladmincore/css/admin/admin_core.css') }}" type="text/css" media="all"/>
+        <link rel="stylesheet" href="{{ asset('admin/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" type="text/css" media="all"/>
+        {#<link rel="stylesheet" href="{{ asset('admin/components/bootstrap-colorpickersliders/dist/bootstrap.colorpickersliders.min.css') }}" type="text/css" media="all"/>#}
+        <link rel="stylesheet" href="{{ asset('admin/components/select2/dist/css/select2.min.css') }}" type="text/css" media="all"/>
+        <link rel="stylesheet" href="{{ asset('css/admin.css') }}" type="text/css" media="all"/>
+{% endblock %}
+
+{% block javascripts_head %}
+    {{ parent() }}
+    <script type="text/javascript">
+    var sf_env = '{{ app.environment == 'prod' ? '' : '/app_' ~ app.environment ~ '.php' }}'
+
+    var colorspicker = {
+        swatches: '{{ colorspickerSwatches is defined ? colorspickerSwatches : '' }}'
+    }
+    </script>
+ {% endblock %}   
+
+{% block javascripts %}
+	{{ parent() }}
+    <script src="{{ asset('admin/components/admin-lte/plugins/daterangepicker/moment.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/components/moment/locale/pl.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/components/blueimp-file-upload/js/vendor/jquery.ui.widget.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/components/blueimp-tmpl/js/tmpl.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/components/blueimp-file-upload/js/jquery.fileupload.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/components/blueimp-load-image/js/load-image.all.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/components/blueimp-file-upload/js/jquery.fileupload-process.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/components/blueimp-file-upload/js/jquery.fileupload-validate.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/components/blueimp-file-upload/js/jquery.fileupload-image.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/components/blueimp-file-upload/js/jquery.fileupload-ui.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/components/jquery-sortable/source/js/jquery-sortable-min.js') }}" type="text/javascript"></script>
+    {#<script src="{{ asset('admin/components/tinycolor/tinycolor.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/components/bootstrap-colorpickersliders/dist/bootstrap.colorpickersliders.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/components/admin-lte/plugins/chartjs/Chart.min.js') }}" type="text/javascript"></script>#}
+    <script src="{{ asset('admin/components/bootbox.js/bootbox.js') }}" type="text/javascript" ></script>
+    {#<script src="{{ asset('admin/components/bernii/gauge.js/dist/gauge.min.js') }}" type="text/javascript" ></script>#}
+    <script src="{{ asset('bundles/paraboladmincore/js/admin/admin_core.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/parabolfilesupload/js/parabol_fileupload.js') }}" type="text/javascript"></script>
+
+    
+{% endblock %}
+
+{% block html_body_tag %}
+    <body class="skin-black sidebar-mini">
+{% endblock html_body_tag %}
+
+{% block sidebar %}
+	<aside class="left-side sidebar-offcanvas">
+        {% include "ParabolAdminCoreBundle:Sidebar:layout.html.twig" %}
+    </aside>
+{% endblock %}
+

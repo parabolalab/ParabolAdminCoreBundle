@@ -1,0 +1,83 @@
+parameters:
+services:
+    
+    admingen.menu.default_builder:
+        class: Parabol\AdminCoreBundle\Menu\AdminMenuBuilder
+        arguments: ["@knp_menu.factory", "@request_stack", "%admingenerator.dashboard_route%", "@service_container"]
+        tags:
+            - { name: knp_menu.menu_builder, method: sidebarMenu, alias: parabol_admin_sidebar }
+
+    parabol.exception_controller:
+        class: Parabol\AdminCoreBundle\Controller\CustomExceptionController
+        arguments: ['@twig', '%kernel.debug%']
+
+    parabol.listener.seo_request:
+        class: Parabol\AdminCoreBundle\EventListener\SeoRequestListener
+        arguments:
+            - "@service_container"
+            - "@doctrine.orm.entity_manager"
+            - "@parabol.metatag"
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    parabol.subscriber.entity_url:
+        class: Parabol\AdminCoreBundle\EventListener\EntityPathSubscriber
+        arguments:
+            - "@router"
+            - %locales%
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    parabol.metatag:
+        class: Parabol\AdminCoreBundle\Service\Metatag
+        tags:
+            - { name: twig.extension }
+
+    parabol.form.extension.fieldset:
+        class: Parabol\AdminCoreBundle\Form\Extension\FieldsetExtension
+        tags:
+            - { name: form.type_extension, extended_type: form, alias: form }
+    
+    parabol.form.extension.grid:
+        class: Parabol\AdminCoreBundle\Form\Extension\GridExtension
+        tags:
+            - { name: form.type_extension, extended_type: form, alias: form }
+
+    # parabol.subscriber.sortable:
+    #     class: Parabol\DoctrineBehaviors\Sortable\SortableListener
+    #     arguments:
+    #         - "@knp.doctrine_behaviors.reflection.class_analyzer"
+    #     tags:
+    #         - { name: doctrine.event_subscriber, connection: default }
+
+   
+    
+    parabol.type_extension.google_location_map:
+        class: Parabol\AdminCoreBundle\Form\Type\GoogleLocationMapType
+        tags:
+            - { name: form.type, alias: google_location_map }
+
+    parabol.type_extension.ext_choice:
+        class: Parabol\AdminCoreBundle\Form\Type\ExtChoiceType
+        arguments:
+            - %ext_choice.choices%
+        tags:
+            - { name: form.type, alias: ext_choice }      
+
+    parabol.utils.path:
+        class: Parabol\BaseBundle\Util\PathUtil
+        arguments:
+            - "@service_container"
+
+    
+    
+    # kernel.subscriber:
+    #     class: Parabol\AdminCoreBundle\EventListener\KernelSubscriber
+    #     arguments:
+    #         - "@service_container"
+    #     tags:
+    #         - { name: kernel.event_subscriber }
+
+
+
+

@@ -1,0 +1,83 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: Parabol\AdminCoreBundle\Entity\Post
+    namespace_prefix: Parabol
+    concurrency_lock: ~
+    bundle_name: AdminCoreBundle
+    pk_requirement: ~
+    i18n_catalog: Admingenerator
+    fields: 
+        title:
+            sortOn: translations.title
+        type:
+            formType: Parabol\AdminCoreBundle\Form\Type\ExtChoiceType
+        # products:
+        #     formType: entity
+        #     addFormOptions:
+        #         class: Parabol\ProductBundle\Entity\Product
+        #         expanded: true
+        #         multiple: true
+        #         property: name
+        files:
+            formType: Parabol\FilesUploadBundle\Form\Type\BlueimpType
+            label: Zdjęcie
+            addFormOptions:
+                acceptFileTypes: [jpg,jpeg,png]
+                cropper:
+                    aspectRatio: 250:370
+        eventDate:
+            label: Data rozpoczęcia wydarzenia
+        eventDateTo:
+            label: Data zakończenia wydarzenia
+        translations:
+            addFormOptions:
+                fields:
+                    title:
+                    lead:
+                        field_type: Ivory\CKEditorBundle\Form\Type\CKEditorType
+                        required: true
+    object_actions:
+        delete: ~
+    batch_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: List of Posts
+            display: [title, eventDate, eventDateTo, isEnabled]
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                delete: ~
+    excel:
+        params: ~
+        filename: ~
+        filetype: ~
+    new:
+        params:
+            title: New Post
+            display: [isEnabled, eventDate, eventDateTo, translations, files]
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "Edit the Post \"%object%\"|{ %object%: Post.title }|"
+            display: [isEnabled, eventDate, eventDateTo, translations, files]
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: Post.title }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~
