@@ -1,7 +1,7 @@
 {
     "name": "parabol/parabol-admin-core-bundle",
     "type": "symfony-bundle",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "description": "CMS",
     "keywords": ["cms"],
     "homepage": "https://github.com/parabolalab/ParabolAdminCoreBundle",
