@@ -22,6 +22,10 @@ class ScriptHandler
     public static function createAppBundles(Event $event)
     {
         $fs = new Filesystem();
+
+        var_dump(dirname(__FILE__));
+
+        // $fs->mirror()
     }
 
 }
