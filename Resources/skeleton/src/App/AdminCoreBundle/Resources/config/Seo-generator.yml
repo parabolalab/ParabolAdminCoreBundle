@@ -1,7 +1,7 @@
 generator: admingenerator.generator.doctrine
 params:
-    model: Parabol\AdminCoreBundle\Entity\Seo
-    namespace_prefix: Parabol
+    model: App\AdminCoreBundle\Entity\Seo
+    namespace_prefix: App
     concurrency_lock: ~
     bundle_name: AdminCoreBundle
     pk_requirement: ~

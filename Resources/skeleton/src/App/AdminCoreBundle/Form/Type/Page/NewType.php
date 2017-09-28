@@ -1,13 +1,13 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Form\Type\Page;
+namespace App\AdminCoreBundle\Form\Type\Page;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BasePageType\NewType as BaseNewType;
-use Parabol\AdminCoreBundle\Form\Type\Base\BaseType;
+use Parabol\AdminCoreBundle\Form\Type\Base\Page\NewType as BaseNewType;
+
 /**
  * NewType
  */
 class NewType extends BaseNewType
 {
-	use \Parabol\BaseBundle\Form\Type\Base\BaseType;
+	
 }

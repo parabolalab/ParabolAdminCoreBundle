@@ -1,11 +1,11 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Form\Type\Post;
+namespace App\AdminCoreBundle\Form\Type\Post;
 
+use Parabol\AdminCoreBundle\Form\Type\Base\Post\Options as BaseOptions;
 /**
  * Options class
  */
-class Options
+class Options extends BaseOptions
 {
-	
 }

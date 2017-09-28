@@ -1,12 +1,23 @@
 generator: admingenerator.generator.doctrine
 params:
-    model: Parabol\AdminCoreBundle\Entity\Menu
-    namespace_prefix: Parabol
+    model: App\AdminCoreBundle\Entity\Code
+    namespace_prefix: App
     concurrency_lock: ~
     bundle_name: AdminCoreBundle
     pk_requirement: ~
-    i18n_catalog: Admingenerator
-    fields: ~
+    fields: 
+        url:
+            label: URL
+        inherited:
+            label: Dziedziczony
+        head:
+            addFormOptions:
+                attr:
+                    style: 'height: 500px'
+        body:
+            addFormOptions:
+                attr:
+                    style: 'height: 500px'
     object_actions:
         delete: ~
     batch_actions:
@@ -14,8 +25,8 @@ params:
 builders:
     list:
         params:
-            title: List for AdminCoreBundle
-            display: ~
+            title: Lista kodów head/body
+            display: [url, inherited, updatedAt]
             actions:
                 new: ~
             object_actions:
@@ -27,21 +38,21 @@ builders:
         filetype: ~
     new:
         params:
-            title: New object for AdminCoreBundle
-            display: ~
+            title: Nowy kod head/body
+            display: [url, inherited, head, body]
             actions:
                 save: ~
                 list: ~
     edit:
         params:
-            title: "You're editing the object \"%object%\"|{ %object%: Menu.name }|"
-            display: ~
+            title: "Edycja kodu head/body \"%object%\"|{ %object%: Code.url }|"
+            display: [url, inherited, head, body]
             actions:
                 save: ~
                 list: ~
     show:
         params:
-            title: "You're viewing the object \"%object%\"|{ %object%: Menu.name }|"
+            title: "Kodu head/body \"%object%\"|{ %object%: Code.url }|"
             display: ~
             actions:
                 list: ~

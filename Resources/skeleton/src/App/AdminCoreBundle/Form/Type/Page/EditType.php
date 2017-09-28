@@ -1,15 +1,13 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Form\Type\Page;
+namespace App\AdminCoreBundle\Form\Type\Page;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BasePageType\EditType as BaseEditType;
-use Symfony\Component\Form\FormBuilderInterface;
-
+use Parabol\AdminCoreBundle\Form\Type\Base\Page\EditType as BaseEditType;
 
 /**
  * EditType
  */
 class EditType extends BaseEditType
 {
-	use  \Parabol\BaseBundle\Form\Type\Base\BaseType;
+
 }

@@ -1,12 +1,13 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Form\Type\Seo;
+namespace App\AdminCoreBundle\Form\Type\Seo;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BaseSeoType\EditType as BaseEditType;
+use Parabol\AdminCoreBundle\Form\Type\Base\Seo\EditType as BaseEditType;
 
 /**
  * EditType
  */
 class EditType extends BaseEditType
 {
+
 }

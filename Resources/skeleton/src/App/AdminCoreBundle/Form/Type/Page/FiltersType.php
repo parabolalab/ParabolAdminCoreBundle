@@ -1,12 +1,13 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Form\Type\Page;
+namespace App\AdminCoreBundle\Form\Type\Page;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BasePageType\FiltersType as BaseFiltersType;
+use Parabol\AdminCoreBundle\Form\Type\Base\Page\FiltersType as BaseFiltersType;
 
 /**
  * FiltersType
  */
 class FiltersType extends BaseFiltersType
 {
+	
 }

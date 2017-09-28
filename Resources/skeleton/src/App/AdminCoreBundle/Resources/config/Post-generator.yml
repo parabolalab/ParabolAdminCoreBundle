@@ -1,7 +1,7 @@
 generator: admingenerator.generator.doctrine
 params:
-    model: Parabol\AdminCoreBundle\Entity\Attraction
-    namespace_prefix: Parabol
+    model: App\AdminCoreBundle\Entity\Post
+    namespace_prefix: App
     concurrency_lock: ~
     bundle_name: AdminCoreBundle
     pk_requirement: ~
@@ -22,12 +22,20 @@ params:
             formType: Parabol\FilesUploadBundle\Form\Type\BlueimpType
             label: Zdjęcie
             addFormOptions:
+                acceptFileTypes: [jpg,jpeg,png]
                 cropper:
-                    aspectRatio: 340:230
+                    aspectRatio: 250:370
+        eventDate:
+            label: Data rozpoczęcia wydarzenia
+        eventDateTo:
+            label: Data zakończenia wydarzenia
         translations:
             addFormOptions:
-                exclude_fields: [lead]
-
+                fields:
+                    title:
+                    lead:
+                        field_type: Ivory\CKEditorBundle\Form\Type\CKEditorType
+                        required: true
     object_actions:
         delete: ~
     batch_actions:
@@ -35,8 +43,8 @@ params:
 builders:
     list:
         params:
-            title: List for AdminCoreBundle
-            display: [title, createdAt, isEnabled]
+            title: List of Posts
+            display: [title, eventDate, eventDateTo, isEnabled]
             actions:
                 new: ~
             object_actions:
@@ -48,21 +56,21 @@ builders:
         filetype: ~
     new:
         params:
-            title: New object for AdminCoreBundle
-            display: [isEnabled, translations, files]
+            title: New Post
+            display: [isEnabled, eventDate, eventDateTo, translations, files]
             actions:
                 save: ~
                 list: ~
     edit:
         params:
-            title: "You're editing the object \"%object%\"|{ %object%: Attraction.title }|"
-            display: [isEnabled, translations, files]
+            title: "Edit the Post \"%object%\"|{ %object%: Post.title }|"
+            display: [isEnabled, eventDate, eventDateTo, translations, files]
             actions:
                 save: ~
                 list: ~
     show:
         params:
-            title: "You're viewing the object \"%object%\"|{ %object%: Attraction.title }|"
+            title: "You're viewing the object \"%object%\"|{ %object%: Post.title }|"
             display: ~
             actions:
                 list: ~

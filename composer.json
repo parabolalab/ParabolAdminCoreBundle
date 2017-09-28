@@ -17,19 +17,8 @@
         "php": ">=5.6.0",
         "symfony2admingenerator/generator-bundle": "@dev"
     },
-    "scripts": {
-        "parabol-scripts": [
-            "Parabol\\AdminCoreBundle\\Composer\\ScriptHandler::createAppBundles"
-        ],
-        "post-install-cmd": [
-            "@parabol-scripts"
-        ],
-        "post-update-cmd": [
-            "@parabol-scripts"
-        ]
-    },
     "autoload": {
-        "psr-0": { "Parabol\\AdminCoreBundle": "", "App\\AdminCoreBundle": "" }
+        "psr-4": { "Parabol\\AdminCoreBundle\\": "" }
     },
     "target-dir": "Parabol/AdminCoreBundle"
 

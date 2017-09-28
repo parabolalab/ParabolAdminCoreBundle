@@ -1,16 +1,11 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Form\Type\Page;
+namespace App\AdminCoreBundle\Form\Type\Page;
 
+use Parabol\AdminCoreBundle\Form\Type\Base\Page\Options as BaseOptions;
 /**
  * Options class
  */
-class Options
+class Options extends BaseOptions
 {
-
-	public function getPostOptions(array $fieldOptions, array $builderOptions = array())
-	{
-		$fieldOptions['choice_label'] = function ($post) { return $post->getTitle(); };
-		return $fieldOptions;
-	}
 }

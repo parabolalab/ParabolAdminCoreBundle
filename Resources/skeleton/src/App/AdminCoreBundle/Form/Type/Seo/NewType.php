@@ -1,12 +1,13 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Form\Type\Seo;
+namespace App\AdminCoreBundle\Form\Type\Seo;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BaseSeoType\NewType as BaseNewType;
+use Parabol\AdminCoreBundle\Form\Type\Base\Seo\NewType as BaseNewType;
 
 /**
  * NewType
  */
 class NewType extends BaseNewType
 {
+	
 }

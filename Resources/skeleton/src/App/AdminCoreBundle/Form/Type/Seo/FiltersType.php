@@ -1,12 +1,13 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Form\Type\Seo;
+namespace App\AdminCoreBundle\Form\Type\Seo;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BaseSeoType\FiltersType as BaseFiltersType;
+use Parabol\AdminCoreBundle\Form\Type\Base\Seo\FiltersType as BaseFiltersType;
 
 /**
  * FiltersType
  */
 class FiltersType extends BaseFiltersType
 {
+	
 }
