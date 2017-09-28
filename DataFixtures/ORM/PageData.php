@@ -48,14 +48,6 @@ class PageData implements FixtureInterface
         // In order to persist new translations, call mergeNewTranslations method, before flush
         $page->mergeNewTranslations();
 
-        // $repository = $this->manager->getRepository('Gedmo\Translatable\Entity\Translation');
-
-        // $repository
-        //     ->translate($page, 'title', 'en', 'EN'.$title)
-        //     ->translate($page, 'content', 'en', 'EN'.$title)
-        //     ->translate($page, 'title', 'de', 'DE'.$title)
-        //     ->translate($page, 'content', 'de', 'DE'.$title)
-        //     ;
         
         $this->manager->persist($page);
     }

@@ -9,53 +9,33 @@ use Parabol\AdminCoreBundle\Entity\AppVar;
 class AppVarUtil implements FixtureInterface
 {
 	protected $manager;
+    protected $namespace = null;
+    protected $namespaceLabels = [];
 
 	public function load(ObjectManager $manager)
     {
         $this->manager = $manager;
     }
 
-	public function createAppVar($namespace, $app, $propertyName, $translations, $required = false, $grid = 6, $i18n = false, $readonly = false, $varType = 'string', $cssClass = null)
+    public function addNamespace($name, $namespaceLabels)
     {
-        $appVar = new AppVar();
-        $appVar->setNamespace($namespace);
-        $appVar->setCssClass($cssClass);
-        $appVar->setVarType($varType);
-        $appVar->setApp($app);
-        $appVar->setPropertyName($propertyName);
-        $appVar->setI18n($i18n);
-        $appVar->setGrid($grid);    
-        $appVar->setIsRequired($required);    
-        $appVar->setIsReadonly((boolean)$readonly);
-
-
-
-        foreach($translations as $lang => $values)
-        {
-             foreach($values as $key => $value)
-             {
-                    $method = 'set'.ucfirst($key);
-                    $appVar->translate($lang)->$method($value); 
-             }            
-        }
-
-        
-        $appVar->mergeNewTranslations();
-
-        $this->manager->persist($appVar);
+        $this->namespace = $name;
+        $this->namespaceLabels = $namespaceLabels;
+        return $this;
     }
 
-    public function addAppVar($namespace, $app, $propertyName, $translations, $params = [])
+    public function addAppVar($app, $propertyName, $translations, $params = [])
     {
 
         $params = array_merge(['required' => false, 'grid' => 6, 'i18n' => false, 'readonly' => false, 'varType' => 'string', 'cssClass' => null, 'twigAlias' => null], $params);
         $appVar = new AppVar();
-        $appVar->setNamespace($namespace);
+        $appVar->setNamespace($this->namespace);
         $appVar->setApp($app);
         $appVar->setPropertyName($propertyName);
 
         foreach($translations as $lang => $values)
         {
+             $appVar->translate($lang)->setNamespaceLabel($this->namespaceLabels[$lang]);
              foreach($values as $key => $value)
              {
                     $method = 'set'.ucfirst($key);
@@ -75,5 +55,7 @@ class AppVarUtil implements FixtureInterface
         $appVar->mergeNewTranslations();
 
         $this->manager->persist($appVar);
+
+        return $this;
     }
 }

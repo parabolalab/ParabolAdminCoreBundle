@@ -1,0 +1,25 @@
+twig:
+    # form_themes:
+            # - ParabolFormExtensionsBundle:Form:help.html.twig
+            # - ParabolFilesUploadBundle:Form:field_type_blueimp_upload.html.twig
+            # - ParabolGoogleMapsBundle:Form:field_type_google_maps.html.twig
+    globals:
+       appParams: %appParams%
+
+admingenerator_generator:
+    # choose and enable at least one
+    use_propel:           false
+    use_doctrine_orm:     true
+    use_doctrine_odm:     false
+
+    # add this line if you want to use assetic
+    base_admin_template: ParabolAdminCoreBundle::base_admin_uncompressed.html.twig
+
+    knp_menu_alias: parabol_admin_sidebar
+
+    logout_route: fos_user_security_logout
+
+    dashboard_route: parabol_admin_core_dashboard
+    twig:
+        number_format:
+            decimal: 2
