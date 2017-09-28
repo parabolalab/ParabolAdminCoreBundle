@@ -1,6 +1,6 @@
 <?php
 
-namespace ParabolAdminCoreBundle\Composer;
+namespace Parabol\AdminCoreBundle\Composer;
 
 use Symfony\Component\ClassLoader\ClassCollectionLoader;
 use Symfony\Component\Filesystem\Filesystem;
