@@ -1,6 +1,0 @@
-{% if post is not null %}
-<p>{{ post.title }}<br />{{ post.lead }}</p>
-<a class="btn btn-default" href="{{ path('app_parabol_admin_core_bundle_' ~ type ~ '_post', {'slug' : post.slug }) }}">CZYTAJ WIĘCEJ</a>
-{% else %}
-<p>Brak wpisów.</p>
-{% endif %}

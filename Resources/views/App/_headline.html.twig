@@ -1,6 +1,0 @@
-{% block titleH1 %}
-	<a {{ obj.files is not empty and obj.files.0.url ? 'href="' ~ obj.files.0.url ~ '"' : '' }} class="col-md-12" style="color: {{ obj.files is not empty ? obj.files.0.color : obj.color }}">
-		<h1 class="">{{ obj.files is not empty and obj.files.0.headline ? obj.files.0.headline : obj.headline }}</h1>
-		<h3>{{ ( obj.files is not empty and obj.files.0.subheadline ? obj.files.0.subheadline : obj.subheadline ) | nl2br }}</h3>
-    </a>
-{% endblock %}

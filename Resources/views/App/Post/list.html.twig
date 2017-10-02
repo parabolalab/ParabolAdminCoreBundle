@@ -1,7 +1,0 @@
-{% extends 'ParabolAdminCoreBundle::App/base.html.twig' %}
-
-{% block content %}
-	{% for post in paginator %}
-		{% include 'ParabolAdminCoreBundle::App/Post/_listItem.html.twig' with {'post': post} %}
-	{% endfor %}
-{% endblock %}

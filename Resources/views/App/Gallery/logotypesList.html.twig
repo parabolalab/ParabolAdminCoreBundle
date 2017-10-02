@@ -1,9 +1,0 @@
-<ul class="logotypes">
-{% for gallery in logotypes %}
-	{% for logotype in gallery.getFiles %}
-		<li><a {{ logotype.url ? 'href='~logotype.url~' onclick=this.target=\'_blank\'' : '' }}><img src="{{ logotype.path | imagine_filter('logo_thumb') }}" /></a></li>
-	{% endfor %}	
-{% endfor %}
-</ul>
-<div class="clear"></div>
-
