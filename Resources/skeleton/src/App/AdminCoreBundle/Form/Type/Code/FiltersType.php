@@ -9,5 +9,4 @@ use Parabol\AdminCoreBundle\Form\Type\Base\Code\FiltersType as BaseFiltersType;
  */
 class FiltersType extends BaseFiltersType
 {
-	
 }

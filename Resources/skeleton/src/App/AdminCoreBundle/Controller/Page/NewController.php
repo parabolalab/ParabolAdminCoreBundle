@@ -1,8 +1,8 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Controller\Page;
+namespace App\AdminCoreBundle\Controller\Page;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePageController\NewController as BaseNewController;
+use Admingenerated\AppAdminCoreBundle\BasePageController\NewController as BaseNewController;
 
 /**
  * NewController

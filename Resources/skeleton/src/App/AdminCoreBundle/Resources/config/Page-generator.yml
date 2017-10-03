@@ -30,20 +30,20 @@ params:
             addFormOptions:
                 cropper:
                     enabled: true
-        files:
-            label: Zdjęcie boczne
-            addFormOptions:
-                cropper:
-                    enabled: true
-                    aspectRatio: 430:680
-        photos:
-            label: Zdjęcia pod treścia
-            formType: Parabol\FilesUploadBundle\Form\Type\BlueimpType
-            addFormOptions:
-                cropper:
-                    enabled: true
-                #     aspectRatio: 1279:611
-                acceptFileTypes: [jpg,jpeg,png]
+        # files:
+        #     label: Zdjęcie boczne
+        #     addFormOptions:
+        #         cropper:
+        #             enabled: true
+        #             aspectRatio: 430:680
+        # photos:
+        #     label: Zdjęcia pod treścia
+        #     formType: Parabol\FilesUploadBundle\Form\Type\BlueimpType
+        #     addFormOptions:
+        #         cropper:
+        #             enabled: true
+        #         #     aspectRatio: 1279:611
+        #         acceptFileTypes: [jpg,jpeg,png]
         # files:
         #     label: Zdjęcie główne i miniatura do menu
         #     addFormOptions:
@@ -86,7 +86,7 @@ builders:
         params:
             title: New object for AdminCoreBundle
             # display: [isEnabled, inMenu, type, parent, countries, translations, containerStyles, animations, files, color, post]
-            display: [isEnabled, inMenu, translations, files, photos]
+            display: [isEnabled, inMenu, translations]
             actions:
                 save-and-add: 
                     label: Zapisz i dodaj nowy
@@ -96,7 +96,7 @@ builders:
         params:
             title: "You're editing the object \"%object%\"|{ %object%: Page.title }|"
             # display: [isEnabled, inMenu, type, parent, countries,translations, containerStyles, animations, files, color, post]
-            display: [isEnabled, inMenu, translations, files, photos]
+            display: [isEnabled, inMenu, translations]
             actions:
                 save: ~
                 list: ~

@@ -1,6 +1,6 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Controller\Page;
+namespace App\AdminCoreBundle\Controller\Page;
 
 use Admingenerated\ParabolAdminCoreBundle\BasePageController\ExcelController as BaseExcelController;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Controller\Code;
+namespace App\AdminCoreBundle\Controller\Code;
 
-use Admingenerated\ParabolAdminCoreBundle\BaseCodeController\ListController as BaseListController;
+use Admingenerated\AppAdminCoreBundle\BaseCodeController\ListController as BaseListController;
 
 /**
  * ListController

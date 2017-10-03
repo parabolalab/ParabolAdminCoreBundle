@@ -1,8 +1,8 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Controller\Page;
+namespace App\AdminCoreBundle\Controller\Page;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePageController\ListController as BaseListController;
+use Admingenerated\AppAdminCoreBundle\BasePageController\ListController as BaseListController;
 
 /**
  * ListController
@@ -16,7 +16,7 @@ class ListController extends BaseListController
 
 
 		// 	 return  $this->render('ParabolAdminCoreBundle:PageList:_scopes.html.twig', array(
-  //   			'websites' => $choices['Parabol\AdminCoreBundle\Entity\Page']['website'],
+  //   			'websites' => $choices['App\AdminCoreBundle\Entity\Page']['website'],
   //   			'scopes' => $this->getScopes(),
 	 //    	));  
 		// }

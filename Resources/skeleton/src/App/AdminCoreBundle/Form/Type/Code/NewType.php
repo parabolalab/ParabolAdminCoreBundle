@@ -9,5 +9,4 @@ use Parabol\AdminCoreBundle\Form\Type\Base\Code\NewType as BaseNewType;
  */
 class NewType extends BaseNewType
 {
-	
 }

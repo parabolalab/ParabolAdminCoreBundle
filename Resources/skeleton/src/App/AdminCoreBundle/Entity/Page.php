@@ -17,8 +17,9 @@ class Page extends \Parabol\AdminCoreBundle\Model\Page
 {
 	    use 
         	ORMBehaviors\Translatable\Translatable,
-        	ORMBehaviors\Sortable\Sortable,
-        	\Parabol\FilesUploadBundle\Entity\Base\File
+        	ORMBehaviors\Sortable\Sortable
+        	// ,
+        	// \Parabol\FilesUploadBundle\Entity\Base\File
         ;
 
         public static function loadValidatorMetadata(ClassMetadata $metadata)

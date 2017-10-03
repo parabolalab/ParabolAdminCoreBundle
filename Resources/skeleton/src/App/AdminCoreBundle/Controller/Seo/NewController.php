@@ -1,6 +1,6 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Controller\Seo;
+namespace App\AdminCoreBundle\Controller\Seo;
 
 use Admingenerated\ParabolAdminCoreBundle\BaseSeoController\NewController as BaseNewController;
 

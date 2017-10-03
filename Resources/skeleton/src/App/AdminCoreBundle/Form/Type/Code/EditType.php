@@ -9,5 +9,4 @@ use Parabol\AdminCoreBundle\Form\Type\Base\Code\EditType as BaseEditType;
  */
 class EditType extends BaseEditType
 {
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Controller\Post;
+namespace App\AdminCoreBundle\Controller\Post;
 
 use Admingenerated\ParabolAdminCoreBundle\BasePostController\EditController as BaseEditController;
 

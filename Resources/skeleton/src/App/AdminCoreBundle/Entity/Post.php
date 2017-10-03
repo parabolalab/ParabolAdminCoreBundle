@@ -12,13 +12,13 @@ use Parabol\BaseBundle\Validator\Constraints as ParabolAssert;
  * Post
  *
  * @ORM\Table(name="parabol_post")
- * @ORM\Entity(repositoryClass="Parabol\AdminCoreBundle\Repository\PostRepository")
+ * @ORM\Entity()
  */
 class Post extends \Parabol\AdminCoreBundle\Model\Post
 {
 	    use 
-        	ORMBehaviors\Translatable\Translatable,
-       		\Parabol\FilesUploadBundle\Entity\Base\Files
+        	ORMBehaviors\Translatable\Translatable
+       		// ,\Parabol\FilesUploadBundle\Entity\Base\Files
         ;
 
         
