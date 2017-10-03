@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Parabol\AdminCoreBundle\Manipulator\KernelManipulator;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 
 class AddBundleCommand extends ContainerAwareCommand
@@ -29,19 +30,23 @@ class AddBundleCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $io = new SymfonyStyle($input, $output);
 
         $manip = new KernelManipulator($this->getContainer()->get('kernel'));
         try {
             $manip->addBundles($input->getArgument('bundles'));
-            $output->writeln("Bundles has been registered.");
+            $io->success("Bundles has been registered.");
 
         } catch (\RuntimeException $e) {
-            $output->writeln("<error> <bg=red;fg=white;options=bold>".$e->getMessage()." </error>");
-            
+            $io->warning($e->getMessage());
         }
         
 
         
     }
+
+ 
+
+
 
 }
