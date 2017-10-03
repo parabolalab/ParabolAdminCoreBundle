@@ -1,3 +1,10 @@
+imports:
+     - { resource: parameters_app.yml }
+
+parameters:
+    locales: en
+    required_locales: en
+
 twig:
     # form_themes:
             # - ParabolFormExtensionsBundle:Form:help.html.twig
@@ -23,3 +30,9 @@ admingenerator_generator:
     twig:
         number_format:
             decimal: 2
+
+a2lix_translation_form:
+    locales: %locales%
+    required_locales: %required_locales%
+    manager_registry: doctrine
+    templating: "A2lixTranslationFormBundle::default.html.twig"

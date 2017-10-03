@@ -7,7 +7,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Composer\Script\Event;
-use Sensio\Bundle\GeneratorBundle\Manipulator\KernelManipulator;
+use Parabol\AdminCoreBundle\Manipulator\KernelManipulator;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -49,6 +49,17 @@ class ScriptHandler
         $kernelManipulator = new KernelManipulator(new \AppKernel('dev', true));
         $configSkeletons = [];
 
+        $bundles = [
+            'Admingenerator\GeneratorBundle\AdmingeneratorGeneratorBundle(this)',
+            'WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle()',
+            'Knp\Bundle\MenuBundle\KnpMenuBundle()',
+            'A2lix\TranslationFormBundle\A2lixTranslationFormBundle()',
+            'Ivory\CKEditorBundle\IvoryCKEditorBundle()'
+        ];
+
+        $kernelManipulator->addBundle($bundle);
+        
+
         foreach(glob('{' . $currentDir . '/../../*/*Bundle.php,' . $currentDir . '/../../*/Resources/skeleton/src/*/*/*Bundle.php' . '}', GLOB_BRACE) as $path)
         {
            if(strpos($path, '/skeleton/') !== false)
@@ -60,7 +71,7 @@ class ScriptHandler
 
            }
 
-           $bundle = preg_replace('#^((.*\/src\/(.*))|(.*\/([^\/\.]+)))\.php$#','$3$5',$path); 
+           $bundle = preg_replace('#^((.*\/src\/(.*))|(.*\/([^\/\.]+)))\.php$#','$3$5',$path) . '()'; 
            if(strpos($bundle, '/') === false) $bundle = 'Parabol\\' . strtr($bundle, ['Parabol' => '']) . '\\' . $bundle;
            else $bundle = strtr($bundle, ['/' => '\\']);
 

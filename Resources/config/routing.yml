@@ -1,73 +1,22 @@
 parabol_admin_core_code:
-    resource: "@ParabolAdminCoreBundle/Controller/Code/"
+    resource: "@AppAdminCoreBundle/Controller/Code/"
     type:     admingenerator
     prefix:   /codes
 
-# parabol_admin_container_style:
-#     resource: "@ParabolAdminCoreBundle/Controller/ContainerStyle/"
-#     type:     admingenerator
-#     prefix:   /container-styles
-
-
-# parabol_admin_animation:
-#     resource: "@ParabolAdminCoreBundle/Controller/Animation/"
-#     type:     admingenerator
-#     prefix:   /animations
-
-# parabol_admin_core_gallery:
-#     resource: "@ParabolAdminCoreBundle/Controller/Gallery/"
-#     type:     admingenerator
-#     prefix:   /galleries
-
-# parabol_admin_core_test:
-#     resource: "@ParabolAdminCoreBundle/Controller/Test/"
-#     type:     admingenerator
-#     prefix:   /test
-
-# parabol_admin_core_menu:
-#     resource: "@ParabolAdminCoreBundle/Controller/Menu/"
-#     type:     admingenerator
-#     prefix:   /menu
-
-# parabol_admin_core_menu_item:
-#     resource: "@ParabolAdminCoreBundle/Controller/MenuItem/"
-#     type:     admingenerator
-#     prefix:   /menu-item
-
-# parabol_admin_core_menu_item_options:
-#     path:   /menu-item/options
-#     defaults: { _controller: ParabolAdminCoreBundle:MenuItem/List:options }
-
-parabol_admin_core_attraction:
-    resource: "@ParabolAdminCoreBundle/Controller/Attraction/"
-    type:     admingenerator
-    prefix:   /attractions
-
-
-parabol_admin_core_user:
-    resource: "@ParabolAdminCoreBundle/Controller/User/"
-    type:     admingenerator
-    prefix:   /users
-
 parabol_admin_core_page:
-    resource: "@ParabolAdminCoreBundle/Controller/Page/"
+    resource: "@AppAdminCoreBundle/Controller/Page/"
     type:     admingenerator
     prefix:   /pages
 
-# parabol_admin_core_text_block:
-#     resource: "@ParabolAdminCoreBundle/Controller/TextBlock/"
-#     type:     admingenerator
-#     prefix:   /text-blocks
-
 parabol_admin_core_post:
-    resource: "@ParabolAdminCoreBundle/Controller/Post/"
+    resource: "@AppAdminCoreBundle/Controller/Post/"
     type:     admingenerator
     prefix:   /posts
 
-# parabol_admin_core_seo:
-#     resource: "@ParabolAdminCoreBundle/Controller/Seo/"
-#     type:     admingenerator
-#     prefix:   /seo
+parabol_admin_core_seo:
+    resource: "@AppAdminCoreBundle/Controller/Seo/"
+    type:     admingenerator
+    prefix:   /seo
 
 # parabol_admin_action:
 #     path:   /action/{action}    

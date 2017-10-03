@@ -10,13 +10,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Parabol\AdminCoreBundle\Manipulator\KernelManipulator;
 
 
-class RegisterBundleCommand extends ContainerAwareCommand
+class AddBundleCommand extends ContainerAwareCommand
 {
 
     protected function configure()
     {
         $this
-            ->setName('parabol:admin:register-bundles')
+            ->setName('parabol:add-bundles')
             ->setDescription('Inject bundle to AppKernel class method registerBundles()')
             // ->setHelp('The <info>parabol:admin:register-bundles</info> command fetch bower dependencies (CSS and JS files) to the web root dir, instaling assets and copy content form pre-configuration files.')
             ->addArgument(
@@ -41,11 +41,7 @@ class RegisterBundleCommand extends ContainerAwareCommand
         }
         
 
-    	
+        
     }
-
- 
-
-
 
 }
