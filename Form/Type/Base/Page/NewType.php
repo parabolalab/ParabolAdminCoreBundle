@@ -2,7 +2,7 @@
 
 namespace Parabol\AdminCoreBundle\Form\Type\Base\Page;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BasePageType\NewType as BaseNewType;
+use Admingenerated\AppAdminCoreBundle\Form\BasePageType\NewType as BaseNewType;
 
 /**
  * NewType

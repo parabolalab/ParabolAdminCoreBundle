@@ -78,12 +78,12 @@ class InstallBowerDepedenciesCommand extends ContainerAwareCommand
 
                 $process->run(function ($type, $buffer) use ($io) {
                         if (Process::ERR == $type) {
-                            $io->write(preg_replace('/^(bower )([^#]+)([^\d]*)([^ ]+)([\s]{2,})([^ ]+)/m', '$1<error>$2$3$4</error>$5<fg=red>$6</>' ,$buffer));
+                            $io->write(preg_replace('/^(bower )([^#]+)([^\d\*]*)([^ ]+)([\s]+)([^ ]+)/m', '$1<error>$2$3$4</error>$5<fg=red>$6</>' ,$buffer));
                         } else {
 
                             if(strpos($buffer, 'bower') === 0)
                             {
-                                $io->write(preg_replace('/^(bower )([^#]+)([^\d]*)([^ ]+)([\s]{2,})([^ ]+)/m', '$1<info>$2$3$4</info>$5<fg=cyan>$6</>' ,$buffer));
+                                $io->write(preg_replace('/^(bower )([^#]+)([^\d\*]*)([^ ]+)([\s]+)([^ ]+)/m', '$1<info>$2$3$4</info>$5<fg=cyan>$6</>' ,$buffer));
                             }
                         }
                   });

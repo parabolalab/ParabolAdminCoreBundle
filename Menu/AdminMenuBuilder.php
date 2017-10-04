@@ -34,34 +34,32 @@ class AdminMenuBuilder extends AdmingeneratorMenuBuilder  implements ContainerAw
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes(array('class' => 'sidebar-menu'));
 
-        $this->addLinkRoute($menu, 'Aparthotele', 'ArteryBundle_Aparthotel_list')
-        ->setExtra('icon', 'fa fa-building-o');
 
         //  $this->addLinkRoute($menu, 'Blog', 'Parabol_BlogAdminBundle_BlogPost_list')
         // ->setExtra('icon', 'fa fa-th-large');
 
-        $this->addLinkRoute($menu, 'Wydarzenia', 'Parabol_AdminCoreBundle_Post_list')
+        $this->addLinkRoute($menu, 'Posts', 'App_AdminCoreBundle_Post_list')
         ->setExtra('icon', 'fa fa-calendar');
 
-        $this->addLinkRoute($menu, 'Atrakcje', 'Parabol_AdminCoreBundle_Attraction_list')
-        ->setExtra('icon', 'fa fa-star');
+        // $this->addLinkRoute($menu, 'Atrakcje', 'Parabol_AdminCoreBundle_Attraction_list')
+        // ->setExtra('icon', 'fa fa-star');
 
-        $this->addLinkRoute($menu, 'Strony', 'Parabol_AdminCoreBundle_Page_list')
+        $this->addLinkRoute($menu, 'Pages', 'App_AdminCoreBundle_Page_list')
         ->setExtra('icon', 'fa fa-file');
 
-        $this->addLinkRoute($menu, 'Udogodnienia', 'ArteryBundle_Amenity_list')
-        ->setExtra('icon', 'fa fa-wheelchair');
+        // $this->addLinkRoute($menu, 'Udogodnienia', 'ArteryBundle_Amenity_list')
+        // ->setExtra('icon', 'fa fa-wheelchair');
 
-        $this->addLinkRoute($menu, 'Wyposażenie', 'ArteryBundle_Equipment_list')
-        ->setExtra('icon', 'fa fa-television');
+        // $this->addLinkRoute($menu, 'Wyposażenie', 'ArteryBundle_Equipment_list')
+        // ->setExtra('icon', 'fa fa-television');
 
-        $this->addLinkRoute($menu, 'Usługi dodatkowe', 'ArteryBundle_Additional_list')
-        ->setExtra('icon', 'fa fa-shopping-bag');
+        // $this->addLinkRoute($menu, 'Usługi dodatkowe', 'ArteryBundle_Additional_list')
+        // ->setExtra('icon', 'fa fa-shopping-bag');
 
-        $this->addLinkRoute($menu, 'Posiłki', 'ArteryBundle_Meal_list')
-         ->setExtra('icon', 'fa fa-cutlery');
+        // $this->addLinkRoute($menu, 'Posiłki', 'ArteryBundle_Meal_list')
+        //  ->setExtra('icon', 'fa fa-cutlery');
 
-        $this->addLinkRoute($menu, 'Kod Head/Body', 'Parabol_AdminCoreBundle_Code_list')
+        $this->addLinkRoute($menu, 'Codes Head/Body', 'App_AdminCoreBundle_Code_list')
          ->setExtra('icon', 'fa fa-code');
 
   
@@ -118,15 +116,15 @@ class AdminMenuBuilder extends AdmingeneratorMenuBuilder  implements ContainerAw
         // // ->setExtra('icon', 'glyphicon glyphicon-flag');  
 
      
-        if($sc->isGranted('ROLE_ADMIN'))
-        {
-            $this->addLinkRoute($menu, 'Users', 'Parabol_AdminCoreBundle_User_list')
-            ->setExtra('icon', 'glyphicon glyphicon-user');  
-        }
+        // if($sc->isGranted('ROLE_ADMIN'))
+        // {
+        //     $this->addLinkRoute($menu, 'Users', 'Parabol_AdminCoreBundle_User_list')
+        //     ->setExtra('icon', 'glyphicon glyphicon-user');  
+        // }
        
 
-               $this->addLinkRoute($menu, 'Tłumaczenia statyczne', 'Parabol_LocaleAdminBundle_Locale_list')
-         ->setExtra('icon', 'fa fa-language');
+         //       $this->addLinkRoute($menu, 'Tłumaczenia statyczne', 'Parabol_LocaleAdminBundle_Locale_list')
+         // ->setExtra('icon', 'fa fa-language');
   
 
 

@@ -2,7 +2,7 @@
 
 namespace Parabol\AdminCoreBundle\Form\Type\Base\Page;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BasePageType\EditType as BaseEditType;
+use Admingenerated\AppAdminCoreBundle\Form\BasePageType\EditType as BaseEditType;
 
 
 /**

@@ -9,14 +9,17 @@ use Symfony\Component\Process\PhpExecutableFinder;
 use Composer\Script\Event;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use \Symfony\Component\Console\Input\ArrayInput;
-use \Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Formatter\OutputFormatter;
 
 /**
  * @author Marcin Kalota <marcin@parabolalab.com>
  */
 class ScriptHandler
 {
+
+    private static $kernel;
 
     protected static $options = [
         'symfony-bin-dir' => 'bin',
@@ -30,19 +33,32 @@ class ScriptHandler
         'Knp\Bundle\MenuBundle\KnpMenuBundle()',
         'A2lix\TranslationFormBundle\A2lixTranslationFormBundle()',
         'Ivory\CKEditorBundle\IvoryCKEditorBundle()',
+        'Symfony\Bundle\AsseticBundle\AsseticBundle()'
     ];
 
     protected static $skeletons = [];
 
     protected static $bowerfilepaths = [];
 
+    protected static $appParamseters = [
+        'nodejs' => '/usr/local/bin/node',
+        'uglifycss' => '/usr/local/bin/uglifycss',
+        'uglifyjs' => '/usr/local/bin/uglifyjs',
+        'node_paths' => ['/usr/local/lib/node_modules'],
+    ];
+
 
     protected static function getOptions(Event $event)
     {
+        
+
         $options = array_merge(static::$options, $event->getComposer()->getPackage()->getExtra());
 
         $options['process-timeout'] = $event->getComposer()->getConfig()->get('process-timeout');
         $options['vendor-dir'] = $event->getComposer()->getConfig()->get('vendor-dir');
+
+        static::initKernel($options);
+        $options['project-dir'] = substr(static::$kernel->getRootDir(),0,-3);
 
 
         return $options;
@@ -98,11 +114,11 @@ class ScriptHandler
         return preg_replace("/\033\[[^m]*m/", '', $string);
     }
 
-    protected static function executeCommand($kernel, $consoleDir, $class, $cmd, $arguments, $timeout = 300)
+    protected static function executeCommand($consoleDir, $class, $cmd, $arguments, $timeout = 300)
     {
         
         $command = new $class($cmd);
-        $command->setContainer($kernel->getContainer());
+        $command->setContainer(static::$kernel->getContainer());
 
         // $application = new \Symfony\Bundle\FrameworkBundle\Console\Application(new \AppKernel('dev', true));
         // $application->setAutoExit(false);
@@ -131,6 +147,16 @@ class ScriptHandler
         // }
     }
 
+    private static function initKernel($options)
+    {
+        if(!static::$kernel)
+        {
+            require $options['vendor-dir'] . '/autoload.php';
+
+            static::$kernel = new \AppKernel('dev', true);
+            static::$kernel->boot();
+        }
+    }
 
     /**
      * Asks if the new directory structure should be used, installs the structure if needed.
@@ -142,20 +168,57 @@ class ScriptHandler
 
         $options = static::getOptions($event);
 
-        require $options['vendor-dir'] . '/autoload.php';
+        
 
-        $kernel = new \AppKernel('dev', true);
-        $kernel->boot();
-
-        static::prepareBundlesInstall();
-        static::installBundles($kernel, $options);
-        static::installSkeletons($kernel, $options);
-        static::installBowerDepedencies($kernel, $options);
+        // static::prepareBundlesInstall($options);
+        // static::installBundles($options);
+        // static::installSkeletons($options);
+        // static::mergeBowerFiles($options);
+        // static::installBowerDepedencies($options);
+        static::addParameters($options);
 
     }
 
-    protected static function prepareBundlesInstall()
+    protected static function mergeBowerFiles($options)
     {
+        if(isset(static::$skeletons[0]))
+        {
+            $defaults = ['dependencies' => [], 'resolutions' => []];
+            $mainBowerFile = $options['project-dir'] . 'bower.json';
+            
+            if(file_exists($mainBowerFile))
+            {
+                $mainBowerConfig = json_decode(file_get_contents($mainBowerFile), true);
+            }
+
+            if(!isset($mainBowerConfig) || !$mainBowerConfig) $mainBowerConfig = array_merge(['name' => strtolower(preg_replace('/[ ]+/','-', basename($options['project-dir']))), 'version' => '1.0' ], $defaults);
+
+            foreach(static::$bowerfilepaths as $file)
+            {
+                $configPart = json_decode(file_get_contents($file), true);
+                if($configPart)
+                {
+                    foreach ($defaults as $key => $value) {
+                        if(isset($configPart[ $key ])) $mainBowerConfig[ $key ] = array_merge( $mainBowerConfig[ $key ] , $configPart[ $key ] );    
+                    }
+                }
+            }
+
+            file_put_contents($mainBowerFile ,json_encode($mainBowerConfig, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
+        }
+    }
+
+    protected static function prepareBundlesInstall($options)
+    {
+        if(in_array('Admingenerator\GeneratorBundle\AdmingeneratorGeneratorBundle($this)', static::$bundles))
+        {
+            $admingeneratorpaths = glob($options['vendor-dir'] . '/*/*/AdmingeneratorGeneratorBundle.php');
+            foreach($admingeneratorpaths as $path)
+            {
+                if(file_exists(dirname($path) . '/bower.json')) static::$bowerfilepaths[] = dirname($path) . '/bower.json';
+            }
+        }
+
         $currentDir = dirname(__FILE__);
         $dir = preg_replace('/\/[^\/]+\/[^\/]+$/','',$currentDir);
 
@@ -181,19 +244,16 @@ class ScriptHandler
     }
 
 
-    protected static function installBundles($kernel, $options)
+    protected static function installBundles($options)
     {
 
-        static::executeCommand($kernel, $options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddBundleCommand::class, 'parabol:add-bundle', [ 'bundles' => static::$bundles], $options['process-timeout']);
+        static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddBundleCommand::class, 'parabol:add-bundle', [ 'bundles' => static::$bundles], $options['process-timeout']);
     }
 
 
-    protected static function installSkeletons($kernel, $options)
+    protected static function installSkeletons($options)
     {
 
-        $currentDir = dirname(__FILE__);
-        $projectDir = substr($kernel->getRootDir(),0,-3);
-        
         if(isset(static::$skeletons[0]))
         {
 
@@ -210,15 +270,15 @@ class ScriptHandler
             foreach(static::$skeletons as $skeleton)
             {
 
-                $io->writeLn('-> Copying files skeletons from <info>' . strtr($skeleton, [$projectDir => '']) . '</info>.');
+                $io->writeLn('-> Copying files skeletons from <info>' . strtr($skeleton, [$options['project-dir'] => '']) . '</info>.');
 
-                $fs->mirror($skeleton, $projectDir);
+                $fs->mirror($skeleton, $options['project-dir']);
 
                 $configSkeleton = $skeleton . '/app/config/config.yml';
                 if(file_exists($configSkeleton))
                 {
                     $newconfig = Yaml::parse(file_get_contents($configSkeleton));
-                    $io->writeLn('-> Merge config.yml skeleton from <info>' . strtr($skeleton, [$projectDir => '']) . '</info>.');
+                    $io->writeLn('-> Merge config.yml skeleton from <info>' . strtr($skeleton, [$options['project-dir'] => '']) . '</info>.');
                     $config = array_merge_recursive($config, $newconfig);
                 }
             }
@@ -239,9 +299,23 @@ class ScriptHandler
         }
     }
 
-    protected static function installBowerDepedencies($kernel, $options)
+    protected static function installBowerDepedencies($options)
     {
-        if(isset(static::$bowerfilepaths[0])) static::executeCommand($kernel, $options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\InstallBowerDepedenciesCommand::class ,'parabol:install-bower-dep', ['list' => static::$bowerfilepaths], $options['process-timeout']);
+        if(file_exists($options['project-dir'] . 'bower.json')) static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\InstallBowerDepedenciesCommand::class ,'parabol:install-bower-dep', ['list' => [ $options['project-dir'] . 'bower.json' ]], $options['process-timeout']);
+    }
+
+    protected static function addParameters($options)
+    {
+        $input = new ArrayInput([]);
+        $output = new ConsoleOutput(\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, true);
+        $io = new SymfonyStyle($input, $output);
+        $io->comment('Configure additional <info>aplication parameters</info>.');
+
+        foreach (static::$appParamseters as $name => $value) {
+            static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddParameterCommand::class ,'parabol:add-parameter', ['name' => $name, 'default' => is_array($value) ? implode(',', $value) : $value, 'type' => is_array($value) ? 'array' : 'string'], $options['process-timeout']);
+        }
+
+        
     }
 
 }

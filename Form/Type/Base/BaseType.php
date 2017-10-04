@@ -203,7 +203,7 @@ trait BaseType
         return array(
             'height' => '500px',
             'allowedContent' => true,
-            'contentsCss' => '/css/admin/ckeditor_content.css',
+            'contentsCss' => '/assetic/css/compiled/app.min.css',
             'entities' => false,
             'enterMode' => 2, //CKEDITOR.ENTER_BR
             'shiftEnterMode' => 1, //CKEDITOR.ENTER_P
@@ -335,7 +335,7 @@ trait BaseType
 
     protected function resolveOptions($name, array $fieldOptions, array $builderOptions = array(), $optionsClass = null)
     {
-       
+       die();
         $this->currentType = $this->{'getType'.ucfirst($name)}();
 
        
@@ -468,6 +468,12 @@ trait BaseType
                 if($fieldOptions['label'] == 'Files') $fieldOptions['label'] = ' ';
 
                 $fieldOptions = $this->optionsFixer($fieldOptions);
+            break;
+
+            case \Ivory\CKEditorBundle\Form\Type\CKEditorType::class:
+                $fieldOptions['base_path'] = 'admin/components/ckeditor';
+                $fieldOptions['js_path'] = 'admin/components/ckeditor/ckeditor.js';
+                $fieldOptions['jquery_path'] = 'admin/components/ckeditor/adapters/jquery.js';
             break;
         }
 
