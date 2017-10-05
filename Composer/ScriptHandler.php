@@ -162,11 +162,11 @@ class ScriptHandler
         $config = Yaml::parse(file_get_contents($configPath));
 
         static::prepareBundlesInstall($options);
-        // static::installBundles($options);
+        static::installBundles($options);
         static::installSkeletons($options);
-        // static::mergeBowerFiles($options);
-        // static::installBowerDepedencies($options);
-        // static::addParameters($options);
+        static::mergeBowerFiles($options);
+        static::installBowerDepedencies($options);
+        static::addParameters($options);
 
     }
 
