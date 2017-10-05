@@ -7,7 +7,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Composer\Script\Event;
-use Symfony\Component\Yaml\Yaml;
+use Parabol\BaseBundle\Component\Yaml\Yaml;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -46,6 +46,17 @@ class ScriptHandler
         'uglifyjs' => '/usr/local/bin/uglifyjs',
         'node_paths' => ['/usr/local/lib/node_modules'],
     ];
+
+    protected static function mergeArrayDuplicate($arr)
+    {
+        foreach($arr as $key => $value)
+        {
+            if(is_array($value)) $arr[$key] = static::mergeArrayDuplicate($value);
+            else $arr = array_unique($arr);
+        }
+
+        return $arr;
+    }
 
 
     protected static function getOptions(Event $event)
@@ -120,31 +131,10 @@ class ScriptHandler
         $command = new $class($cmd);
         $command->setContainer(static::$kernel->getContainer());
 
-        // $application = new \Symfony\Bundle\FrameworkBundle\Console\Application(new \AppKernel('dev', true));
-        // $application->setAutoExit(false);
-        // die();
         $input = new ArrayInput($arguments);
-
-        // // You can use NullOutput() if you don't need the output
         $output = new ConsoleOutput();
         $command->run($input, $output);
 
-        // echo $output->fetch();
-
-
-
-        // $php = escapeshellarg(static::getPhp(false));
-        // $phpArgs = implode(' ', array_map('escapeshellarg', static::getPhpArguments()));
-        // $console = escapeshellarg($consoleDir.'/console');
-        // if ($event->getIO()->isDecorated()) {
-        //     $console .= ' --ansi';
-        // }
-
-        // $process = new Process($php.($phpArgs ? ' '.$phpArgs : '').' '.$console.' '.$cmd, null, null, null, $timeout);
-        // $process->run(function ($type, $buffer) use ($event) { $event->getIO()->write($buffer, false); });
-        // if (!$process->isSuccessful()) {
-        //     throw new \RuntimeException(sprintf("An error occurred when executing the \"%s\" command:\n\n%s\n\n%s", escapeshellarg($cmd), self::removeDecoration($process->getOutput()), self::removeDecoration($process->getErrorOutput())));
-        // }
     }
 
     private static function initKernel($options)
@@ -168,14 +158,15 @@ class ScriptHandler
 
         $options = static::getOptions($event);
 
-        
+        $configPath = $options['symfony-app-dir'] . '/config/config.yml';
+        $config = Yaml::parse(file_get_contents($configPath));
 
-        // static::prepareBundlesInstall($options);
+        static::prepareBundlesInstall($options);
         // static::installBundles($options);
-        // static::installSkeletons($options);
+        static::installSkeletons($options);
         // static::mergeBowerFiles($options);
         // static::installBowerDepedencies($options);
-        static::addParameters($options);
+        // static::addParameters($options);
 
     }
 
@@ -199,7 +190,7 @@ class ScriptHandler
                 if($configPart)
                 {
                     foreach ($defaults as $key => $value) {
-                        if(isset($configPart[ $key ])) $mainBowerConfig[ $key ] = array_merge( $mainBowerConfig[ $key ] , $configPart[ $key ] );    
+                        if(isset($configPart[ $key ])) $mainBowerConfig[ $key ] = array_merge( $configPart[ $key ], $mainBowerConfig[ $key ] );    
                     }
                 }
             }
@@ -315,7 +306,6 @@ class ScriptHandler
             static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddParameterCommand::class ,'parabol:add-parameter', ['name' => $name, 'default' => is_array($value) ? implode(',', $value) : $value, 'type' => is_array($value) ? 'array' : 'string'], $options['process-timeout']);
         }
 
-        
     }
 
 }
