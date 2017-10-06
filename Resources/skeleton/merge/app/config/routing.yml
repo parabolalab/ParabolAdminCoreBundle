@@ -1,0 +1,4 @@
+parabol_admin:
+    resource: "@ParabolAdminCoreBundle/Resources/config/routing/admin.yml"
+    prefix:   /admin
+    options: { i18n: false }

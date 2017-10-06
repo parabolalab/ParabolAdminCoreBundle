@@ -1,0 +1,115 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: App\AdminCoreBundle\Entity\Page
+    namespace_prefix: App
+    concurrency_lock: ~
+    bundle_name: AdminCoreBundle
+    i18n_catalog: Admingenerator
+    pk_requirement: ~
+    fields: 
+        # countries:
+        #     formType: Parabol\LocaleBundle\Form\Type\CountryEntityType
+        # type:
+        #     formType: Parabol\AdminCoreBundle\Form\Type\ExtChoiceType
+        #     addFormOptions: 
+        #         required: true
+        #     #     choices: {club: club}
+        # parent:
+        #     addFormOptions: 
+        #         required: false
+        # website:
+        #     formType: ext_choice    
+        #     # addFormOptions:
+        #         # required: true
+        #     #     preferred_choices: [rightsidebar]
+        isEnabled:
+            formOptions:
+                required: false
+        title: 
+            sortOn: translations.title
+            addFormOptions:
+                cropper:
+                    enabled: true
+        # files:
+        #     label: Zdjęcie boczne
+        #     addFormOptions:
+        #         cropper:
+        #             enabled: true
+        #             aspectRatio: 430:680
+        # photos:
+        #     label: Zdjęcia pod treścia
+        #     formType: Parabol\FilesUploadBundle\Form\Type\BlueimpType
+        #     addFormOptions:
+        #         cropper:
+        #             enabled: true
+        #         #     aspectRatio: 1279:611
+        #         acceptFileTypes: [jpg,jpeg,png]
+        # files:
+        #     label: Zdjęcie główne i miniatura do menu
+        #     addFormOptions:
+        #         attr: 
+        #             error: Musisz dodać oba zdjęcia (główne i miniaturę do menu)
+        #             # labels: 
+        #             #     - Główne
+        #             #     - Miniatura
+        # containerStyles:
+        #     label: HTML Container CSS Styles & Classes
+        # animations:
+        #     label: HTML Container Animations
+    object_actions:
+        delete: ~
+    batch_actions:
+        delete: ~
+    # niepotrzebne
+    # stylesheets:
+    #     - bundles/a2lixtranslationform/css/a2lix_translation.css
+    # javascripts:
+    #     - /bundles/a2lixtranslationform/js/a2lix_translation.js    
+builders:
+    list:
+        params:
+            title: List for AdminCoreBundle
+            display: [title, isEnabled, sort]
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                delete: ~
+            scopes:
+                websites:
+
+    excel:
+        params: ~
+        filename: ~
+        filetype: ~
+    new:
+        params:
+            title: New object for AdminCoreBundle
+            # display: [isEnabled, inMenu, type, parent, countries, translations, containerStyles, animations, files, color, post]
+            display: [isEnabled, inMenu, translations]
+            actions:
+                save-and-add: 
+                    label: Zapisz i dodaj nowy
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "You're editing the object \"%object%\"|{ %object%: Page.title }|"
+            # display: [isEnabled, inMenu, type, parent, countries,translations, containerStyles, animations, files, color, post]
+            display: [isEnabled, inMenu, translations]
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            #title: "You're viewing the object \"%object%\"|{ %object%: Page.title }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~

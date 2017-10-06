@@ -1,0 +1,60 @@
+# #sf2 translation:extract en --enable-extractor=jms_i18n_routing --dir=src/Parabol/AdminCoreBundle/Resources/config/routing --output-dir=src/Parabol/AdminCoreBundle/Resources/translations --output-format=yml
+
+
+
+# # app_parabol_admin_core_bundle_gallery_list_media:
+# #     path: /media
+# #     defaults:  { _controller: ParabolAdminCoreBundle:Gallery:list, type: media }
+
+
+# # app_parabol_admin_core_bundle_gallery_list_logotypes:
+# #     path: /gallery/logotypes
+# #     defaults:  { _controller: ParabolAdminCoreBundle:Gallery:logotypesList }
+
+# app_parabol_admin_core_bundle_blog_post:
+#     path: /blog/{slug}
+#     defaults:  { _controller: ParabolAdminCoreBundle:Post:show, type: blog }
+
+# app_parabol_admin_core_bundle_blog_post_list:
+#     path: /blog
+#     defaults:  { _controller: ParabolAdminCoreBundle:Post:list, type: blog }
+
+# # app_parabol_admin_core_bundle_article_post:
+# #     path: /artykuly/{slug}
+# #     defaults:  { _controller: ParabolAdminCoreBundle:Post:show, type: article }
+
+# # app_parabol_admin_core_bundle_article_post_list:
+# #     path: /artykuly
+# #     defaults:  { _controller: ParabolAdminCoreBundle:Post:list, type: article }
+
+# # app_parabol_admin_core_bundle_news_post:
+# #     path: /aktualnosci/{slug}
+# #     defaults:  { _controller: ParabolAdminCoreBundle:Post:show, type: news }
+
+# # app_parabol_admin_core_bundle_news_post_list:
+# #     path: /aktualnosci
+# #     defaults:  { _controller: ParabolAdminCoreBundle:Post:list, type: news }
+
+
+# # app_parabol_admin_core_dashboard:
+# #     path:     /admin
+# #     defaults: { _controller: ParabolAdminCoreBundle:Dashboard:index }
+# #     options: { i18n: false }
+
+
+# # app_parabol_admin_core_bundle_page:
+# #     path: /{slug}
+# #     defaults:  { _controller: ParabolAdminCoreBundle:Page:show }
+# #     options: { i18n: false }
+
+# app_parabol_admin_core_bundle_action_caller:
+#     path:     /app/{action}
+#     defaults: { _controller: ParabolAdminCoreBundle:App:caller }    
+
+# _liip_imagine:
+#     resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+# homepage:
+#     path: /
+#     defaults:  { _controller: ParabolAdminCoreBundle:Page:homepage }
+#     options: { i18n: false }

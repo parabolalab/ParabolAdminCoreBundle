@@ -12,6 +12,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Formatter\OutputFormatter;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @author Marcin Kalota <marcin@parabolalab.com>
@@ -58,6 +59,8 @@ class ScriptHandler
         return $arr;
     }
 
+    protected static $io;
+
 
     protected static function getOptions(Event $event)
     {
@@ -73,6 +76,17 @@ class ScriptHandler
 
 
         return $options;
+    }
+
+    protected static function getIO()
+    {
+        if(!static::$io)
+        {
+            $input = new ArrayInput([]);
+            $output = new ConsoleOutput(OutputInterface::VERBOSITY_NORMAL, true);
+            static::$io = new SymfonyStyle($input, $output);
+        }
+        return static::$io;
     }
 
     protected static function hasDirectory(Event $event, $configName, $path, $actionName)
@@ -132,7 +146,7 @@ class ScriptHandler
         $command->setContainer(static::$kernel->getContainer());
 
         $input = new ArrayInput($arguments);
-        $output = new ConsoleOutput();
+        $output = new ConsoleOutput( OutputInterface::VERBOSITY_NORMAL, true );
         $command->run($input, $output);
 
     }
@@ -161,18 +175,54 @@ class ScriptHandler
         $configPath = $options['symfony-app-dir'] . '/config/config.yml';
         $config = Yaml::parse(file_get_contents($configPath));
 
-        static::prepareBundlesInstall($options);
-        static::installBundles($options);
-        static::installSkeletons($options);
-        static::mergeBowerFiles($options);
-        static::installBowerDepedencies($options);
-        static::addParameters($options);
+        static::prepareBundlesInstall($event, $options);
+        static::installBundles($event, $options);
+        static::installSkeletons($event, $options);
+        static::mergeBowerFiles($event, $options);
+        static::installBowerDepedencies($event, $options);
+        static::addParameters($event, $options);
 
     }
 
-    protected static function mergeBowerFiles($options)
+    protected static function prepareBundlesInstall($event, $options)
     {
-        if(isset(static::$skeletons[0]))
+        if(in_array('Admingenerator\GeneratorBundle\AdmingeneratorGeneratorBundle($this)', static::$bundles))
+        {
+            $admingeneratorpaths = glob($options['vendor-dir'] . '/*/*/AdmingeneratorGeneratorBundle.php');
+            foreach($admingeneratorpaths as $path)
+            {
+                if(file_exists(dirname($path) . '/bower.json')) static::$bowerfilepaths[] = dirname($path) . '/bower.json';
+            }
+        }
+
+        $currentDir = dirname(__FILE__);
+        $dir = preg_replace('/\/[^\/]+\/[^\/]+$/','',$currentDir);
+
+        foreach(glob('{' . $dir . '/*/*Bundle.php,' . $dir . '/*/Resources/skeleton/*/src/*/*/*Bundle.php' . '}', GLOB_BRACE) as $path)
+        {
+           if(strpos($path, '/skeleton/') !== false)
+           {
+                static::$skeletons[] = preg_replace('#^(.*\/skeleton)\/.*$#','$1', $path);
+           }
+
+           $bundle = preg_replace('#^((.*\/src\/(.*))|(.*\/([^\/\.]+)))\.php$#','$3$5',$path); 
+
+           if(strpos($bundle, '/') === false) $bundle = 'Parabol\\' . strtr($bundle, ['Parabol' => '']) . '\\' . $bundle;
+           $bundle = strtr($bundle, ['/' => '\\']) . '()';
+
+           // echo "$bundle\n";
+           if(file_exists(dirname($path) . '/bower.json')) static::$bowerfilepaths[] = dirname($path) . '/bower.json';
+
+           static::$bundles[] = $bundle;
+
+        }
+
+       
+    }
+
+    protected static function mergeBowerFiles($event, $options)
+    {
+        if(isset(static::$bowerfilepaths[0]))
         {
             $defaults = ['dependencies' => [], 'resolutions' => []];
             $mainBowerFile = $options['project-dir'] . 'bower.json';
@@ -199,108 +249,107 @@ class ScriptHandler
         }
     }
 
-    protected static function prepareBundlesInstall($options)
-    {
-        if(in_array('Admingenerator\GeneratorBundle\AdmingeneratorGeneratorBundle($this)', static::$bundles))
-        {
-            $admingeneratorpaths = glob($options['vendor-dir'] . '/*/*/AdmingeneratorGeneratorBundle.php');
-            foreach($admingeneratorpaths as $path)
-            {
-                if(file_exists(dirname($path) . '/bower.json')) static::$bowerfilepaths[] = dirname($path) . '/bower.json';
-            }
-        }
-
-        $currentDir = dirname(__FILE__);
-        $dir = preg_replace('/\/[^\/]+\/[^\/]+$/','',$currentDir);
-
-        foreach(glob('{' . $dir . '/*/*Bundle.php,' . $dir . '/*/Resources/skeleton/src/*/*/*Bundle.php' . '}', GLOB_BRACE) as $path)
-        {
-           if(strpos($path, '/skeleton/') !== false)
-           {
-                static::$skeletons[] = preg_replace('#^(.*\/skeleton\/).*$#','$1', $path);
-           }
-
-           $bundle = preg_replace('#^((.*\/src\/(.*))|(.*\/([^\/\.]+)))\.php$#','$3$5',$path); 
-
-           if(strpos($bundle, '/') === false) $bundle = 'Parabol\\' . strtr($bundle, ['Parabol' => '']) . '\\' . $bundle;
-           $bundle = strtr($bundle, ['/' => '\\']) . '()';
-
-           // echo "$bundle\n";
-           if(file_exists(dirname($path) . '/bower.json')) static::$bowerfilepaths[] = dirname($path) . '/bower.json';
-
-           static::$bundles[] = $bundle;
-
-        }
-
-    }
+    
 
 
-    protected static function installBundles($options)
+    protected static function installBundles($event, $options)
     {
 
         static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddBundleCommand::class, 'parabol:add-bundle', [ 'bundles' => static::$bundles], $options['process-timeout']);
     }
 
 
-    protected static function installSkeletons($options)
+    protected static function installSkeletons($event, $options)
     {
 
+        
         if(isset(static::$skeletons[0]))
         {
 
-            $input = new ArrayInput([]);
-            $output = new ConsoleOutput();
-            $io = new SymfonyStyle($input, $output);
-
-            $io->comment('Looking for files skeletons.');
-
+           
             $fs = new Filesystem();
-            $configPath = $options['symfony-app-dir'] . '/config/config.yml';
-            $config = Yaml::parse(file_get_contents($configPath));
+            $mergedContents = [];
 
             foreach(static::$skeletons as $skeleton)
             {
 
-                $io->writeLn('-> Copying files skeletons from <info>' . strtr($skeleton, [$options['project-dir'] => '']) . '</info>.');
-
-                $fs->mirror($skeleton, $options['project-dir']);
-
-                $configSkeleton = $skeleton . '/app/config/config.yml';
-                if(file_exists($configSkeleton))
+                if(file_exists($skeleton . '/create'))
                 {
-                    $newconfig = Yaml::parse(file_get_contents($configSkeleton));
-                    $io->writeLn('-> Merge config.yml skeleton from <info>' . strtr($skeleton, [$options['project-dir'] => '']) . '</info>.');
-                    $config = array_merge_recursive($config, $newconfig);
+                    static::getIO()->writeLn('-> Creating files from <info>' . strtr($skeleton, [$options['project-dir'] => '']) . '/create</info> skeleton.');
+                    $fs->mirror($skeleton . '/create', $options['project-dir']);
+                }
+
+                if(file_exists($skeleton . '/overwrite'))
+                {
+                    if($event->getIO()->askConfirmation('Do you want overwrite files skeletons from <info>' . strtr($skeleton, [$options['project-dir'] => '']) . '/overwrite</info>? [y/N] ', false))
+                    {
+                        static::getIO()->writeLn('-> Overwriting files from <info>' . strtr($skeleton, [$options['project-dir'] => '']) . '/overwrite</info> skeleton.');
+                        $fs->mirror($skeleton . '/overwrite', $options['project-dir'], null, ['override' => true]);
+                    }
+                }
+
+                if(file_exists($skeleton . '/merge'))
+                {
+                    if($event->getIO()->askConfirmation('Do you want merge files skeletons from <info>' . strtr($skeleton, [$options['project-dir'] => '']) . '/merge</info>? [y/N] ', false))
+                    {
+
+                        $directory = new \RecursiveDirectoryIterator($skeleton . '/merge', \FilesystemIterator::SKIP_DOTS);
+                        $iterator = new \RecursiveIteratorIterator($directory);
+                        
+                        foreach ($iterator as $info) {
+                          
+                          $resourcePath = strtr($info->getPathname(), [$options['project-dir'] => '']);  
+
+                          if (substr($info->getPathname(), -4) === '.yml') {
+                                $path = str_replace($skeleton . '/merge/', '', $info->getPathname());
+                                if(!isset($mergedContents[$path]))
+                                {
+                                    echo $options['project-dir'] . $path . "\n";
+                                    if(file_exists($options['project-dir'] . $path)) $mergedContents[$path] = Yaml::parse(file_get_contents($options['project-dir'] . $path));
+                                    else $mergedContents[$path] = [];
+                                }
+
+                                $fileContent = Yaml::parse(file_get_contents($info->getPathname()));
+
+                                static::getIO()->writeLn("-> Merging <info>{$path}</info> with <info>{$resourcePath}</info>");
+                                $mergedContents[$path] = array_merge_recursive($fileContent, $mergedContents[$path]);
+
+                          }
+                          else
+                          {
+                             static::getIO()->writeLn("-> Skip <fg=red>{$resourcePath}</> merging skeleton is available only for yaml files");
+                          }
+                        }
+                    }
                 }
             }
 
             
-
-            if(isset($newconfig))
+            foreach($mergedContents as $path => $mergedContent)
             {
-                $dumped = Yaml::dump($config, 6);
+                $dumped = Yaml::dump($mergedContent, 3);
                 $dumped = preg_replace('/^([^\s#]+)/m',  "\n$1", $dumped);
-
-                $fs->copy($configPath, $configPath .'.org.yml');
-                $fs->dumpFile($options['symfony-app-dir'] . '/config/config.yml', trim($dumped));
-
-                $io->success("Skeletons has been copied and config.yml has been merged.");
+                static::getIO()->writeLn("-> Saving changes in file <info>{$path}</info>");
+                $fs->copy($path, $path . '~');
+                $fs->dumpFile($path, trim($dumped));
             }
-            else $io->success("Skeletons has been copied.");
+           
+            static::getIO()->success("Installing skeletons files has been done successfully.");
+
         }
     }
 
-    protected static function installBowerDepedencies($options)
+    protected static function installBowerDepedencies($event, $options)
     {
-        if(file_exists($options['project-dir'] . 'bower.json')) static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\InstallBowerDepedenciesCommand::class ,'parabol:install-bower-dep', ['list' => [ $options['project-dir'] . 'bower.json' ]], $options['process-timeout']);
+        if($event->getIO()->askConfirmation('Do you want overwrite files skeletons from <info>' . strtr($skeleton, [$options['project-dir'] => '']) . '/overwrite</info>? [y/N] ', false))
+        {
+            if(file_exists($options['project-dir'] . 'bower.json')) static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\InstallBowerDepedenciesCommand::class ,'parabol:install-bower-dep', ['list' => [ $options['project-dir'] . 'bower.json' ]], $options['process-timeout']);
+        }
     }
 
-    protected static function addParameters($options)
+    protected static function addParameters($event, $options)
     {
-        $input = new ArrayInput([]);
-        $output = new ConsoleOutput(\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, true);
-        $io = new SymfonyStyle($input, $output);
-        $io->comment('Configure additional <info>aplication parameters</info>.');
+        static::getIO()->comment('Configure additional <info>aplication parameters</info>.');
 
         foreach (static::$appParamseters as $name => $value) {
             static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddParameterCommand::class ,'parabol:add-parameter', ['name' => $name, 'default' => is_array($value) ? implode(',', $value) : $value, 'type' => is_array($value) ? 'array' : 'string'], $options['process-timeout']);
