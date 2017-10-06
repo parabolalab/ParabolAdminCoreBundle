@@ -206,10 +206,10 @@ class ScriptHandler
            }
            elseif(file_exists(dirname($path) . '/Resources/config/bundles.yml'))
            {
-                $bundlesConfig = Yaml::parse(file_get_contents(dirname($path . '/Resources/config/bundles.yml')));
+                $bundlesConfig = Yaml::parse(file_get_contents(dirname($path) . '/Resources/config/bundles.yml'));
                 if(isset($bundlesConfig['kernel']))
                 {
-                    static::$bundles[] = array_merge(static::$bundles[], $bundlesConfig['kernel']);
+                    static::$bundles = array_merge(static::$bundles, $bundlesConfig['kernel']);
                 }
            }
 
@@ -227,7 +227,6 @@ class ScriptHandler
 
         }
 
-        
     }
 
     protected static function mergeBowerFiles($event, $options)
@@ -266,7 +265,7 @@ class ScriptHandler
     {
         foreach(static::$bundles as $bundle)
         {
-            static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddBundleCommand::class, 'parabol:add-bundle', [ 'bundles' => $bundle], $options['process-timeout']);
+            static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddBundleCommand::class, 'parabol:add-bundle', [ 'bundles' => [$bundle]], $options['process-timeout']);
         }
     }
 
