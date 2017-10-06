@@ -265,7 +265,7 @@ class ScriptHandler
     {
         foreach(static::$bundles as $bundle)
         {
-            static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddBundleCommand::class, 'parabol:add-bundle', [ 'bundles' => [$bundle]], $options['process-timeout']);
+            static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddBundleCommand::class, 'parabol:add-bundle', [ '-r' => '', 'bundles' => [$bundle]], $options['process-timeout']);
         }
     }
 
