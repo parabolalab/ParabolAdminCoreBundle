@@ -54,3 +54,32 @@ a2lix_translation_form:
     required_locales: %required_locales%
     manager_registry: doctrine
     templating: "A2lixTranslationFormBundle::default.html.twig"
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path: 
+             web_root: %kernel.root_dir%/../%web_dir%
+             cache_prefix: cache
+    loaders:
+        default:
+            filesystem:
+                data_root: %kernel.root_dir%/../%web_dir%
+    filter_sets:
+        cache: ~
+        admin_thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [100, 100], mode: outbound }
+        _thumb:
+            quality: 75
+            filters:
+                upscale: { min: [340, 230] }
+                thumbnail: { size: [340, 230], mode: outbound }
+        main:
+            quality: 75
+            filters:
+                # downscale: { max: [1720, 1148] }
+                # upscale: { min: [1720, 1148] }
+                relative_resize: { widen: 1920 }
+

@@ -30,11 +30,12 @@ class ScriptHandler
 
     protected static $bundles = [
         'Admingenerator\GeneratorBundle\AdmingeneratorGeneratorBundle($this)',
-        'WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle()',
-        'Knp\Bundle\MenuBundle\KnpMenuBundle()',
-        'A2lix\TranslationFormBundle\A2lixTranslationFormBundle()',
-        'Ivory\CKEditorBundle\IvoryCKEditorBundle()',
-        'Symfony\Bundle\AsseticBundle\AsseticBundle()'
+        'WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle',
+        'Knp\Bundle\MenuBundle\KnpMenuBundle',
+        'A2lix\TranslationFormBundle\A2lixTranslationFormBundle',
+        'Ivory\CKEditorBundle\IvoryCKEditorBundle',
+        'Symfony\Bundle\AsseticBundle\AsseticBundle',
+        'Liip\ImagineBundle\LiipImagineBundle'
     ];
 
     protected static $skeletons = [];
@@ -361,6 +362,8 @@ class ScriptHandler
     protected static function addParameters($event, $options)
     {
         static::getIO()->comment('Configure additional <info>aplication parameters</info>.');
+
+        static::$appParamseters['web_dir'] = isset($options['symfony-web-dir']) ? $options['symfony-web-dir'] : 'web';
 
         foreach (static::$appParamseters as $name => $value) {
             static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddParameterCommand::class ,'parabol:add-parameter', ['name' => $name, 'default' => is_array($value) ? implode(',', $value) : $value, 'type' => is_array($value) ? 'array' : 'string'], $options['process-timeout']);

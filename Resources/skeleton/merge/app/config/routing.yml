@@ -1,4 +1,8 @@
 parabol_admin:
-    resource: "@ParabolAdminCoreBundle/Resources/config/routing/admin.yml"
+    resource: '@ParabolAdminCoreBundle/Resources/config/routing.yml'
     prefix:   /admin
+    options: { i18n: false }
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
     options: { i18n: false }
