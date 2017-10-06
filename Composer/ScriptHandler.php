@@ -341,7 +341,7 @@ class ScriptHandler
 
     protected static function installBowerDepedencies($event, $options)
     {
-        if($event->getIO()->askConfirmation('Do you want overwrite files skeletons from <info>' . strtr($skeleton, [$options['project-dir'] => '']) . '/overwrite</info>? [y/N] ', false))
+        if(file_exists($options['project-dir'] . '/bower.json') && $event->getIO()->askConfirmation('Do you want instal bower depedencies from <info>' . $options['project-dir'] . '/bower.json</info>? [y/N] ', false))
         {
             if(file_exists($options['project-dir'] . 'bower.json')) static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\InstallBowerDepedenciesCommand::class ,'parabol:install-bower-dep', ['list' => [ $options['project-dir'] . 'bower.json' ]], $options['process-timeout']);
         }
