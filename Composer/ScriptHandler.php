@@ -204,11 +204,21 @@ class ScriptHandler
            {
                 static::$skeletons[] = preg_replace('#^(.*\/skeleton)\/.*$#','$1', $path);
            }
+           elseif(file_exists(dirname($path) . '/Resources/config/bundles.yml'))
+           {
+                $bundlesConfig = Yaml::parse(file_get_contents(dirname($path . '/Resources/config/bundles.yml')));
+                if(isset($bundlesConfig['kernel']))
+                {
+                    static::$bundles[] = array_merge(static::$bundles[], $bundlesConfig['kernel']);
+                }
+           }
 
            $bundle = preg_replace('#^((.*\/src\/(.*))|(.*\/([^\/\.]+)))\.php$#','$3$5',$path); 
 
            if(strpos($bundle, '/') === false) $bundle = 'Parabol\\' . strtr($bundle, ['Parabol' => '']) . '\\' . $bundle;
            $bundle = strtr($bundle, ['/' => '\\']) . '()';
+
+
 
            // echo "$bundle\n";
            if(file_exists(dirname($path) . '/bower.json')) static::$bowerfilepaths[] = dirname($path) . '/bower.json';
@@ -217,7 +227,7 @@ class ScriptHandler
 
         }
 
-       
+        
     }
 
     protected static function mergeBowerFiles($event, $options)
@@ -254,8 +264,10 @@ class ScriptHandler
 
     protected static function installBundles($event, $options)
     {
-
-        static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddBundleCommand::class, 'parabol:add-bundle', [ 'bundles' => static::$bundles], $options['process-timeout']);
+        foreach(static::$bundles as $bundle)
+        {
+            static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddBundleCommand::class, 'parabol:add-bundle', [ 'bundles' => $bundle], $options['process-timeout']);
+        }
     }
 
 

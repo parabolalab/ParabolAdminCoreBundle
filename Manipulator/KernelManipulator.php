@@ -74,7 +74,7 @@ class KernelManipulator extends \Sensio\Bundle\GeneratorBundle\Manipulator\Kerne
                 // ;
                 $this->next();
                 $bundleLines = array();
-                foreach($bundles as $bundle) $bundleLines[] = sprintf("            new %s,\n", $bundle);
+                foreach($bundles as $bundle) $bundleLines[] = sprintf("            new %s,\n", ($bundle . substr($bundle, -1) == ')' ? '' : '()'));
                 $lines = array_merge(
                     array_slice($src, 0, $this->line - 2),
                     // Appends a separator comma to the current last position of the array
