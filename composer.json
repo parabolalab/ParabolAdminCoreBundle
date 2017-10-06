@@ -25,6 +25,7 @@
         "liip/imagine-bundle": "^1.9",
         "parabol/parabol-base-bundle": "dev-master",
         "parabol/parabol-doctrine-behaviors-bundle": "dev-master",
+        "parabol/parabol-user-admin-bundle": "dev-master",
         "symfony2admingenerator/generator-bundle": "^2.4"
     },
     "autoload": {
