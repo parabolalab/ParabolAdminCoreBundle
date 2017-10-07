@@ -4,6 +4,7 @@ namespace Parabol\AdminCoreBundle\Composer;
 
 use Symfony\Component\ClassLoader\ClassCollectionLoader;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Composer\Script\Event;
@@ -144,7 +145,8 @@ class ScriptHandler
     {
         
         $command = new $class($cmd);
-        $command->setContainer(static::$kernel->getContainer());
+        $command->setApplication(new Application(static::$kernel));
+        if($command instanceof \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand) $command->setContainer(static::$kernel->getContainer());
 
         $input = new ArrayInput($arguments);
         $output = new ConsoleOutput( OutputInterface::VERBOSITY_NORMAL, true );
@@ -182,6 +184,8 @@ class ScriptHandler
         static::mergeBowerFiles($event, $options);
         static::installBowerDepedencies($event, $options);
         static::addParameters($event, $options);
+        static::createSchema($event, $options);
+        static::loadFixturies($event, $options);
 
     }
 
@@ -205,14 +209,24 @@ class ScriptHandler
            {
                 static::$skeletons[] = preg_replace('#^(.*\/skeleton)\/.*$#','$1', $path);
            }
-           elseif(file_exists(dirname($path) . '/Resources/config/bundles.yml'))
+           else
            {
-                $bundlesConfig = Yaml::parse(file_get_contents(dirname($path) . '/Resources/config/bundles.yml'));
-                if(isset($bundlesConfig['kernel']))
-                {
-                    static::$bundles = array_merge(static::$bundles, $bundlesConfig['kernel']);
-                }
-           }
+               if(file_exists(dirname($path) . '/Resources/config/bundles.yml'))
+               {
+                    $bundlesConfig = Yaml::parse(file_get_contents(dirname($path) . '/Resources/config/bundles.yml'));
+                    if(isset($bundlesConfig['kernel']))
+                    {
+                        static::$bundles = array_merge(static::$bundles, $bundlesConfig['kernel']);
+                    }
+               }
+
+               if(file_exists(dirname($path) . '/Resources/config/defaultParameters.yml'))
+               {
+                    $defaultParameters = Yaml::parse(file_get_contents(dirname($path) . '/Resources/config/defaultParameters.yml'));
+                    static::$bundles = array_merge(static::$appParamseters, $defaultParameters);
+                    
+               }
+            }
 
            $bundle = preg_replace('#^((.*\/src\/(.*))|(.*\/([^\/\.]+)))\.php$#','$3$5',$path); 
 
@@ -366,9 +380,50 @@ class ScriptHandler
         static::$appParamseters['web_dir'] = isset($options['symfony-web-dir']) ? $options['symfony-web-dir'] : 'web';
 
         foreach (static::$appParamseters as $name => $value) {
-            static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddParameterCommand::class ,'parabol:add-parameter', ['name' => $name, 'default' => is_array($value) ? implode(',', $value) : $value, 'type' => is_array($value) ? 'array' : 'string'], $options['process-timeout']);
+            $params = ['name' => $name, 'default' => is_array($value) ? implode(',', $value) : $value, 'type' => is_array($value) ? 'array' : 'string'];
+            if(preg_match('/password|secret/', $name)) $params['-n'] = '';
+            static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddParameterCommand::class ,'parabol:add-parameter', $params, $options['process-timeout']);
         }
 
+    }
+
+    protected static function createSchema($event, $options)
+    {
+        $io = static::getIO();
+
+        do
+        {
+            $answer = $io->ask('Do you want create or update database schema? [n/c/u] ', 'n', function($value) use ($io)  { 
+                if(in_array(strtolower($value), ['n', 'no', 'c', 'create', 'u', 'update']))
+                {
+                    return $value[0];
+                } 
+                else {
+                   $io->writeln('<error>Please answer no, n, create, c, update or u.</error>');
+                   return false; 
+                }  
+            });
+        }
+        while(!$answer);
+
+        
+        if($answer == 'c')
+        {
+            static::executeCommand($options['symfony-bin-dir'], \Doctrine\Bundle\DoctrineBundle\Command\Proxy\CreateSchemaDoctrineCommand::class ,'doctrine:schema:create', [], $options['process-timeout']);
+        }
+        elseif($answer == 'u')
+        {
+            static::executeCommand($options['symfony-bin-dir'], \Doctrine\Bundle\DoctrineBundle\Command\Proxy\UpdateSchemaDoctrineCommand::class ,'doctrine:schema:update', ['--force' => ''], $options['process-timeout']);
+        }
+        
+    }
+
+    protected static function loadFixturies($event, $options)
+    {
+        
+        static::executeCommand($options['symfony-bin-dir'], \Doctrine\Bundle\FixturesBundle\Command\LoadDataFixturesDoctrineCommand::class ,'doctrine:fixtures:load', [], $options['process-timeout']);
+        
+        
     }
 
 }

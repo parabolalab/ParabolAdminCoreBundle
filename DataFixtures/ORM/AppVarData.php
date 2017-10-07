@@ -4,7 +4,7 @@ namespace Aliso\ApartmentBundle\DataFixtures\ORM;
 use Doctrine\Common\Persistence\ObjectManager;
 
 
-class AppVarData extends \Parabol\AdminCoreBundle\Util\AppVarUtil
+class AppVarData extends \Parabol\BaseBundle\Util\AppVarUtil
 {
     /**
      * {@inheritDoc}
