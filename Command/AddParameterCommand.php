@@ -20,7 +20,7 @@ class AddParameterCommand extends ContainerAwareCommand
             ->setDescription('add parameter to parameters.yaml')
             // ->setHelp('The <info>parabol:admin:register-bundles</info> command fetch bower dependencies (CSS and JS files) to the web root dir, instaling assets and copy content form pre-configuration files.')
             ->setDefinition(array(
-                new InputOption('no-dist-value', 'n', InputOption::VALUE_NONE, 'Parameter will be added to parameters.yml.dist without value, useful for password parameters')
+                new InputOption('no-dist-value', 'nv', InputOption::VALUE_NONE, 'Parameter will be added to parameters.yml.dist without value, useful for password parameters')
             ))
             ->addArgument(
                 'name',

@@ -330,7 +330,6 @@ class ScriptHandler
                                 $path = str_replace($skeleton . '/merge/', '', $info->getPathname());
                                 if(!isset($mergedContents[$path]))
                                 {
-                                    echo $options['project-dir'] . $path . "\n";
                                     if(file_exists($options['project-dir'] . $path)) $mergedContents[$path] = Yaml::parse(file_get_contents($options['project-dir'] . $path));
                                     else $mergedContents[$path] = [];
                                 }
@@ -338,6 +337,7 @@ class ScriptHandler
                                 $fileContent = Yaml::parse(file_get_contents($info->getPathname()));
 
                                 static::getIO()->writeLn("-> Merging <info>{$path}</info> with <info>{$resourcePath}</info>");
+                                if(strpos($info->getPathname(), '/app/config/config.yml') !== false) $fileContent = Yaml::merge(['imports' => [], 'parameters' => []], $fileContent);
                                 $mergedContents[$path] = Yaml::merge($fileContent, $mergedContents[$path]);
 
 
@@ -382,7 +382,7 @@ class ScriptHandler
 
         foreach (static::$appParamseters as $name => $value) {
             $params = ['name' => $name, 'default' => is_array($value) ? implode(',', $value) : $value, 'type' => is_array($value) ? 'array' : 'string'];
-            if(preg_match('/password|secret/', $name)) $params['-n'] = '';
+            if(preg_match('/password|secret/', $name)) $params['--no-dist-value'] = true;
             static::executeCommand($options['symfony-bin-dir'], \Parabol\AdminCoreBundle\Command\AddParameterCommand::class ,'parabol:add-parameter', $params, $options['process-timeout']);
         }
 
