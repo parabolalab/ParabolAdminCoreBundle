@@ -338,7 +338,8 @@ class ScriptHandler
                                 $fileContent = Yaml::parse(file_get_contents($info->getPathname()));
 
                                 static::getIO()->writeLn("-> Merging <info>{$path}</info> with <info>{$resourcePath}</info>");
-                                $mergedContents[$path] = array_merge_recursive($fileContent, $mergedContents[$path]);
+                                $mergedContents[$path] = Yaml::merge($fileContent, $mergedContents[$path]);
+
 
                           }
                           else
