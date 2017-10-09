@@ -207,7 +207,6 @@ class ScriptHandler extends \Parabol\BaseBundle\Composer\BaseScriptHandler
                                 $path = str_replace($skeleton . '/merge/', '', $info->getPathname());
                                 if(!isset($mergedContents[$path]))
                                 {
-                                    echo $options['project-dir'] . $path . "\n";
                                     if(file_exists($options['project-dir'] . $path)) $mergedContents[$path] = Yaml::parse(file_get_contents($options['project-dir'] . $path));
                                     else $mergedContents[$path] = [];
                                 }
@@ -215,7 +214,9 @@ class ScriptHandler extends \Parabol\BaseBundle\Composer\BaseScriptHandler
                                 $fileContent = Yaml::parse(file_get_contents($info->getPathname()));
 
                                 static::getIO()->writeLn("-> Merging <info>{$path}</info> with <info>{$resourcePath}</info>");
-                                $mergedContents[$path] = array_merge_recursive($fileContent, $mergedContents[$path]);
+                                if(strpos($info->getPathname(), '/app/config/config.yml') !== false) $fileContent = Yaml::merge(['imports' => [], 'parameters' => []], $fileContent);
+                                $mergedContents[$path] = Yaml::merge($fileContent, $mergedContents[$path]);
+
 
                           }
                           else
