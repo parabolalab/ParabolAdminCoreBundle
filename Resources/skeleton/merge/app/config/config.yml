@@ -49,6 +49,10 @@ admingenerator_generator:
         number_format:
             decimal: 2
 
+knp_menu:
+    twig:
+        template: AdmingeneratorGeneratorBundle:KnpMenu:knp_menu_trans.html.twig
+
 a2lix_translation_form:
     locales: %locales%
     required_locales: %required_locales%

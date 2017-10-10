@@ -25,7 +25,7 @@ class AppSettingController extends Controller
     public function showAction(Request $request)
     {
         $appVars = $this->getDoctrine()
-                ->getRepository('ParabolAdminCoreBundle:AppVar')
+                ->getRepository('AppAdminCoreBundle:AppVar')
                 ->createQueryBuilder('a')
                 ->leftJoin('a.translations', 'at')
                 ->orderBy('a.namespace')
