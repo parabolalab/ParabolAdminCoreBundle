@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Post;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePostController\NewController as BaseNewController;
+use Admingenerated\AppAdminCoreBundle\BasePostController\NewController as BaseNewController;
 
 /**
  * NewController

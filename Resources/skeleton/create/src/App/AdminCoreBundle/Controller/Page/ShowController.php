@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Page;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePageController\ShowController as BaseShowController;
+use Parabol\AdminCoreBundle\Controller\BaseAdmin\Page\ShowController as BaseShowController;
 
 /**
  * ShowController

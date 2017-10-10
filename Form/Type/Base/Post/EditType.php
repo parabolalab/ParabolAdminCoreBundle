@@ -2,7 +2,7 @@
 
 namespace Parabol\AdminCoreBundle\Form\Type\Base\Post;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BasePostType\EditType as BaseEditType;
+use Admingenerated\AppAdminCoreBundle\Form\BasePostType\EditType as BaseEditType;
 
 /**
  * EditType

@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Page;
 
-use Admingenerated\AppAdminCoreBundle\BasePageController\NewController as BaseNewController;
+use Parabol\AdminCoreBundle\Controller\BaseAdmin\Page\NewController as BaseNewController;
 
 /**
  * NewController

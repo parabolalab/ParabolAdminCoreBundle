@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Post;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePostController\ActionsController as BaseActionsController;
+use Admingenerated\AppAdminCoreBundle\BasePostController\ActionsController as BaseActionsController;
 
 /**
  * ActionsController

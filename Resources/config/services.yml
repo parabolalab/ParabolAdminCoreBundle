@@ -52,8 +52,6 @@ services:
     #         - "@knp.doctrine_behaviors.reflection.class_analyzer"
     #     tags:
     #         - { name: doctrine.event_subscriber, connection: default }
-
-   
     
     parabol.type_extension.google_location_map:
         class: Parabol\AdminCoreBundle\Form\Type\GoogleLocationMapType
@@ -81,6 +79,28 @@ services:
     #     tags:
     #         - { name: kernel.event_subscriber }
 
-
+    parabol.admin_menu.posts:
+        class: Parabol\AdminCoreBundle\Menu\MenuItem
+        arguments: [ "Posts", "App_AdminCoreBundle_Post_list", null, "fa fa-calendar" ]
+        tags:
+            -  { name: parabol.admin_menu }
+    
+    parabol.admin_menu.pages:
+        class: Parabol\AdminCoreBundle\Menu\MenuItem
+        arguments: [ "Pages", "App_AdminCoreBundle_Page_list", null, "fa fa-file" ]
+        tags:
+            -  { name: parabol.admin_menu }
+    
+    parabol.admin_menu.code:
+        class: Parabol\AdminCoreBundle\Menu\MenuItem
+        arguments: [ "Codes Head/Body", "App_AdminCoreBundle_Code_list", null, "fa fa-code", "bottom" ]
+        tags:
+            -  { name: parabol.admin_menu }
+    
+    parabol.admin_menu.setting:
+        class: Parabol\AdminCoreBundle\Menu\MenuItem
+        arguments: [ "Setting", "parabol_admin_core_setting", null, "fa fa-cogs", "last", null, "ROLE_ADMIN" ]
+        tags:
+            -  { name: parabol.admin_menu }
 
 

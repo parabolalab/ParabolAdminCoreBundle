@@ -2,7 +2,7 @@
 
 namespace Parabol\AdminCoreBundle\Form\Type\Base\Seo;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BaseSeoType\NewType as BaseNewType;
+use Admingenerated\AppAdminCoreBundle\Form\BaseSeoType\NewType as BaseNewType;
 
 /**
  * NewType

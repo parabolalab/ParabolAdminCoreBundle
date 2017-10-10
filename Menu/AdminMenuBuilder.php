@@ -28,44 +28,25 @@ class AdminMenuBuilder extends AdmingeneratorMenuBuilder  implements ContainerAw
     public function sidebarMenu(array $options)
     {
         $sc = $this->container->get('security.authorization_checker');
-
-
         $menu = $this->factory->createItem('root');
-        
-
         $menu->setChildrenAttributes(array('class' => 'sidebar-menu'));
-
-
-        // $this->addLinkRoute($menu, 'Posts', 'App_AdminCoreBundle_Post_list')
-        // ->setExtra('icon', 'fa fa-calendar');
-
-        // $this->addLinkRoute($menu, 'Pages', 'App_AdminCoreBundle_Page_list')
-        // ->setExtra('icon', 'fa fa-file');
-
-
-        // $this->addLinkRoute($menu, 'Codes Head/Body', 'App_AdminCoreBundle_Code_list')
-        //  ->setExtra('icon', 'fa fa-code');
-
-
-        // if(!$this->container->getParameter('parabol_admin_core.app_setting.disabled') && $sc->isGranted('ROLE_ADMIN'))
-        // {
-        //      $this->addLinkRoute($menu, 'Setting', 'parabol_admin_core_setting')
-        //     ->setExtra('icon', 'glyphicon glyphicon-cog');  
-        // }
 
 
         $items = [];
 
         foreach($this->container->get('parabol.admin_menu')->getItems() as $name => $item)
         {
-            if($item->getParent())
+            if(!$this->container->hasParameter($name . '.disabled') || !$this->container->getParameter($name . '.disabled', false))
             {
-                if(!isset($items[$item->getParent()])) $items[$item->getParent()] = ['current' => null, 'children' => []];
-                $items[$item->getParent()]['children'][$name] = $item;
-            }
-            else
-            {
-                $items[$name]['current'] = $item;
+                if($item->getParent())
+                {
+                    if(!isset($items[$item->getParent()])) $items[$item->getParent()] = ['current' => null, 'children' => []];
+                    $items[$item->getParent()]['children'][$name] = $item;
+                }
+                else
+                {
+                    $items[$name]['current'] = $item;
+                }
             }
         }
 

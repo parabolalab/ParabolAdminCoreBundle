@@ -2,7 +2,7 @@
 
 namespace Parabol\AdminCoreBundle\Form\Type\Base\Post;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BasePostType\NewType as BaseNewType;
+use Admingenerated\AppAdminCoreBundle\Form\BasePostType\NewType as BaseNewType;
 /**
  * NewType
  */

@@ -2,7 +2,7 @@
 
 namespace Parabol\AdminCoreBundle\Form\Type\Base\Post;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BasePostType\FiltersType as BaseFiltersType;
+use Admingenerated\AppAdminCoreBundle\Form\BasePostType\FiltersType as BaseFiltersType;
 
 /**
  * FiltersType

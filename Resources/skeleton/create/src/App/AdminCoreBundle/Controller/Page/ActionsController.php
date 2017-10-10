@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Page;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePageController\ActionsController as BaseActionsController;
+use Parabol\AdminCoreBundle\Controller\BaseAdmin\Page\ActionsController as BaseActionsController;
 
 /**
  * ActionsController

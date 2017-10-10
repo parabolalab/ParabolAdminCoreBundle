@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Page;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePageController\EditController as BaseEditController;
+use Parabol\AdminCoreBundle\Controller\BaseAdmin\Page\EditController as BaseEditController;
 
 /**
  * EditController

@@ -2,7 +2,7 @@
 
 namespace Parabol\AdminCoreBundle\Form\Type\Base\Seo;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BaseSeoType\EditType as BaseEditType;
+use Admingenerated\AppAdminCoreBundle\Form\BaseSeoType\EditType as BaseEditType;
 
 /**
  * EditType

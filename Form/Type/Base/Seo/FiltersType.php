@@ -2,7 +2,7 @@
 
 namespace Parabol\AdminCoreBundle\Form\Type\Base\Seo;
 
-use Admingenerated\ParabolAdminCoreBundle\Form\BaseSeoType\FiltersType as BaseFiltersType;
+use Admingenerated\AppAdminCoreBundle\Form\BaseSeoType\FiltersType as BaseFiltersType;
 
 /**
  * FiltersType

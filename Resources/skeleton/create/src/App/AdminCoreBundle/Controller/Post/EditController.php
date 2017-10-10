@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Post;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePostController\EditController as BaseEditController;
+use Admingenerated\AppAdminCoreBundle\BasePostController\EditController as BaseEditController;
 
 /**
  * EditController

@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Page;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePageController\ExcelController as BaseExcelController;
+use Parabol\AdminCoreBundle\Controller\BaseAdmin\Page\ExcelController as BaseExcelController;
 
 /**
  * ExcelController

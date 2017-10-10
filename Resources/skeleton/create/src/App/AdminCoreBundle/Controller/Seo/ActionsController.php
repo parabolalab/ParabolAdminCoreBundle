@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Seo;
 
-use Admingenerated\ParabolAdminCoreBundle\BaseSeoController\ActionsController as BaseActionsController;
+use Admingenerated\AppAdminCoreBundle\BaseSeoController\ActionsController as BaseActionsController;
 
 /**
  * ActionsController

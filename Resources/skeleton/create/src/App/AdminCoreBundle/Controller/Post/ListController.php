@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Post;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePostController\ListController as BaseListController;
+use Admingenerated\AppAdminCoreBundle\BasePostController\ListController as BaseListController;
 
 /**
  * ListController

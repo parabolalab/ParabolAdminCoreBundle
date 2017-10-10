@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Seo;
 
-use Admingenerated\ParabolAdminCoreBundle\BaseSeoController\ListController as BaseListController;
+use Admingenerated\AppAdminCoreBundle\BaseSeoController\ListController as BaseListController;
 
 /**
  * ListController

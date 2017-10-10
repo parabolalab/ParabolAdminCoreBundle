@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Post;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePostController\ExcelController as BaseExcelController;
+use Admingenerated\AppAdminCoreBundle\BasePostController\ExcelController as BaseExcelController;
 
 /**
  * ExcelController

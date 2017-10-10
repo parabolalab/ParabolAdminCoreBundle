@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Post;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePostController\ShowController as BaseShowController;
+use Admingenerated\AppAdminCoreBundle\BasePostController\ShowController as BaseShowController;
 
 /**
  * ShowController

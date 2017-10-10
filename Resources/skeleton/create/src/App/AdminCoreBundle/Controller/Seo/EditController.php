@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Seo;
 
-use Admingenerated\ParabolAdminCoreBundle\BaseSeoController\EditController as BaseEditController;
+use Admingenerated\AppAdminCoreBundle\BaseSeoController\EditController as BaseEditController;
 
 /**
  * EditController

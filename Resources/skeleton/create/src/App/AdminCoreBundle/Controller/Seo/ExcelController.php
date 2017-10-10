@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Seo;
 
-use Admingenerated\ParabolAdminCoreBundle\BaseSeoController\ExcelController as BaseExcelController;
+use Admingenerated\AppAdminCoreBundle\BaseSeoController\ExcelController as BaseExcelController;
 
 /**
  * ExcelController

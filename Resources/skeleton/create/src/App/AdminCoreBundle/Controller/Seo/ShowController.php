@@ -2,7 +2,7 @@
 
 namespace App\AdminCoreBundle\Controller\Seo;
 
-use Admingenerated\ParabolAdminCoreBundle\BaseSeoController\ShowController as BaseShowController;
+use Admingenerated\AppAdminCoreBundle\BaseSeoController\ShowController as BaseShowController;
 
 /**
  * ShowController

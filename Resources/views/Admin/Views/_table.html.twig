@@ -1,0 +1,21 @@
+{% extends "ParabolAdminCoreBundle:Admin/Views:_base.html.twig" %}
+
+{% trans_default_domain "Admingenerator" %}
+
+{% block page_content_box_body_class %}table-responsive no-padding list-results{% endblock page_content_box_body_class %}
+
+{% block page_content_box_body %}
+	<table class="table table-hover object-actions-page">
+		<thead>
+			<tr role="row" class="list-results-fields-header">
+				{% block page_content_table_ths %}{% endblock page_content_table_ths %}
+			</tr>
+        </thead>
+
+		<tbody>
+			{% block page_content_table_tbody %}{% endblock page_content_table_tbody %}
+			{% for template in templates %}
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock page_content_box_body %}
