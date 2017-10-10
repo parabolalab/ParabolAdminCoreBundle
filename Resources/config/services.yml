@@ -7,6 +7,9 @@ services:
         tags:
             - { name: knp_menu.menu_builder, method: sidebarMenu, alias: parabol_admin_sidebar }
 
+    parabol.admin_menu:
+        class: Parabol\AdminCoreBundle\Menu\MenuItems
+
     parabol.exception_controller:
         class: Parabol\AdminCoreBundle\Controller\CustomExceptionController
         arguments: ['@twig', '%kernel.debug%']
