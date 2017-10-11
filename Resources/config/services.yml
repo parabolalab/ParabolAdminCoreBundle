@@ -96,10 +96,16 @@ services:
         arguments: [ "Codes Head/Body", "App_AdminCoreBundle_Code_list", null, "fa fa-code", "bottom" ]
         tags:
             -  { name: parabol.admin_menu }
+
+    parabol.admin_menu.seo:
+        class: Parabol\AdminCoreBundle\Menu\MenuItem
+        arguments: [ "SEO", "App_AdminCoreBundle_Seo_list", null, "fa fa-search", "bottom" ]
+        tags:
+            -  { name: parabol.admin_menu }
     
     parabol.admin_menu.setting:
         class: Parabol\AdminCoreBundle\Menu\MenuItem
-        arguments: [ "Setting", "parabol_admin_core_setting", null, "fa fa-cogs", "last", null, "ROLE_ADMIN" ]
+        arguments: [ "Settings", "parabol_admin_core_setting", null, "fa fa-cogs", "last", null, "ROLE_ADMIN" ]
         tags:
             -  { name: parabol.admin_menu }
 
