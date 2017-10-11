@@ -1,17 +1,17 @@
-{% extends "ParabolAdminCoreBundle::base_admin_uncompressed.html.twig" %}
+{% extends "ParabolAdminCoreBundle:Admin/Views:_form.html.twig" %}
 
 {# {% import "A2lixTranslationFormBundle::macros.html.twig" as a2lixTranslations %} #}
 
 {% trans_default_domain "Admingenerator" %}
 
-{% block page_header_content %}
-        <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> {{ "Application Setting"|trans }}</h1>
-{% endblock page_header_content %}
+{% block page_header_icon_class %}fa fa-cogs{% endblock page_header_icon_class %}
+{% block page_header_text %}{{ "Application Setting"|trans }}{% endblock page_header_text %}
+      
+
 
 {% block page_content %}
-	 <div class="row">
-        <div class="form-model form-model-page col-md-12 form-setting-container">
-        	{# {{ dump(form) }} #}
+
+
 			{{ form_start(form) }}
                     	{% set fieldset = null %}
 						{% for row in form.children %}
@@ -58,9 +58,10 @@
                 
                     	</div>
 			{{ form_end(form) }}
-		</div>	
-	</div>
 
 
-{% endblock %}
+
+{% endblock page_content %}
+
+
 

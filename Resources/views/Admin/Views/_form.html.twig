@@ -1,34 +1,28 @@
-{% extends "ParabolAdminCoreBundle::base_admin_uncompressed.html.twig" %}
+{% extends "ParabolAdminCoreBundle:Admin/Views:_base.html.twig" %}
 
 {% trans_default_domain "Admingenerator" %}
 
 {% block page_content_box_body_class %}{% endblock page_content_box_body_class %}
 
 {% block page_content_box_body %}
-	<div class="row">
-        <div class="form-model col-md-12">
-        	<div class="box box-primary">
-        		{% block page_content_form_start %}{% endblock page_content_form_start %}
-					<div class="box-body form-model-content">	
-						<fieldset class="tab-pane">
-							<legend><span>!!!!!</span></legend>	
-							{% block page_content_form %}
-	
-							{% endblock page_content_form %}
-						</fieldset>
-					</div>
-					<div class="box-footer">
-		                <div class="form-model-actions row">
-		                    <div class="form-model-actions-object col-md-6 btn-group" role="object-actions">
-		                    </div>
-		                    <div class="form-model-actions-generic col-md-6 text-right" role="generic-actions">
-		                    	<button type="submit" name="save" class="generic-action btn btn-success"><i class="fa fa-fw fa-check"></i> {{ "action.generic.save"|trans({}, "Admingenerator")|raw }}</button>    
-		                    </div>
-		       			</div>    
-		        	</div>
-		        {% block page_content_form_end %}{% endblock page_content_form_end %}
-		      </div>
-		</div>
-	</div>
+
+		{% block page_content_form_start %}{% endblock page_content_form_start %}
+		
+		<fieldset class="tab-pane">
+			<legend><span>{% block page_content_form_fieldset_title %}{% endblock page_content_form_fieldset_title %}</span></legend>	
+			{% block page_content_form_body %}
+
+			{% endblock page_content_form_body %}
+		</fieldset>
 
 {% endblock page_content_box_body %}
+
+{% block page_content_box_footer %}
+	<div class="form-model-actions row">
+		<div class="form-model-actions-object col-md-6 btn-group" role="object-actions"></div>
+		<div class="form-model-actions-generic col-md-6 text-right" role="generic-actions">
+			<button type="submit" name="save" class="generic-action btn btn-success"><i class="fa fa-fw fa-check"></i> {{ "action.generic.save"|trans({}, "Admingenerator")|raw }}</button>    
+		</div>
+	</div>   
+	{% block page_content_form_end %}{% endblock page_content_form_end %}
+{% endblock page_content_box_footer %}

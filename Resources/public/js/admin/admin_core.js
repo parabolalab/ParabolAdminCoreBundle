@@ -442,8 +442,8 @@ $(document).ready(function () {
 
 	$.fn.admin_core_addCalendarBtn = function() {
 
-		// if(typeof(window['datetimepicker']) == 'function')
-		// {
+		if(typeof(window['datetimepicker']) == 'function')
+		{
 
 			var calBtn = $('<span class="input-group-addon add-on calendar"><span class="glyphicon-calendar glyphicon"></span></span>').click(function(){
 				$(this).parent().find('input').focus()
@@ -475,7 +475,7 @@ $(document).ready(function () {
 	        	useCurrent: false,
 	       		locale: 'pl'
 	        });
-	    // }
+	    }
 
 	};
 
