@@ -9,5 +9,5 @@ use Admingenerated\AppAdminCoreBundle\Form\BaseCodeType\EditType as BaseEditType
  */
 class EditType extends BaseEditType
 {
-	use \Parabol\AdminCoreBundle\Form\Type\Base\BaseType;
+	use \Parabol\BaseBundle\Form\Type\Base\BaseType;
 }

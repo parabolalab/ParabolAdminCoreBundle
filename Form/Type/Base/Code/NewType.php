@@ -9,5 +9,5 @@ use Admingenerated\AppAdminCoreBundle\Form\BaseCodeType\NewType as BaseNewType;
  */
 class NewType extends BaseNewType
 {
-	use \Parabol\AdminCoreBundle\Form\Type\Base\BaseType;
+	use \Parabol\BaseBundle\Form\Type\Base\BaseType;
 }

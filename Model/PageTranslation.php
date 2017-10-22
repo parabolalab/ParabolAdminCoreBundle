@@ -105,6 +105,11 @@ abstract class PageTranslation
         return $this->content;
     }
 
+    public function getContentSections()
+    {
+        return new \Doctrine\Common\Collections\ArrayCollection(explode('<div style="page-break-after: always"><span style="display: none;">&nbsp;</span></div>', $this->content));
+    }
+
     /**
      * Set headline
      *
