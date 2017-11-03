@@ -29,7 +29,7 @@ class AdminMenuBuilder extends AdmingeneratorMenuBuilder  implements ContainerAw
     {
         $sc = $this->container->get('security.authorization_checker');
         $menu = $this->factory->createItem('root');
-        $menu->setChildrenAttributes(array('class' => 'sidebar-menu'));
+        $menu->setChildrenAttributes(array('class' => 'sidebar-menu tree', 'data-widget' => 'tree'));
 
 
         $items = [];
@@ -56,7 +56,7 @@ class AdminMenuBuilder extends AdmingeneratorMenuBuilder  implements ContainerAw
             {
                 if(isset($item['children']))
                 {
-                    $current = $this->addDropdown($menu, 'Advanced');
+                    $current = $this->addDropdown($menu, $item['current']->getLabel());
 
                     foreach($item['children'] as $child)
                     {
@@ -64,7 +64,7 @@ class AdminMenuBuilder extends AdmingeneratorMenuBuilder  implements ContainerAw
                         {
                             $this
                             ->addLinkRoute($current, $child->getLabel(), $child->getRoute(), $child->getRouteParams())
-                            ->setExtra('icon', $child->getIcon());
+                            ->setExtra('icon', $child->getIcon() ? $child->getIcon() : 'fa fa-angle-right' );
                         }
                     }
                 }
