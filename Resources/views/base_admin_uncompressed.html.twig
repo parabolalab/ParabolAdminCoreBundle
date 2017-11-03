@@ -53,6 +53,18 @@
     
 {% endblock %}
 
+{% block flash_messages %}
+    <div class="row flash-container">
+        <div class="col-md-12 flash-inner">
+        {% for type, flashMessages in app.session.flashbag.all() %}
+            {% for flashMessage in flashMessages %}
+                {{ block('flash_message_' ~ type) }}
+            {% endfor %}
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
 {% block html_body_tag %}
     <body class="skin-black sidebar-mini">
 {% endblock html_body_tag %}
