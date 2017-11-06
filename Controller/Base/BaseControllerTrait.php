@@ -28,4 +28,11 @@ trait BaseControllerTrait {
         
  //        return $type;
  //    }
+
+	protected function createForm($type, $data = null, array $options = array())
+    {
+    	$options['builderExtensions'] = $this->container->get('parabol.admin_base_type_extension');
+
+        return $this->container->get('form.factory')->create($type, $data, $options);
+    }
 }

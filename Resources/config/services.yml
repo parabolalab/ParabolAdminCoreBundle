@@ -10,6 +10,9 @@ services:
     parabol.admin_menu:
         class: Parabol\AdminCoreBundle\Menu\MenuItems
 
+    parabol.admin_base_type_extension:
+        class: Parabol\AdminCoreBundle\Form\Base\AdminBaseTypeExtensions
+
     parabol.exception_controller:
         class: Parabol\AdminCoreBundle\Controller\CustomExceptionController
         arguments: ['@twig', '%kernel.debug%']

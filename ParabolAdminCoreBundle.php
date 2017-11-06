@@ -6,6 +6,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 use Parabol\AdminCoreBundle\DependencyInjection\Compiler\AdminMenuCompilerPass;
+use Parabol\AdminCoreBundle\DependencyInjection\Compiler\AdminBaseTypeExtensionCompilerPass;
 // use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 // use Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass;
 // use Parabol\AdminCoreBundle\Model;
@@ -17,6 +18,7 @@ class ParabolAdminCoreBundle extends Bundle
     {
         parent::build($container);
         $container->addCompilerPass(new AdminMenuCompilerPass());
+        $container->addCompilerPass(new AdminBaseTypeExtensionCompilerPass());
     }
 
     // private function addRegisterMappingsPass(ContainerBuilder $container)

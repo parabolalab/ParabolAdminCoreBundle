@@ -291,7 +291,7 @@ class ScriptHandler extends \Parabol\BaseBundle\Composer\BaseScriptHandler
         }
         elseif($answer == 'u')
         {
-            static::executeCommand($options['symfony-bin-dir'], \Doctrine\Bundle\DoctrineBundle\Command\Proxy\UpdateSchemaDoctrineCommand::class ,'doctrine:schema:update', ['--force' => ''], $options['process-timeout']);
+            static::executeCommand($options['symfony-bin-dir'], \Doctrine\Bundle\DoctrineBundle\Command\Proxy\UpdateSchemaDoctrineCommand::class ,'doctrine:schema:update', ['--force' => true], $options['process-timeout']);
         }
         
     }
