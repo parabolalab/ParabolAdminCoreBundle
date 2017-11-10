@@ -1,12 +1,13 @@
 <?php
 
-namespace App\AdminCoreBundle\Controller\Post;
+namespace Parabol\AdminCoreBundle\Controller\BaseAdmin\BaseAdmin\Post;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePostController\ShowController as BaseShowController;
+use Admingenerated\AppAdminCoreBundle\BasePostController\ShowController as BaseShowController;
 
 /**
  * ShowController
  */
 class ShowController extends BaseShowController
 {
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
 }

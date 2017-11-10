@@ -1,12 +1,14 @@
 <?php
 
-namespace App\AdminCoreBundle\Controller\Post;
+namespace Parabol\AdminCoreBundle\Controller\BaseAdmin\BaseAdmin\Post;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePostController\ActionsController as BaseActionsController;
+use Admingenerated\AppAdminCoreBundle\BasePostController\ActionsController as BaseActionsController;
 
 /**
  * ActionsController
  */
 class ActionsController extends BaseActionsController
 {
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseActionsControllerTrait;
 }

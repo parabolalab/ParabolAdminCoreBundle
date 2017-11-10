@@ -9,6 +9,6 @@ use Admingenerated\AppAdminCoreBundle\BasePageController\EditController as BaseE
  */
 class EditController extends BaseEditController
 {
-	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait
-	;
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseEditControllerTrait;
 }

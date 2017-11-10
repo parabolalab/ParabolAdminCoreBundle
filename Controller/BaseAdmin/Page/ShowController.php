@@ -9,4 +9,5 @@ use Admingenerated\AppAdminCoreBundle\BasePageController\ShowController as BaseS
  */
 class ShowController extends BaseShowController
 {
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
 }

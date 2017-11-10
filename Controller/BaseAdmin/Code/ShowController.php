@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AdminCoreBundle\Controller\Code;
+namespace Parabol\AdminCoreBundle\Controller\BaseAdmin\BaseAdmin\Code;
 
 use Admingenerated\AppAdminCoreBundle\BaseCodeController\ShowController as BaseShowController;
 
@@ -9,4 +9,5 @@ use Admingenerated\AppAdminCoreBundle\BaseCodeController\ShowController as BaseS
  */
 class ShowController extends BaseShowController
 {
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
 }

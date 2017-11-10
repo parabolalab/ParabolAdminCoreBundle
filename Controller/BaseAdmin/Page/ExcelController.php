@@ -9,4 +9,5 @@ use Admingenerated\AppAdminCoreBundle\BasePageController\ExcelController as Base
  */
 class ExcelController extends BaseExcelController
 {
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
 }

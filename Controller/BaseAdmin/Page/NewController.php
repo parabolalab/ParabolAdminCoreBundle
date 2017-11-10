@@ -9,6 +9,5 @@ use Admingenerated\AppAdminCoreBundle\BasePageController\NewController as BaseNe
  */
 class NewController extends BaseNewController
 {
-	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait
-	;
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
 }

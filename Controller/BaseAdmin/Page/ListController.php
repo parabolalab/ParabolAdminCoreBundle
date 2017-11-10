@@ -9,5 +9,5 @@ use Admingenerated\AppAdminCoreBundle\BasePageController\ListController as BaseL
  */
 class ListController extends BaseListController
 {
-
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
 }

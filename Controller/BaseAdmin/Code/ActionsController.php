@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AdminCoreBundle\Controller\Code;
+namespace Parabol\AdminCoreBundle\Controller\BaseAdmin\BaseAdmin\Code;
 
 use Admingenerated\AppAdminCoreBundle\BaseCodeController\ActionsController as BaseActionsController;
 
@@ -10,4 +10,5 @@ use Admingenerated\AppAdminCoreBundle\BaseCodeController\ActionsController as Ba
 class ActionsController extends BaseActionsController
 {
 	use \Parabol\AdminCoreBundle\Controller\Base\BaseActionsControllerTrait;
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
 }

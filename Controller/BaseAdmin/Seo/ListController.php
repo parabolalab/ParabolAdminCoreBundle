@@ -1,12 +1,13 @@
 <?php
 
-namespace App\AdminCoreBundle\Controller\Seo;
+namespace Parabol\AdminCoreBundle\Controller\BaseAdmin\BaseAdmin\Seo;
 
-use Admingenerated\ParabolAdminCoreBundle\BaseSeoController\ListController as BaseListController;
+use Admingenerated\AppAdminCoreBundle\BaseSeoController\ListController as BaseListController;
 
 /**
  * ListController
  */
 class ListController extends BaseListController
 {
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
 }

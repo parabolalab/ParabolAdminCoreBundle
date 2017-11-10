@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AdminCoreBundle\Controller\Code;
+namespace Parabol\AdminCoreBundle\Controller\BaseAdmin\BaseAdmin\Code;
 
 use Admingenerated\AppAdminCoreBundle\BaseCodeController\NewController as BaseNewController;
 
@@ -9,5 +9,5 @@ use Admingenerated\AppAdminCoreBundle\BaseCodeController\NewController as BaseNe
  */
 class NewController extends BaseNewController
 {
-	use \Parabol\AdminCoreBundle\Controller\Base\BaseActionsControllerTrait;
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
 }

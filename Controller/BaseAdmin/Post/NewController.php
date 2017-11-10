@@ -1,12 +1,14 @@
 <?php
 
-namespace App\AdminCoreBundle\Controller\Post;
+namespace Parabol\AdminCoreBundle\Controller\BaseAdmin\Post;
 
-use Admingenerated\ParabolAdminCoreBundle\BasePostController\NewController as BaseNewController;
+use Admingenerated\AppAdminCoreBundle\BasePostController\NewController as BaseNewController;
 
 /**
  * NewController
  */
 class NewController extends BaseNewController
 {
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait
+	;
 }

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\AdminCoreBundle\Controller\Seo;
+namespace Parabol\AdminCoreBundle\Controller\BaseAdmin\BaseAdmin\Seo;
 
-use Admingenerated\ParabolAdminCoreBundle\BaseSeoController\ShowController as BaseShowController;
+use Admingenerated\AppAdminCoreBundle\BaseSeoController\ShowController as BaseShowController;
 
 /**
  * ShowController
  */
 class ShowController extends BaseShowController
 {
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
 }

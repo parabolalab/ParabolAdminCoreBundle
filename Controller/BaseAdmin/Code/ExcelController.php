@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AdminCoreBundle\Controller\Code;
+namespace Parabol\AdminCoreBundle\Controller\BaseAdmin\BaseAdmin\Code;
 
 use Admingenerated\AppAdminCoreBundle\BaseCodeController\ExcelController as BaseExcelController;
 
@@ -9,4 +9,5 @@ use Admingenerated\AppAdminCoreBundle\BaseCodeController\ExcelController as Base
  */
 class ExcelController extends BaseExcelController
 {
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
 }

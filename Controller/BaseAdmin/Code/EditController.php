@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AdminCoreBundle\Controller\Code;
+namespace Parabol\AdminCoreBundle\Controller\BaseAdmin\BaseAdmin\Code;
 
 use Admingenerated\AppAdminCoreBundle\BaseCodeController\EditController as BaseEditController;
 
@@ -9,5 +9,6 @@ use Admingenerated\AppAdminCoreBundle\BaseCodeController\EditController as BaseE
  */
 class EditController extends BaseEditController
 {
-	use \Parabol\AdminCoreBundle\Controller\Base\BaseActionsControllerTrait;
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseControllerTrait;
+	use \Parabol\AdminCoreBundle\Controller\Base\BaseEditControllerTrait;
 }
