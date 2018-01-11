@@ -53,7 +53,7 @@ abstract class Page extends BaseEntity
     // protected $parent;
 
 
-    /*
+    /**
      * @ORM\Column(name="type", type="string", length=50, nullable=true)
      */
     protected $type;
@@ -220,6 +220,11 @@ abstract class Page extends BaseEntity
     public static function default_type()
     {
         return array('homepage', 'contact', 'rightsidebar');
+    }
+
+    public static function undeletableTypes()
+    {
+        return array('homepage', 'contact');
     }
 
 

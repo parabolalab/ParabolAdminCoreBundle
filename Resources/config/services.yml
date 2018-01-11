@@ -82,11 +82,11 @@ services:
     #     tags:
     #         - { name: kernel.event_subscriber }
 
-    parabol.admin_menu.posts:
-        class: Parabol\AdminCoreBundle\Menu\MenuItem
-        arguments: [ "Posts", "App_AdminCoreBundle_Post_list", null, "fa fa-calendar" ]
-        tags:
-            -  { name: parabol.admin_menu }
+    # parabol.admin_menu.posts:
+    #     class: Parabol\AdminCoreBundle\Menu\MenuItem
+    #     arguments: [ "Posts", "App_AdminCoreBundle_Post_list", null, "fa fa-calendar" ]
+    #     tags:
+    #         -  { name: parabol.admin_menu }
     
     parabol.admin_menu.pages:
         class: Parabol\AdminCoreBundle\Menu\MenuItem

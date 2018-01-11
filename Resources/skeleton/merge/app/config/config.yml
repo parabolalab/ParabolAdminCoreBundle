@@ -17,19 +17,19 @@ twig:
     globals:
        appParams: %appParams%
 
-assetic:
-    debug:          '%kernel.debug%'
-    use_controller: false
-    bundles:        [ ParabolAdminCoreBundle ]
-    node: %nodejs% 
-    filters:
-        cssrewrite: ~
-        uglifycss:
-            bin: %uglifycss%
-        uglifyjs2:
-            bin: %uglifyjs%
-        less:
-            node_paths: %node_paths%
+# assetic:
+#     debug:          '%kernel.debug%'
+#     use_controller: false
+#     bundles:        [ ParabolAdminCoreBundle ]
+#     node: %nodejs% 
+#     filters:
+#         cssrewrite: ~
+#         uglifycss:
+#             bin: %uglifycss%
+#         uglifyjs2:
+#             bin: %uglifyjs%
+#         less:
+#             node_paths: %node_paths%
 
 admingenerator_generator:
     # choose and enable at least one

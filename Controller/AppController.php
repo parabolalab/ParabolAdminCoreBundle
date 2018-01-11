@@ -41,10 +41,10 @@ class AppController extends Controller
 	            //     'Emails/registration.html.twig',
 	            //     array('name' => $name)
 	            // )
-	            (isset($values['name']) ? 'od: '.$values['name'].'<br />' : '').
-	            (isset($values['subject']) ? 'temat: '.$values['subject'].'<br />' : '').
+	            (isset($values['name']) ? 'od: '.$values['name']. (isset($values['surname']) ? ' '.$values['name'] : '') . '<br />' : '').
+	            (isset($values['phone']) ? 'temat: '.$values['phone'].'<br />' : '').
 	            'email: '.$values['email'].'<br /><br />'.
-	            ''.$values['message'].'<br />',
+	            (isset($values['message']) ? ''.$values['message'].'<br />' : ''),
 	            'text/html'
 	        )
 

@@ -12,46 +12,46 @@ $(document).ready(function () {
 	{
 		switch($(this).val())
 		{
-			case 'homepage':
-				$('label[for$=_headline]').parent().hide()
-				$('.form-model-field-isEnabled').parent().hide()
-				$('.form-model-field-post').parent().hide()
-				$('.form-model-field-type').parent().hide()
-				$('label[for$=_subheadline]').parent().hide()
-				$('label[for$=_content]').parent().hide()
-				$('label[for$=_buttonLabel]').parent().hide()
-				$('label[for$=_parent]').parent().hide()
-				$('div[id$=_containerStyles]').parent().hide()
-				$('div[id$=_animations]').parent().hide()
-				$('label[for$=_color]').parent().hide()
-			break;
+			// case 'homepage':
+			// 	$('label[for$=_headline]').parent().hide()
+			// 	$('.form-model-field-isEnabled').parent().hide()
+			// 	$('.form-model-field-post').parent().hide()
+			// 	$('.form-model-field-type').parent().hide()
+			// 	$('label[for$=_subheadline]').parent().hide()
+			// 	$('label[for$=_content]').parent().hide()
+			// 	$('label[for$=_buttonLabel]').parent().hide()
+			// 	$('label[for$=_parent]').parent().hide()
+			// 	$('div[id$=_containerStyles]').parent().hide()
+			// 	$('div[id$=_animations]').parent().hide()
+			// 	$('label[for$=_color]').parent().hide()
+			// break;
 
-			case 'portfolio':
-				$('.form-model-field-isEnabled').parent().show()
-				$('.form-model-field-post').parent().show()
-				$('.form-model-field-type').parent().show()
-				$('label[for$=_headline]').parent().hide()
-				$('label[for$=_subheadline]').parent().hide()
-				$('label[for$=_content]').parent().hide()
-				$('div[id$=_containerStyles]').parent().hide()
-				$('div[id$=_animations]').parent().hide()
-				$('label[for$=_color]').parent().hide()
-				$(this).find('option[value=homepage]').remove();
-			break;
+			// case 'portfolio':
+			// 	$('.form-model-field-isEnabled').parent().show()
+			// 	$('.form-model-field-post').parent().show()
+			// 	$('.form-model-field-type').parent().show()
+			// 	$('label[for$=_headline]').parent().hide()
+			// 	$('label[for$=_subheadline]').parent().hide()
+			// 	$('label[for$=_content]').parent().hide()
+			// 	$('div[id$=_containerStyles]').parent().hide()
+			// 	$('div[id$=_animations]').parent().hide()
+			// 	$('label[for$=_color]').parent().hide()
+			// 	$(this).find('option[value=homepage]').remove();
+			// break;
 
-			default: 
-				$(this).find('option[value=homepage]').remove();
-				$('.form-model-field-isEnabled').parent().show()
-				$('.form-model-field-post').parent().show()
-				$('.form-model-field-type').parent().show()
-				$('label[for$=_headline]').parent().show()
-				$('label[for$=_subheadline]').parent().show()
-				$('label[for$=_content]').parent().show()
-				$('label[for$=_buttonLabel]').parent().show()
-				$('label[for$=_parent]').parent().show()
-				$('div[id$=_containerStyles]').parent().show()
-				$('div[id$=_animations]').parent().show()
-				$('label[for$=_color]').parent().show()
+			// default: 
+			// 	$(this).find('option[value=homepage]').remove();
+			// 	$('.form-model-field-isEnabled').parent().show()
+			// 	$('.form-model-field-post').parent().show()
+			// 	$('.form-model-field-type').parent().show()
+			// 	$('label[for$=_headline]').parent().show()
+			// 	$('label[for$=_subheadline]').parent().show()
+			// 	$('label[for$=_content]').parent().show()
+			// 	$('label[for$=_buttonLabel]').parent().show()
+			// 	$('label[for$=_parent]').parent().show()
+			// 	$('div[id$=_containerStyles]').parent().show()
+			// 	$('div[id$=_animations]').parent().show()
+			// 	$('label[for$=_color]').parent().show()
 		}
 	}
 

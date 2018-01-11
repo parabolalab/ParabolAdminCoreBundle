@@ -41,7 +41,6 @@ abstract class PageTranslation
      * @var string
      *
      * @ORM\Column(name="content", type="text", nullable=true)
-     * @Assert\NotBlank()
      */
     protected $content;
 
@@ -178,5 +177,10 @@ abstract class PageTranslation
     public function getButtonLabel()
     {
         return $this->buttonLabel;
+    }
+
+    public function getMenuLabel()
+    {
+        return $this->buttonLabel ? $this->buttonLabel : $this->title;
     }
 }
