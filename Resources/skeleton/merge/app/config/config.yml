@@ -16,6 +16,9 @@ twig:
             # - ParabolGoogleMapsBundle:Form:field_type_google_maps.html.twig
     globals:
        appParams: %appParams%
+       cmsLogo: 
+       cmsLogoAlt: 
+       cmsName: ParabolaLab CMS
 
 # assetic:
 #     debug:          '%kernel.debug%'

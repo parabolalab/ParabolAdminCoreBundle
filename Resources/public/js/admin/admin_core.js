@@ -4,6 +4,15 @@ if(typeof(CKEDITOR) != 'undefined')
 	CKEDITOR.dtd.$removeEmpty.i = 0
 }
 
+function trans(value)
+{
+	if(typeof translations[value] != 'undefined')
+	{
+		return translations[value]
+	}
+	else value
+}
+
 $(document).ready(function () {
 
 	$('.btn.import-csv').show()
@@ -310,7 +319,7 @@ $(document).ready(function () {
 			
 			// CollectionHolders[$(this).parent().attr('id')] = $(this).parent();
 			
-			var $children = $(this).find('> div.form-group');
+			var $children = $(this).find('> div');
 
 			
 
@@ -318,13 +327,15 @@ $(document).ready(function () {
 
 			$children.each(function(){
 				
-				if($(this).find('div.form-group').length == 0) $container = $(this)
-				else $container = $(this).find(' > div')
+				// if($(this).find('div.form-group').length == 0) $container = $(this)
+				// else $container = 
 
-				$container.append($('<a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> Remove</a>').on('click', function(e){
+				$container = $(this).find(' > div')
+
+				$container.append($('<a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> ' + trans('action.object.delete.label') + ' </a>').on('click', function(e){
 					e.preventDefault();
 					var container = $(this).parent().parent().parent();
-					$(this).parent().remove()
+					$(this).parent().parent().remove()
 					var sort = container.find('input[id$=_sort]')
 					if(sort.length)
 					{
@@ -365,7 +376,7 @@ $(document).ready(function () {
 
 
 			$(this).parent().append(
-				$('<a href="#" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> Add More</a>').on('click', function(e) {
+				$('<a href="#" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> ' + trans('action.object.add.label') + '</a>').on('click', function(e) {
 		        	e.preventDefault();
 		        	$(this).admin_core_addCollection();
     			})
@@ -382,7 +393,7 @@ $(document).ready(function () {
 			var $prototype = $($container.data('prototype').replace(/__name__/g, index));
 			
 			var $rmContainer = ($prototype.find('> div').length ? $prototype.find('> div') : $prototype)
-			$rmContainer.append($('<a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> Remove</a>').on('click', function(e){
+			$rmContainer.append($('<a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> ' + trans('action.object.delete.label') + '</a>').on('click', function(e){
 					e.preventDefault();
 					var container = $(this).parent().parent().parent();
 					$(this).parent().parent().remove()

@@ -18,8 +18,15 @@ abstract class PageTranslation
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=100)
+     * @ORM\Column(name="name", type="string", length=100)
      * @Assert\NotBlank()
+     */
+    protected $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
      */
     protected $title;
 
@@ -55,7 +62,29 @@ abstract class PageTranslation
 
     public function getSluggableFields()
     {
-        return [ 'title' ];
+        return [ 'name' ];
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return PageTranslation
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -181,6 +210,6 @@ abstract class PageTranslation
 
     public function getMenuLabel()
     {
-        return $this->buttonLabel ? $this->buttonLabel : $this->title;
+        return $this->buttonLabel ? $this->buttonLabel : $this->name;
     }
 }

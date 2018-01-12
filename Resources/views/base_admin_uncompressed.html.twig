@@ -19,6 +19,11 @@
     var colorspicker = {
         swatches: '{{ colorspickerSwatches is defined ? colorspickerSwatches : '' }}'
     }
+
+    var translations = {
+        'action.object.delete.label': '{{ 'action.object.delete.label' | trans({}, 'Admingenerator') }}',
+        'action.object.add.label': '{{ 'action.object.add.label' | trans({}, 'Admingenerator') }}'
+    }
     </script>
  {% endblock %}   
 
@@ -69,6 +74,10 @@
 {% block html_body_tag %}
     <body class="skin-black sidebar-mini">
 {% endblock html_body_tag %}
+
+{% block header %}
+            {% include 'ParabolAdminCoreBundle::header.html.twig' %}
+{% endblock header%}
 
 {% block sidebar %}
     <aside class="main-sidebar sidebar-offcanvas">

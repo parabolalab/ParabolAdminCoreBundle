@@ -1,4 +1,18 @@
-<div class="user-panel">
+<style>
+.user-panel { background: white; padding-top: 5px; padding-bottom: 5px; }
+.user-panel span { font-size: 16px; padding-left: 25px; }
+.sidebar-collapse .user-panel { padding: 0px 3px; background: #0093E7; color: #fff; }
+.user-panel > .image > img { height: 39px; width: 39px; }
+.sidebar-collapse .user-panel > .image > img{ height: 49px; width: 49px; }
+</style>
+
+<div class="user-panel bg-light">
+	<div class="pull-left image">
+        {% if cmsLogo is defined and cmsLogo %}<img src="{{ cmsLogo }}" class="" alt="{{ cmsLogoAlt }}"  />{% endif %} <span>{{ cmsName }}</span>
+    </div>
+</div>
+
+{# <div class="user-panel">
     <div class="pull-left image">
         <img src="{% include "AdmingeneratorGeneratorBundle:Sidebar:avatar_source.html.twig" %}" class="img-circle" alt="Authenticated user" />
     </div>
@@ -6,4 +20,4 @@
         <p>{{ app.user }}</p>
         <p><small>{{ app.user.email }}</small></p>
     </div>
-</div>
+</div> #}

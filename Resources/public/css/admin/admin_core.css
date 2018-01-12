@@ -293,12 +293,13 @@ body .box-body .datepicker  table td:first-child, .box-body .datepicker  table t
 }
 
 .help {
-	font-weight: lighter;
-	color: #a8a8a8;
+	font-weight: 300;
+	color: #9f9f9f;
 	font-size: 12px;
+	letter-spacing: 0.2px;
 }
 
-.help-block.error {
+.help-block li, .help-block.error {
 	color: #dd4b39 !important;
 }
 

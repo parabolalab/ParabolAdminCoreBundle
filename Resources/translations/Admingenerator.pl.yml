@@ -1,5 +1,7 @@
 "News": "Aktualności"
 "WebPages": "Strony"
+"Pages": "Strony"
+"Settings": "Konfiguracja"
 "Text Blocks": "Bloki tekstu"
 "Menu": "Menu"
 "Users": "Użytkownicy"
@@ -82,3 +84,5 @@
 "Roles": "Role użytkownika"
 "New User": "Nowy użytkownik"
 list.display.one: Wyświetlanie <b role="results-count">%count%</b> rezultatu.
+action.object.add:
+  label: 'Dodaj kolejny'

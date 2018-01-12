@@ -21,8 +21,9 @@ class SeoRequestListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
+        if(!class_exists('\App\AdminCoreBundle\Entity\Seo')) return;
 
-        if(!class_exists('\Parabol\AdminCoreBundle\Entity\Seo')) return;
+
 
         if (!$event->isMasterRequest()) return;
         
@@ -44,7 +45,7 @@ class SeoRequestListener
 
 		if($path != '/' && file_exists($web.$path)) return;
 
-        $qb = $this->em->getRepository('ParabolAdminCoreBundle:Seo')->createQueryBuilder('s');
+        $qb = $this->em->getRepository('AppAdminCoreBundle:Seo')->createQueryBuilder('s');
 
         $params = array();
         foreach($url_part as $i => $part)
@@ -57,6 +58,7 @@ class SeoRequestListener
         	->orderBy('s.url', 'DESC')
         	->setParameters($params)
         	;
+        
         try
         {
             $seo = $qb->getQuery()->getSingleResult();    
