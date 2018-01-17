@@ -27,7 +27,7 @@ class ScriptHandler extends \Parabol\BaseBundle\Composer\BaseScriptHandler
     ];
 
     protected static $appParameters = [
-        'portal.name'
+        'portal.name' => ''
     ];
 
     protected static $runnableClasses = [];
@@ -45,15 +45,18 @@ class ScriptHandler extends \Parabol\BaseBundle\Composer\BaseScriptHandler
         $configPath = $options['symfony-app-dir'] . '/config/config.yml';
         $config = Yaml::parse(file_get_contents($configPath));
 
-        static::prepareBundlesInstall($event, $options);
-        static::installBundles($event, $options);
-        static::installSkeletons($event, $options);
-        static::mergeBowerFiles($event, $options);
-        static::installBowerDepedencies($event, $options);
-        static::addParameters($event, $options);
-        static::createSchema($event, $options);
-        static::loadFixturies($event, $options);
-        static::runExternal($event);
+        if($event->getIO()->askConfirmation('Do you want run admin installers? [y/N] ', false))
+        {
+            static::prepareBundlesInstall($event, $options);
+            static::installBundles($event, $options);
+            static::installSkeletons($event, $options);
+            static::mergeBowerFiles($event, $options);
+            static::installBowerDepedencies($event, $options);
+            static::addParameters($event, $options);
+            static::createSchema($event, $options);
+            static::loadFixturies($event, $options);
+            static::runExternal($event);
+        }
 
     }
 
