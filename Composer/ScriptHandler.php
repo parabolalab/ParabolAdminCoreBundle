@@ -40,13 +40,16 @@ class ScriptHandler extends \Parabol\BaseBundle\Composer\BaseScriptHandler
     public static function install(Event $event)
     {
 
-        $options = static::getOptions($event);
-
-        $configPath = $options['symfony-app-dir'] . '/config/config.yml';
-        $config = Yaml::parse(file_get_contents($configPath));
+        
 
         if($event->getIO()->askConfirmation('Do you want run admin installers? [y/N] ', false))
         {
+
+            $options = static::getOptions($event);
+
+            $configPath = $options['symfony-app-dir'] . '/config/config.yml';
+            $config = Yaml::parse(file_get_contents($configPath));
+            
             static::prepareBundlesInstall($event, $options);
             static::installBundles($event, $options);
             static::installSkeletons($event, $options);
