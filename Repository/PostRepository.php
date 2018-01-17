@@ -14,17 +14,26 @@ class PostRepository extends \Parabol\BaseBundle\Entity\Base\BaseRepository
 {
 	
 
-	public function allByTypeAndLocale($type, $locale)
+	public function allByLocale($locale)
 	{
 		$qb = $this->createQueryBuilder('p')
                 ->leftJoin('p.translations', 'pt')
                 ->where('p.isEnabled = 1')
-                ->andWhere('p.type = :type')
                 ->andWhere('pt.locale = :locale')
                 ->andWhere('p.displayFrom <= CURRENT_TIMESTAMP() AND (p.displayTo IS NULL OR CURRENT_TIMESTAMP() >= p.displayTo)')
-                ->setParameters(array(':type' => $type, ':locale' => $locale))
+                ->setParameter(':locale', $locale)
                 ->orderBy('p.displayFrom', 'DESC')
                 ->addOrderBy('p.createdAt', 'DESC');
+
+        return $qb;        
+	}
+
+	public function allByTypeAndLocale($type, $locale)
+	{
+		$qb = $this->allByLocale($locale)
+                ->andWhere('p.type = :type')
+                ->setParameters(':type', $type)
+                ;
 
         return $qb;        
 	}

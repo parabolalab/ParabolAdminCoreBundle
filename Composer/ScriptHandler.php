@@ -19,6 +19,7 @@ class ScriptHandler extends \Parabol\BaseBundle\Composer\BaseScriptHandler
         'Admingenerator\GeneratorBundle\AdmingeneratorGeneratorBundle($this)',
         'WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle',
         'Knp\Bundle\MenuBundle\KnpMenuBundle',
+        'A2lix\AutoFormBundle\A2lixAutoFormBundle()',
         'A2lix\TranslationFormBundle\A2lixTranslationFormBundle',
         'Ivory\CKEditorBundle\IvoryCKEditorBundle',
         'Symfony\Bundle\AsseticBundle\AsseticBundle',
@@ -26,10 +27,7 @@ class ScriptHandler extends \Parabol\BaseBundle\Composer\BaseScriptHandler
     ];
 
     protected static $appParameters = [
-        'nodejs' => '/usr/local/bin/node',
-        'uglifycss' => '/usr/local/bin/uglifycss',
-        'uglifyjs' => '/usr/local/bin/uglifyjs',
-        'node_paths' => ['/usr/local/lib/node_modules'],
+        'portal.name'
     ];
 
     protected static $runnableClasses = [];
