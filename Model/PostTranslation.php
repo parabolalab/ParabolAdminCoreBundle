@@ -30,10 +30,10 @@ abstract class PostTranslation
      */
     protected $lead;
     
-    /*
+    /**
      * @var string
      *
-     * ORM\Column(name="content", type="text", nullable=true)
+     * @ORM\Column(name="content", type="text", nullable=true)
      */
     protected $content;
 
@@ -72,22 +72,22 @@ abstract class PostTranslation
      * @param string $content
      * @return PostTranslation
      */
-    // public function setContent($content)
-    // {
-    //     $this->content = $content;
+    public function setContent($content)
+    {
+        $this->content = $content;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     /**
      * Get content
      *
      * @return string 
      */
-    // public function getContent()
-    // {
-    //     return $this->content;
-    // }
+    public function getContent()
+    {
+        return $this->content;
+    }
 
     /**
      * Set lead

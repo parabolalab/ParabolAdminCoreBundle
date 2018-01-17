@@ -12,7 +12,7 @@ use Parabol\BaseBundle\Validator\Constraints as ParabolAssert;
  * Post
  *
  * @ORM\Table(name="parabol_post")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Parabol\AdminCoreBundle\Repository\PostRepository")
  */
 class Post extends \Parabol\AdminCoreBundle\Model\Post
 {
