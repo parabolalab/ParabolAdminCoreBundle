@@ -11,4 +11,5 @@ interface MenuItemInterface {
     public function getPosition();
     public function getRole();
     public function getParent();
+    public function getBadgeAction();
 }

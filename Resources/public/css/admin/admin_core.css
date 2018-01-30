@@ -422,3 +422,12 @@ body .box-body .datepicker  table td:first-child, .box-body .datepicker  table t
 .form-model-type-symfonycomponentformextensioncoretypecollectiontype [data-prototype] div div .btn { margin-top: 35px; }
 
 .btn.import-csv { display: none; }
+
+.form-model .box-footer { position: fixed; bottom: 0; width: 100%; left: 0; right: 0; background-color:white; }
+.form-model .box-footer .form-model-actions { margin-right: 25px;  }
+
+.form-model-type-symfonycomponentformextensioncoretypedatetype .help-block { position: absolute;
+	z-index: 12;
+	left: 190px;
+	width: 200%;
+}

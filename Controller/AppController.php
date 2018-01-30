@@ -17,81 +17,102 @@ class AppController extends Controller
 	public function sendEmailAction()
 	{
 
+
+
+
 		$request = $this->get('request_stack')->getCurrentRequest();
 		$ns = $request->get('ns');
 
 		if(!$ns) throw new Exception("ns request parameter is required.");
-		
 
 		$values = $request->get($ns);
 
+		$template = ''; 
+
+		if($this->get('templating')->exists('emails/' . $ns . '.html.twig'))
+		{
+			$template = 'emails/' . $ns . '.html.twig';
+		}
+		else
+		{
+			$template = 'emails/default.html.twig';
+		}
+
+		
+		$body = $this->renderView(
+	                $template,
+	                ['vars' => $values]
+	            );
+
 		$message = \Swift_Message::newInstance()
 	        ->setSubject(
-	        		$this->container->hasParameter($ns . '_form.title') ? 
-	        					$this->container->getParameter($ns . '_form.title') : 
+	        		$this->container->hasParameter($ns . '.title') ? 
+	        					$this->container->getParameter($ns . '.title') : 
 	        						(
 	        							'[Formularz]' . (isset($values['subject']) ? $values['subject'] : 'Wiadomość z formularza' )
 	        						)
 	        )
 	        ->setFrom('formularz@' .  str_replace('www.', '', $request->getHost()))
-	        ->setTo($this->container->getParameter($ns . '_form.email'))
+	        ->setTo($this->container->getParameter($ns . '.email'))
 	        ->setBody(
-	            // $this->renderView(
-	            //     // app/Resources/views/Emails/registration.html.twig
-	            //     'Emails/registration.html.twig',
-	            //     array('name' => $name)
-	            // )
-	            (isset($values['name']) ? 'od: '.$values['name']. (isset($values['surname']) ? ' '.$values['name'] : '') . '<br />' : '').
-	            (isset($values['phone']) ? 'temat: '.$values['phone'].'<br />' : '').
-	            'email: '.$values['email'].'<br /><br />'.
-	            (isset($values['message']) ? ''.$values['message'].'<br />' : ''),
+	            $body,
 	            'text/html'
 	        )
-
 	    ;
 
-	    
-	    
-	    $message->setReplyTo($values['email']);
+
+	    if($request->files->has($ns))
+	    {
+		    foreach($request->files->get($ns) as $name => $files)
+			{
+				foreach($files as $file)
+				{
+					if($file->getPath())
+					{
+						$message->attach(
+						  \Swift_Attachment::fromPath($file->getPathname())->setFilename($file->getClientOriginalName())
+						);
+					}
+				}
+			}
+		}
+
+		if($values['email']) $message->setReplyTo($values['email']);
 
     	$status = $this->get('mailer')->send($message);
 
-    	$lc = $request->getLocale();
+    	$result = $status ? 'success' : 'error';
+    	$locale = $request->getLocale();
+    	$message = 'missing ' . $ns . '.' . $result . '_message parameter';
+        if($this->container->hasParameter($ns . '.' . $result . '_message'))
+        {
 
-    	if($status)
+        	$message = '';
+            $trans = $this->container->getParameter($ns . '.' . $result . '_message');
+            
+            if(is_array($trans))
+            {
+                if(isset($trans[$locale]))
+                {
+                    $message = $trans[$locale];
+                }
+            }
+            else $message = $trans;
+
+        }
+
+    	
+    	if($request->isXmlHttpRequest())
     	{
-    		if($this->container->hasParameter($ns . '_form.success_message.'.$lc))
-	    	{
-	    		$message = $this->container->getParameter($ns . '_form.success_message.'.$lc);
-	    	}
-	    	elseif($this->container->hasParameter($ns . '_form.success_message'))
-	    	{
-	    		$message = $this->container->getParameter($ns . '_form.success_message');
-	    	}
-	    	else {
-	    		$message = $this->get('translator')->trans('Massage has been sent, thank you.');
-	    	}	
+    		return new Response($message);
     	}
     	else
     	{
-
-    		if($this->container->hasParameter($ns . '_form.error_message.'.$lc))
-	    	{
-	    		$message = $this->container->getParameter($ns . '_form.error_message.'.$lc);
-	    	}
-	    	elseif($this->container->hasParameter($ns . '_form.error_message'))
-	    	{
-	    		$message = $this->container->getParameter($ns . '_form.error_message');
-	    	}
-	    	else {
-	    		$message = $this->get('translator')->trans('An error occurred while sending the message.');
-	    	}
+    		$this->addFlash($result, $message);
+    		return $this->redirect($request->headers->get('referer'));
     	}
-
     	
-    	
-    	
-		return new Response($message);
+		
 	}
 
 

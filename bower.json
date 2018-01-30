@@ -11,7 +11,8 @@
         "tinycolor": "~1.2",
         "bootstrap-colorpickersliders": "~3.0",
         "bootbox": "~4.4",
-        "animate.css": "~3.5"
+        "animate.css": "~3.5",
+        "ckeditor": "#full/4.8.x"
     },
     "resolutions": {
         "jquery": ">=1.9.1"

@@ -453,8 +453,9 @@ $(document).ready(function () {
 
 	$.fn.admin_core_addCalendarBtn = function() {
 
-		if(typeof(window['datetimepicker']) == 'function')
-		{
+
+		// if(typeof(window['datetimepicker']) == 'function')
+		// {
 
 			var calBtn = $('<span class="input-group-addon add-on calendar"><span class="glyphicon-calendar glyphicon"></span></span>').click(function(){
 				$(this).parent().find('input').focus()
@@ -462,7 +463,7 @@ $(document).ready(function () {
 			this.data('dateFormat', $(this).data('date-format'));
 			this.parent().append(calBtn);
 			this.parent().addClass('input-group');
-			this.parent().css('max-width', '170px');
+			this.parent().css('max-width', '180px');
 
 			this.parent().find('span.error').each(function(){
 				var parent = $(this).parent().parent();
@@ -480,13 +481,11 @@ $(document).ready(function () {
 				$(this).parent().find('.calendar').trigger('click')
 			})
 
-
-			
-	        this.parent().datetimepicker({
+			this.parent().datetimepicker({
 	        	useCurrent: false,
-	       		locale: 'pl'
+	        	format: 'dd.MM.YYYY'
 	        });
-	    }
+	    // }
 
 	};
 
@@ -575,131 +574,131 @@ $(document).ready(function () {
 
 		return false;
 
-		var ts_inputUrl;
-		var req_Url = {};
+		// var ts_inputUrl;
+		// var req_Url = {};
 
-		var deleyedCheckUrlInput = function(e)
-		{
-			if(ts_inputUrl) clearTimeout(ts_inputUrl)
+		// var deleyedCheckUrlInput = function(e)
+		// {
+		// 	if(ts_inputUrl) clearTimeout(ts_inputUrl)
 
-			var $this = $(this);
-			ts_inputUrl = setTimeout(function(){
-				$this.trigger('filled');
-			}, 700)
+		// 	var $this = $(this);
+		// 	ts_inputUrl = setTimeout(function(){
+		// 		$this.trigger('filled');
+		// 	}, 700)
 			
-		}
+		// }
 
-		var checkUrlInput = function(e)
-		{
-			if($(this).val() != '' && $(this).data('value') != $(this).val())
-			{
-				var $input;
-				if($(this).parent().find('button[data-type=url]').length == 0)
-				{
-					$input = $(this).clone();	
-					$input.blur(checkUrlInput);
-					$input.keyup(deleyedCheckUrlInput);
-					$input.on('filled', checkUrlInput);
-					$(this).replaceWith($('<div class="input-group"><span class="input-group-btn"><button data-type="url" class="btn btn-flat btn-default" type="button"><i class="fa fa-refresh fa-spin"></i></button></span></div>').prepend($input))
+		// var checkUrlInput = function(e)
+		// {
+		// 	if($(this).val() != '' && $(this).data('value') != $(this).val())
+		// 	{
+		// 		var $input;
+		// 		if($(this).parent().find('button[data-type=url]').length == 0)
+		// 		{
+		// 			$input = $(this).clone();	
+		// 			$input.blur(checkUrlInput);
+		// 			$input.keyup(deleyedCheckUrlInput);
+		// 			$input.on('filled', checkUrlInput);
+		// 			$(this).replaceWith($('<div class="input-group"><span class="input-group-btn"><button data-type="url" class="btn btn-flat btn-default" type="button"><i class="fa fa-refresh fa-spin"></i></button></span></div>').prepend($input))
 
-					//<span class="input-group-addon"><i class="fa fa-refresh fa-spin"></i></span>
-				}
-				else
-				{
-					$input = $(this);
-					$input.parent().find('button').removeClass().addClass('btn btn-flat btn-default');
-					$input.parent().find('i.fa').removeClass().addClass('fa fa-refresh fa-spin');
-				}
+		// 			//<span class="input-group-addon"><i class="fa fa-refresh fa-spin"></i></span>
+		// 		}
+		// 		else
+		// 		{
+		// 			$input = $(this);
+		// 			$input.parent().find('button').removeClass().addClass('btn btn-flat btn-default');
+		// 			$input.parent().find('i.fa').removeClass().addClass('fa fa-refresh fa-spin');
+		// 		}
 
-				$input.data('value', $input.val());
-				if(req_Url[$input.attr('id')] != undefined)
-				{
-					req_Url[$input.attr('id')].abort()	
-				} 
-				req_Url[$input.attr('id')] = $.ajax({
-					type: 'POST',
-					url: sf_env+'/admin/check-url', 
-					data: {url: $input.val(), id: $input.attr('id')}, 
-					dataType: 'json',
-					async: false,
-					success: function(jdata){					
-						$input = $('#'+jdata.id);
+		// 		$input.data('value', $input.val());
+		// 		if(req_Url[$input.attr('id')] != undefined)
+		// 		{
+		// 			req_Url[$input.attr('id')].abort()	
+		// 		} 
+		// 		req_Url[$input.attr('id')] = $.ajax({
+		// 			type: 'POST',
+		// 			url: sf_env+'/admin/check-url', 
+		// 			data: {url: $input.val(), id: $input.attr('id')}, 
+		// 			dataType: 'json',
+		// 			async: false,
+		// 			success: function(jdata){					
+		// 				$input = $('#'+jdata.id);
 
 
-						if(jdata.result)
-						{
-							$input.parent().find('button').removeClass().addClass('btn btn-flat btn-success');
-							$input.parent().find('i.fa').removeClass().addClass('fa fa-check');
-						}
-						else
-						{
-							$input.parent().find('button').removeClass().addClass('btn btn-flat btn-danger');
-							$input.parent().find('i.fa').removeClass().addClass('fa fa-close');
-						}
-					}
-				})
-			}
-			else
-			{
-				$(this).keyup(deleyedCheckUrlInput);
-				$(this).blur(checkUrlInput);
-			}
-		}
+		// 				if(jdata.result)
+		// 				{
+		// 					$input.parent().find('button').removeClass().addClass('btn btn-flat btn-success');
+		// 					$input.parent().find('i.fa').removeClass().addClass('fa fa-check');
+		// 				}
+		// 				else
+		// 				{
+		// 					$input.parent().find('button').removeClass().addClass('btn btn-flat btn-danger');
+		// 					$input.parent().find('i.fa').removeClass().addClass('fa fa-close');
+		// 				}
+		// 			}
+		// 		})
+		// 	}
+		// 	else
+		// 	{
+		// 		$(this).keyup(deleyedCheckUrlInput);
+		// 		$(this).blur(checkUrlInput);
+		// 	}
+		// }
 
-		var checkUrlTd = function(e)
-		{
-			var $this = $(this)
-			$this.find('small').remove()
-			var url = $this.html().replace(/^[\s]+/g, '');
+		// var checkUrlTd = function(e)
+		// {
+		// 	var $this = $(this)
+		// 	$this.find('small').remove()
+		// 	var url = $this.html().replace(/^[\s]+/g, '');
 
-			$this.append('<small style="margin-left: 5px;"> <i class="fa fa-refresh fa-spin"></i></small>')
+		// 	$this.append('<small style="margin-left: 5px;"> <i class="fa fa-refresh fa-spin"></i></small>')
 
 
 					
-			 $.ajax({
-					  type: 'POST',
-					  url: sf_env+'/admin/check-url',
-					  data: {url: url, id: null},
-					  success: function(jdata){
-					  	if(jdata.result)
-						{
-							$this.find('small').addClass('label btn-success').html('ok')
-							$this.find('i').remove()
-						}
-						else
-						{
-							$this.find('small').addClass('label btn-danger').html('zły')
-							$this.find('i').remove()
-						}
-					  },
-					  dataType: 'json',
-					  async:false
-					});	
+		// 	 $.ajax({
+		// 			  type: 'POST',
+		// 			  url: sf_env+'/admin/check-url',
+		// 			  data: {url: url, id: null},
+		// 			  success: function(jdata){
+		// 			  	if(jdata.result)
+		// 				{
+		// 					$this.find('small').addClass('label btn-success').html('ok')
+		// 					$this.find('i').remove()
+		// 				}
+		// 				else
+		// 				{
+		// 					$this.find('small').addClass('label btn-danger').html('zły')
+		// 					$this.find('i').remove()
+		// 				}
+		// 			  },
+		// 			  dataType: 'json',
+		// 			  async:false
+		// 			});	
 
-		}
+		// }
 
-		if($(this)[0] != undefined)
-		{
-			if($(this)[0].localName == 'td')
-			{
-				$(this).on('filled', checkUrlTd)
-				var $btn = $('<a class="generic-action btn btn-default" href="/app_dev.php/admin/menu-item/new"><i class="fa fa-fw fa-binoculars"></i> Sprawdź adresy</a>');
-				$btn.click(function(e){
-					e.preventDefault()
-					var $td = $('td.list-results-fields-row-column-url');
+		// if(typeof $(this).first() != 'undefined')
+		// {
+		// 	if($(this)[0].localName == 'td')
+		// 	{
+		// 		$(this).on('filled', checkUrlTd)
+		// 		var $btn = $('<a class="generic-action btn btn-default" href="/app_dev.php/admin/menu-item/new"><i class="fa fa-fw fa-binoculars"></i> Sprawdź adresy</a>');
+		// 		$btn.click(function(e){
+		// 			e.preventDefault()
+		// 			var $td = $('td.list-results-fields-row-column-url');
 					
-					$td.trigger('filled');
-				})
-				$('.list-results-actions-generic').prepend($btn)
+		// 			$td.trigger('filled');
+		// 		})
+		// 		$('.list-results-actions-generic').prepend($btn)
 				
 				
-			}	
-			else
-			{
-				$(this).on('filled', checkUrlInput);
-				$(this).trigger('filled');
-			}
-		}
+		// 	}	
+		// 	else
+		// 	{
+		// 		$(this).on('filled', checkUrlInput);
+		// 		$(this).trigger('filled');
+		// 	}
+		// }
 		
 	}
 

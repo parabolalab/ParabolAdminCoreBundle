@@ -50,12 +50,13 @@ class SeoRequestListener
         $params = array();
         foreach($url_part as $i => $part)
         {
-        	$params[':url'.$i] = '/'.$part;
+        	$params[':url'.$i] = ($i > 1 ? $params[':url'.($i - 1)] : '' ) . '/'.$part;
         	if(isset($url_part[$i+1])) $qb->orWhere('s.inherited = 1 AND s.url LIKE :url'.$i);
         	else $qb->orWhere('s.url = :url'.$i);
         }
         $qb
         	->orderBy('s.url', 'DESC')
+            ->setMaxResults(1)
         	->setParameters($params)
         	;
         

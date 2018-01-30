@@ -432,23 +432,23 @@ abstract class AppVar extends BaseEntity
 
     public static function formType($type, $i18n = false, $raw = false)
     {
-        // if(!$raw && $i18n) $type = 'A2lix\TranslationFormBundle\Form\Type\TranslationsType';
-        // else
+        if(!$raw && $i18n) $type = \Parabol\AdminCoreBundle\Form\Type\AppVarI18NType::class;
+        else
             switch($type)
             {
                 case 'ckeditor':
-                    $type = 'Ivory\CKEditorBundle\Form\Type\CKEditorType';
+                    $type = \Ivory\CKEditorBundle\Form\Type\CKEditorType::class;
                     break;
                 case 'text':
                 case 'longtext':
-                    $type = 'Symfony\Component\Form\Extension\Core\Type\TextareaType';
+                    $type = \Symfony\Component\Form\Extension\Core\Type\TextareaType::class;
                     break;
                 case 'file':
-                    $type = 'Symfony\Component\Form\Extension\Core\Type\FileType';
+                    $type = \Symfony\Component\Form\Extension\Core\Type\FileType::class;
                     break;
                 default:
-                    if(is_array($type)) $type = 'Symfony\Component\Form\Extension\Core\Type\CollectionType';
-                    else $type = 'Symfony\Component\Form\Extension\Core\Type\TextType';
+                    if(is_array($type)) $type = \Symfony\Component\Form\Extension\Core\Type\CollectionType::class;
+                    else $type = \Symfony\Component\Form\Extension\Core\Type\TextType::class;
 
             }
         return $type;
@@ -495,4 +495,13 @@ abstract class AppVar extends BaseEntity
         return $validators;
     }
 
+
+    public static function createFromValueArray($data)
+    {
+        $appvar = new \App\AdminCoreBundle\Entity\AppVar();
+        foreach((array)$data as $locale => $value) $appvar->translate($locale)->setValue($value);
+        $appvar->mergeNewTranslations();
+        
+        return $appvar;
+    }
 }

@@ -31,7 +31,6 @@ class ExtChoiceType extends AbstractType
 
        foreach(self::$fields as $field)
        {
-           // var_dump($field, $entityChoices, self::$currentClass);
            self::$currentField = $field;
 
            if(isset($entityChoices[self::$currentClass]) && isset($entityChoices[self::$currentClass][self::$currentField]))

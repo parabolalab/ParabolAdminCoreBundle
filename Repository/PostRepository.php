@@ -20,7 +20,7 @@ class PostRepository extends \Parabol\BaseBundle\Entity\Base\BaseRepository
                 ->leftJoin('p.translations', 'pt')
                 ->where('p.isEnabled = 1')
                 ->andWhere('pt.locale = :locale')
-                ->andWhere('p.displayFrom <= CURRENT_TIMESTAMP() AND (p.displayTo IS NULL OR CURRENT_TIMESTAMP() >= p.displayTo)')
+                ->andWhere('(p.displayFrom IS NULL OR p.displayFrom <= CURRENT_TIMESTAMP()) AND (p.displayTo IS NULL OR CURRENT_TIMESTAMP() >= p.displayTo)')
                 ->setParameter(':locale', $locale)
                 ->orderBy('p.displayFrom', 'DESC')
                 ->addOrderBy('p.createdAt', 'DESC');

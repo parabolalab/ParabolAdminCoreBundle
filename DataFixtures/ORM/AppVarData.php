@@ -55,7 +55,7 @@ class AppVarData extends BaseAppVarData
                     'en' => ['varLabel' => 'Error Message'], 
                     'pl' => ['varLabel' => 'Komunikat błędu']
                 ], 
-                ['required' => true, 'grid' => 12, 'twigAlias' => 'contactFormSuccessMessage_pl', 'i18n' => true, 'varType' => 'text']
+                ['required' => true, 'grid' => 12, 'twigAlias' => 'contactFormErrorMessage', 'i18n' => true, 'varType' => 'text']
             )
         ;
 

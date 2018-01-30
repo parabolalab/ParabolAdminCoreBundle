@@ -4,6 +4,7 @@ namespace Parabol\AdminCoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use App\AdminCoreBundle\Entity\AppVar;
 
 use Symfony\Component\Yaml\Yaml;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
@@ -21,9 +22,9 @@ class AppSettingController extends Controller
     }
 
 
-
     public function showAction(Request $request)
     {
+
         $appVars = $this->getDoctrine()
                 ->getRepository('AppAdminCoreBundle:AppVar')
                 ->createQueryBuilder('a')
@@ -31,6 +32,7 @@ class AppSettingController extends Controller
                 ->orderBy('a.namespace')
                 ->getQuery()
                 ->execute();
+
 
         $builder = $this->createFormBuilder();   
 
@@ -42,6 +44,7 @@ class AppSettingController extends Controller
         $currentValues = isset($currentValues['parameters']) ? $currentValues['parameters'] : [];
         
         $fileTypes = [];
+        $i18nTypes = [];
         $twigableFields = [];
 
         foreach($appVars as $appVar)
@@ -54,6 +57,7 @@ class AppSettingController extends Controller
                 'label' => $appVar->getVarLabel(), 
                 'data' =>  $appVar->isFile() ? '' : $data,
                 'required' => $appVar->getIsRequired(),
+                'mapped' => false,
                 'attr' => array(
                     'readonly' => $appVar->getIsReadonly(), 
                     'style' => $appVar->getCss(), 
@@ -69,29 +73,15 @@ class AppSettingController extends Controller
             if($appVar->getTwigAlias()) $twigableFields[$fieldName] = $appVar->getTwigAlias();
 
 
-            // if($appVar->getI18n())
-            // {
-            //     $options['exclude_fields'] = array('namespaceLabel', 'varLabel', 'help');
+            if($appVar->getI18n())
+            {
 
-            //     $locale_options = array();
-
-            //     if(isset($currentValues['parameters'][$appVar->getPropertyName()]) && is_array($currentValues['parameters'][$appVar->getPropertyName()]))
-            //     {
-            //         foreach($currentValues['parameters'][$appVar->getPropertyName()] as $locale => $value )
-            //         {
-            //             $locale_options[$locale] = array('data' => $value);
-            //         }
-            //     }
-
-            //     $options['fields'] = array('value' => array('label' => ' ', 'field_type' => $appVar->getFormType(true), 'required' => false, 'attr' => array('style' => $appVar->getCss()), 
-            //             'locale_options' =>  $locale_options
-
-            //     ));
+                $i18nTypes[] = $fieldName;
+                $options['data'] = AppVar::createFromValueArray($options['data']);
+                $options['fieldType'] = $appVar->getFormType('raw');
                 
-                
-            // }
-            // else
-            if($appVar->isCollection())
+            }
+            elseif($appVar->isCollection())
             {
                 $options['allow_add'] = true;
                 // $options['allow_delete'] = true;
@@ -116,39 +106,30 @@ class AppSettingController extends Controller
                 $options['config'] = $this->getCKEditroDefaultConfig();
             } 
 
-
-
-            
-            // if($fieldName == 'contact_form__success_message')
-            // {
-            //     $fieds = [ $fieldName => $options ];
-            //     $fieds[$fieldName]['field_type'] = $appVar->getFormType();
-            //     $options['fields'] = $fieds;
-
-            //     // $options['excluded_fields'] = [];
-
-            //     // $builder->add($fieldName . '_translations', TranslationsType::class, $options);
-            // }
-            // var_dump(array($fieldName, $appVar->getFormType()));
             $builder->add($fieldName, $appVar->getFormType(), $options);
         }
 
+
+        // dump($builder);
+        // die();
         
         
         // $builder->add('translations_2', TranslationsType::class);
 
         $form = $builder->getForm();
 
+        // dump($form);
+        // die();
+
         if($request->isMethod('post'))
         {
             $form->handleRequest($request);
 
-
+            
 
             if ($form->isValid()) {
 
                     $values = $request->get('form');
-
                     $data = $form->getData();
 
                     foreach($fileTypes as $name => $path)
@@ -163,6 +144,11 @@ class AppSettingController extends Controller
                         {
                             $values[$name] = $currentValues[$key];   
                         }
+                    }
+
+                    foreach($i18nTypes as $name)
+                    {
+                        $values[ $name ] = array_map(function($item){ return $item['value']; },  $values[ $name ]['translations']);
                     }
 
                     $values['appParams'] = [];
