@@ -72,7 +72,15 @@ class SeoRequestListener
 
         if($seo)
         {
-            foreach($seo::$valueMethods as $name => $method) $this->metatag->addMetatag($name, $seo->$method());
+            if($seo->getRedirectTo())
+            {
+                $event->setResponse(new RedirectResponse($seo->getRedirectTo(), $seo->getRedirectStatusCode() ? $seo->getRedirectStatusCode() : 302 ));
+            }
+            else
+            {
+                foreach($seo::$valueMethods as $name => $method) $this->metatag->addMetatag($name, $seo->$method());
+            }
+            
 	    }
         else
         {
