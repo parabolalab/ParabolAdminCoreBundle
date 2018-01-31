@@ -15,6 +15,22 @@ function trans(value)
 
 $(document).ready(function () {
 
+
+	// var hideSeoMetatagsFieldIfRedirectionSet = 
+
+	$('input[id$=admincorebundle_seo_redirectTo]').keyup(function(){
+		if($(this).val() === '')
+		{
+			$('.tab-pane-model-Tags, .tab-pane-model-OpenGraph, .tab-pane-model-Robots').show()
+		}
+		else {
+			$('.tab-pane-model-Tags, .tab-pane-model-OpenGraph, .tab-pane-model-Robots').hide()
+		}
+	})
+
+	$('input[id$=admincorebundle_seo_redirectTo]').trigger('keyup')
+
+
 	$('.btn.import-csv').show()
 
 	function admincorebundle_page_type_set()
