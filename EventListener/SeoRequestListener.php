@@ -9,7 +9,7 @@ use Doctrine\ORM\NoResultException as NoResultException;
 
 class SeoRequestListener
 {
-
+    private static $calls = 0;
 	private $container, $em, $metatag, $id = null;
 
 	public function __construct($container, $em, $metatag)
@@ -22,10 +22,9 @@ class SeoRequestListener
     public function onKernelRequest(GetResponseEvent $event)
     {
         if(!class_exists('\App\AdminCoreBundle\Entity\Seo')) return;
-
-
-
-        if (!$event->isMasterRequest()) return;
+        
+        if (self::$calls) return;
+        self::$calls++;
         
         $path = $event->getRequest()->getPathInfo();
 
@@ -39,6 +38,7 @@ class SeoRequestListener
             if($url_part[1] == '') $url_part = [''];
             elseif((in_array($url_part[1], array('admin')) || substr($url_part[1],0,1) == '_')) return;
         }
+
 
 		$web = $this->container->getParameter('kernel.root_dir').'/../web';
 
@@ -59,6 +59,8 @@ class SeoRequestListener
             ->setMaxResults(1)
         	->setParameters($params)
         	;
+
+
         
         try
         {
@@ -78,7 +80,7 @@ class SeoRequestListener
             }
             else
             {
-                foreach($seo::$valueMethods as $name => $method) $this->metatag->addMetatag($name, $seo->$method());
+                foreach($seo::$valueMethods as $name => $method) $this->metatag->addMetatag($name, $seo->$method(), $seo->getUrl());
             }
             
 	    }

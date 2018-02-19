@@ -14,74 +14,112 @@ class AppController extends Controller
 		return $this->{$action.'Action'}();
 	}
 
-	public function sendEmailAction()
+	private function validateReCaptcha($token)
 	{
 
+		if($this->container->hasParameter('recaptcha.secret'))
+		{
 
+			$ch = curl_init();
 
+			curl_setopt($ch, CURLOPT_URL,"https://www.google.com/recaptcha/api/siteverify");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS,
+			            "secret=" . $this->container->getParameter('recaptcha.secret') . "&response=$token");
+
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+			$server_output = curl_exec ($ch);
+
+			curl_close ($ch);
+
+			$result = json_decode($server_output, true);
+
+			return isset($result['success']) && $result['success'];
+
+		}
+
+		return true;
+	}
+
+	public function sendEmailAction()
+	{
 
 		$request = $this->get('request_stack')->getCurrentRequest();
 		$ns = $request->get('ns');
 
 		if(!$ns) throw new Exception("ns request parameter is required.");
 
-		$values = $request->get($ns);
+		$captchaChalenge = $this->validateReCaptcha($request->get('g-recaptcha-response'));
+		
 
-		$template = ''; 
-
-		if($this->get('templating')->exists('emails/' . $ns . '.html.twig'))
+		if(!$captchaChalenge)
 		{
-			$template = 'emails/' . $ns . '.html.twig';
+			$result = 'error';
 		}
 		else
 		{
-			$template = 'emails/default.html.twig';
-		}
 
-		
-		$body = $this->renderView(
-	                $template,
-	                ['vars' => $values]
-	            );
+			$values = $request->get($ns);
 
-		$message = \Swift_Message::newInstance()
-	        ->setSubject(
-	        		$this->container->hasParameter($ns . '.title') ? 
-	        					$this->container->getParameter($ns . '.title') : 
-	        						(
-	        							'[Formularz]' . (isset($values['subject']) ? $values['subject'] : 'Wiadomość z formularza' )
-	        						)
-	        )
-	        ->setFrom('formularz@' .  str_replace('www.', '', $request->getHost()))
-	        ->setTo($this->container->getParameter($ns . '.email'))
-	        ->setBody(
-	            $body,
-	            'text/html'
-	        )
-	    ;
+			$template = ''; 
 
-
-	    if($request->files->has($ns))
-	    {
-		    foreach($request->files->get($ns) as $name => $files)
+			if($this->get('templating')->exists('emails/' . $ns . '.html.twig'))
 			{
-				foreach($files as $file)
+				$template = 'emails/' . $ns . '.html.twig';
+			}
+			else
+			{
+				$template = 'emails/default.html.twig';
+			}
+
+			
+			$body = $this->renderView(
+		                $template,
+		                ['vars' => $values]
+		            );
+
+			$message = \Swift_Message::newInstance()
+		        ->setSubject(
+		        		$this->container->hasParameter($ns . '.title') ? 
+		        					$this->container->getParameter($ns . '.title') : 
+		        						(
+		        							'[Formularz]' . (isset($values['subject']) ? $values['subject'] : 'Wiadomość z formularza' )
+		        						)
+		        )
+		        ->setFrom('formularz@' .  str_replace('www.', '', $request->getHost()))
+		        ->setTo($this->container->getParameter($ns . '.email'))
+		        ->setBody(
+		            $body,
+		            'text/html'
+		        )
+		    ;
+
+
+		    if($request->files->has($ns))
+		    {
+			    foreach($request->files->get($ns) as $name => $files)
 				{
-					if($file->getPath())
+					foreach($files as $file)
 					{
-						$message->attach(
-						  \Swift_Attachment::fromPath($file->getPathname())->setFilename($file->getClientOriginalName())
-						);
+						if($file->getPath())
+						{
+							$message->attach(
+							  \Swift_Attachment::fromPath($file->getPathname())->setFilename($file->getClientOriginalName())
+							);
+						}
 					}
 				}
 			}
-		}
 
-		if($values['email']) $message->setReplyTo($values['email']);
+			if($values['email']) $message->setReplyTo($values['email']);
 
-    	$status = $this->get('mailer')->send($message);
+	    	$status = $this->get('mailer')->send($message);
 
-    	$result = $status ? 'success' : 'error';
+	    	$result = $status ? 'success' : 'error';
+	    }
+
+    	
     	$locale = $request->getLocale();
     	$message = 'missing ' . $ns . '.' . $result . '_message parameter';
         if($this->container->hasParameter($ns . '.' . $result . '_message'))
