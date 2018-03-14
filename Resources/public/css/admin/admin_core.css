@@ -327,8 +327,17 @@ body .box-body .datepicker  table td:first-child, .box-body .datepicker  table t
 	display: inline-block;
 	margin-bottom: 0;
 	vertical-align: middle;
-	width: auto;
+	/*width: auto;*/
 	margin: 0 15px 0 5px;
+}
+
+.form-model-type-symfonycomponentformextensioncoretypecollectiontype div[data-prototype].d-block > div > div > * {
+  display: block;
+}
+
+.form-model-type-symfonycomponentformextensioncoretypecollectiontype > div > label {
+  font-size: 18px;
+  margin-top: 50px;
 }
 
 .form-model-type-symfonycomponentformextensioncoretypecollectiontype > div > a {
