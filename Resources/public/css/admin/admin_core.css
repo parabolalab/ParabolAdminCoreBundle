@@ -106,7 +106,7 @@ ul.files .delete {
 div[data-prototype] > div {
 	/*border-top: 1px solid #eee;*/
 	border-bottom: 1px solid #eee;
-	padding: 10px 0;
+	padding: 10px 0 0;
 }
 
 div[data-prototype] > div > label {
@@ -428,7 +428,7 @@ body .box-body .datepicker  table td:first-child, .box-body .datepicker  table t
 .form-setting-container .form-group .btn-info { clear: both; float: left; margin: 10px 0 15px; }
 
 .form-model-type-symfonycomponentformextensioncoretypecollectiontype [data-prototype] div div label {display: block; margin-left: 5px;}
-.form-model-type-symfonycomponentformextensioncoretypecollectiontype [data-prototype] div div .btn { margin-top: 35px; }
+.form-model-type-symfonycomponentformextensioncoretypecollectiontype [data-prototype] div div .btn { margin-top: 27px; }
 
 .btn.import-csv { display: none; }
 
@@ -439,4 +439,19 @@ body .box-body .datepicker  table td:first-child, .box-body .datepicker  table t
 	z-index: 12;
 	left: 190px;
 	width: 200%;
+}
+
+[data-prototype] [data-prototype] {
+  margin-left: 5%;
+}
+
+[data-prototype] .btn-info {
+  margin-left: 5%;
+  margin-top: 10px !important;
+  margin-bottom: 15px;
+}
+
+[data-prototype] .btn-danger {
+  margin-bottom: 15px !important;
+  clear: both;
 }

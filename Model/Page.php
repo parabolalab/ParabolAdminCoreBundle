@@ -38,7 +38,7 @@ abstract class Page extends BaseEntity
     /**
      * @ORM\Column(type="boolean", name="in_menu")
      */
-    protected $inMenu = true;
+    protected $inMenu = false;
 
     /*
      * ORM\OneToMany(targetEntity="Page", mappedBy="parent")

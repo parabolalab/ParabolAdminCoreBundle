@@ -340,8 +340,7 @@ $(document).ready(function () {
 			
 
 			$(this).data('index', $children.length);
-
-			$children.each(function(){
+      $children.each(function(){
 				
 				// if($(this).find('div.form-group').length == 0) $container = $(this)
 				// else $container = 
@@ -404,7 +403,8 @@ $(document).ready(function () {
 	$.fn.admin_core_addCollection = function () {
 			
 
-			var $container = $(this).parent().find('div[data-prototype]')
+			var $container = $(this).parent().find('> div[data-prototype]')
+
 			var index = $container.data('index')
 			var $prototype = $($container.data('prototype').replace(/__name__/g, index));
 			
@@ -430,6 +430,11 @@ $(document).ready(function () {
 				$prototype.addClass('sortable')
 
 			}
+
+      
+      $prototype.find('div[data-prototype]').each(function(){
+        $(this).admin_core_initCollection();
+      })
 
 			$container.append($prototype);
 			$container.data('index', index + 1)
