@@ -15,7 +15,7 @@ class AppVarI18NType extends AbstractType
     {
         $builder->add('translations',  \A2lix\TranslationFormBundle\Form\Type\TranslationsType::class, [
                 'label' => ' ',
-                'locales' => ['pl', 'en'],
+                'locales' => $options['locales'],
                 'default_locale' => ['pl'],
                 'required_locales' => [],
                 'fields' => [
@@ -36,7 +36,8 @@ class AppVarI18NType extends AbstractType
      public function configureOptions(OptionsResolver $resolver)
     {
          $resolver->setDefaults(array(
-            'fieldType' => null
+            'fieldType' => null,
+            'locales' => ['pl']
          ));
     }
 
