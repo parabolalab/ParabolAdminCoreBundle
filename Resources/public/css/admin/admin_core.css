@@ -328,7 +328,7 @@ body .box-body .datepicker  table td:first-child, .box-body .datepicker  table t
 	margin-bottom: 0;
 	vertical-align: middle;
 	/*width: auto;*/
-	margin: 0 15px 0 5px;
+	/*margin: 0 15px 0 5px;*/
 }
 
 .form-model-type-symfonycomponentformextensioncoretypecollectiontype div[data-prototype].d-block > div > div > * {
@@ -336,7 +336,6 @@ body .box-body .datepicker  table td:first-child, .box-body .datepicker  table t
 }
 
 .form-model-type-symfonycomponentformextensioncoretypecollectiontype > div > label {
-  font-size: 18px;
   margin-top: 50px;
 }
 
@@ -427,7 +426,7 @@ body .box-body .datepicker  table td:first-child, .box-body .datepicker  table t
 
 .form-setting-container .form-group .btn-info { clear: both; float: left; margin: 10px 0 15px; }
 
-.form-model-type-symfonycomponentformextensioncoretypecollectiontype [data-prototype] div div label {display: block; margin-left: 5px;}
+.form-model-type-symfonycomponentformextensioncoretypecollectiontype [data-prototype] div div label {display: block; /* margin-left: 5px;*/ }
 .form-model-type-symfonycomponentformextensioncoretypecollectiontype [data-prototype] div div .btn { margin-top: 27px; }
 
 .btn.import-csv { display: none; }

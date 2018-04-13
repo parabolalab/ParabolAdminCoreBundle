@@ -25,7 +25,7 @@ class AppVarI18NType extends AbstractType
                         'constraints' => $options['constraints'], 
                     ]
                 ],
-                'excluded_fields' => [
+                'exclude_fields' => [
                     'namespaceLabel',
                     'varLabel',
                     'help'

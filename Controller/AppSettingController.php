@@ -33,7 +33,6 @@ class AppSettingController extends Controller
                 ->getQuery()
                 ->execute();
 
-
         $builder = $this->createFormBuilder();   
 
         $fileName = $this->get('service_container')->getParameter('kernel.root_dir').'/config/parameters_app.yml';

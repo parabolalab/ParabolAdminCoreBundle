@@ -61,20 +61,20 @@ function formSubmiter(e)
   			if($(this).data('captcha') != 'undefined')
   			{
   				if(typeof captches[formId] === 'undefined')
-				{
-					var widgetId = grecaptcha.render($(this)[0], {
-			          sitekey : $(this).data('captcha'),
-			          theme : 'light',
-			          size : 'invisible',
-			          callback : submit.bind(this)
-			    	});
-				
-					captches[formId] = widgetId
-					grecaptcha.execute(widgetId)
-				}
-				else {
-					grecaptcha.reset(captches[formId])
-				} 
+  				{
+  					var widgetId = grecaptcha.render($(this)[0], {
+  			          sitekey : $(this).data('captcha'),
+  			          theme : 'light',
+  			          size : 'invisible',
+  			          callback : submit.bind(this)
+  			    	});
+  				
+  					captches[formId] = widgetId
+  					grecaptcha.execute(widgetId)
+  				}
+  				else {
+  					grecaptcha.reset(captches[formId])
+  				} 
   			}
   			else
   			{
