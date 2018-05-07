@@ -39,9 +39,9 @@ abstract class Code extends BaseEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="override", type="boolean")
+     * @ORM\Column(name="inherited", type="boolean")
      */
-    protected $override = false;
+    protected $inherited = false;
     
 
     /**
@@ -110,26 +110,26 @@ abstract class Code extends BaseEntity
     }
 
     /**
-     * Set override
+     * Set inherited
      *
-     * @param string $override
+     * @param string $inherited
      * @return Seo
      */
-    public function setOverride($override)
+    public function setInherited($inherited)
     {
-        $this->override = $override;
+        $this->inherited = $inherited;
 
         return $this;
     }
 
     /**
-     * Get override
+     * Get inherited
      *
      * @return string 
      */
-    public function getOverride()
+    public function getInherited()
     {
-        return $this->override;
+        return $this->inherited;
     }
 
     /**
