@@ -190,7 +190,7 @@ class AppController extends Controller
 
 	public function renderCodeAction(Request $request, $pathInfo, $type)
 	{
-		$qb = $this->getDoctrine()->getRepository('ParabolAdminCoreBundle:Code')->createQueryBuilder('c');
+		$qb = $this->getDoctrine()->getRepository('AppAdminCoreBundle:Code')->createQueryBuilder('c');
 
 
 
