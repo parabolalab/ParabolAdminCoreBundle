@@ -2,14 +2,16 @@ var captches = {}
 
 $(document).ready(function(){
 
-	$('form input[data-form], form button[data-form], form input[data-captcha], form button[data-captcha]').click(formSubmiter)
+	$('input[data-form], button[data-form], form input[data-captcha], form button[data-captcha]').click(formSubmiter)
 
 });
 
 
 function formSubmiter(e)
 {
-	var $form = $(this).closest('form');
+
+  
+	var $form = $(this).data('form') ? $('#' + $(this).data('form')) :  $(this).closest('form');
 	var formId = $form.attr('id')
 	$form.removeClass('was-validated')
 
@@ -17,18 +19,21 @@ function formSubmiter(e)
 	e.stopPropagation();
 
 	if ($form[0].checkValidity() === false) {
+        // console.log('form errors')
         $form.addClass('was-validated')
-        if(typeof captches[formId] === 'undefined') grecaptcha.reset(captches[formId]) 
+        if(typeof grecaptcha !== 'undefined' && typeof captches[formId] === 'undefined') grecaptcha.reset(captches[formId]) 
   	}
   	else
   	{
 
   			var submit = function()
   			{
-  				if(typeof $(this).data('formAjax') != 'undefined' && $(this).data('formAjax') === 0)
+          // console.log('submit?');
+          if(typeof $(this).data('formAjax') === 'undefined' || $(this).data('formAjax') === 0)
 	  			{
+            // console.log('submit');
 	  				$form.submit()
-	  				if(typeof captches[formId] === 'undefined') grecaptcha.reset(captches[formId]) 
+	  				if(typeof grecaptcha !== 'undefined' && typeof captches[formId] === 'undefined') grecaptcha.reset(captches[formId]) 
 	  			}
 	  			else
 	  			{
@@ -49,18 +54,17 @@ function formSubmiter(e)
 							 var $parent = $form.parent()
 							 $parent.html(data);
 							 $parent.find('.btn-primary').click(formSubmiter)
-
 						}
 
-						if(typeof captches[formId] === 'undefined') grecaptcha.reset(captches[formId]) 
+						if(typeof grecaptcha !== 'undefined' && typeof captches[formId] === 'undefined') grecaptcha.reset(captches[formId]) 
 					})
 				}
   			}
 
 
-  			if($(this).data('captcha') != 'undefined')
+  			if(typeof $(this).data('captcha') !== 'undefined')
   			{
-  				if(typeof captches[formId] === 'undefined')
+  				if(typeof grecaptcha !== 'undefined' && typeof captches[formId] === 'undefined')
   				{
   					var widgetId = grecaptcha.render($(this)[0], {
   			          sitekey : $(this).data('captcha'),
@@ -72,7 +76,7 @@ function formSubmiter(e)
   					captches[formId] = widgetId
   					grecaptcha.execute(widgetId)
   				}
-  				else {
+  				else if(typeof grecaptcha !== 'undefined') {
   					grecaptcha.reset(captches[formId])
   				} 
   			}
