@@ -90,14 +90,22 @@ class AppSettingController extends Controller
             }
             elseif($appVar->isFile())
             {
-                $options['attr']['data-file'] = $data;
-                $fileTypes[$fieldName] = [ 'raw' => $appVar->getFilePath(), 'parsed' => strtr( $appVar->getFilePath(), [ '%kernel.root_dir%' => $this->get('kernel')->getRootDir() ] ) ];
+                // $options['attr']['data-file'] = $data;
 
-                if($options['constraints'] === null) $options['constraints'] = [];
-                $options['constraints'] = new \Symfony\Component\Validator\Constraints\File([
-                            'mimeTypes' => ['video/mp4'], 
-                            'maxSize' => '95m'
-                    ]);
+                $options['class'] = AppVar::class; 
+                // $options['required'] = false;
+
+                $fileTypes[] = $fieldName;
+
+                // $options['constraints'] = $this->
+
+                //[ 'raw' => $appVar->getFilePath(), 'parsed' => strtr( $appVar->getFilePath(), [ '%kernel.root_dir%' => $this->get('kernel')->getRootDir() ] ) ];
+
+                // if($options['constraints'] === null) $options['constraints'] = [];
+                // $options['constraints'] = new \Symfony\Component\Validator\Constraints\File([
+                //             // 'mimeTypes' => ['video/mp4'], 
+                //             // 'maxSize' => '95m'
+                //     ]);
             }
 
             if($appVar->getFormType() == 'Ivory\CKEditorBundle\Form\Type\CKEditorType')
@@ -122,28 +130,56 @@ class AppSettingController extends Controller
 
         if($request->isMethod('post'))
         {
-            $form->handleRequest($request);
 
             
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
 
                     $values = $request->get('form');
                     $data = $form->getData();
+                    
+                    $uploadedFiles = $request->get('uploaded_files');
 
-                    foreach($fileTypes as $name => $path)
+                    if(!empty($uploadedFiles))
                     {
-                        $key = str_replace('__', '.', $name);
-                        if(isset($data[$name]) && $data[$name])
+
+                        $files  = $this->get('doctrine')
+                                    ->getRepository('ParabolFilesUploadBundle:File')
+                                    ->createQueryBuilder('f')
+                                    ->where('f.id IN (:ids)')
+                                    ->setParameter('ids', $uploadedFiles)
+                                    ->groupBy('f.context')
+                                    ->getQuery()
+                                    ->getResult()
+                                  ;
+
+                        foreach($files as $file)
                         {
-                            $data[$name]->move(dirname($path['parsed']), basename($path['parsed']));
-                            $values[$name] = $path['raw'];
+                          $values[$file->getContext()] = str_replace('__','--',$file->getPath());   
                         }
-                        elseif(array_key_exists($key, $currentValues))
+
+                        $oldFiles = $this->get('doctrine')
+                                    ->getRepository('ParabolFilesUploadBundle:File')
+                                    ->createQueryBuilder('f')
+                                    ->where('f.class = :class')
+                                    ->andWhere('f.id NOT IN (:ids)')
+                                    ->setParameter('class', AppVar::class)
+                                    ->setParameter('ids', $uploadedFiles)
+                                    ->getQuery()
+                                    ->getResult()
+                                  ;
+
+                        $em = $this->get('doctrine')->getEntityManager();
+
+                        foreach($oldFiles as $file)
                         {
-                            $values[$name] = $currentValues[$key];   
+                            $em->remove($file);
                         }
+
+                        $em->flush();
                     }
+
 
                     foreach($i18nTypes as $name)
                     {
@@ -158,7 +194,7 @@ class AppSettingController extends Controller
 
                     if(isset( $values['_token'] )) unset($values['_token']);
 
-                    $yaml = str_replace('__', '.', Yaml::dump(array('parameters' => $values), 2));
+                    $yaml = str_replace('--', '__',str_replace('__', '.', Yaml::dump(array('parameters' => $values), 2)));
                     file_put_contents($fileName, $yaml);
                     
                     $containerCache = $this->container->getParameter('kernel.root_dir').'/../var/cache/prod/appProdProjectContainer.php';

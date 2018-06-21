@@ -9,13 +9,6 @@ framework:
     #esi: ~
     translator: { fallbacks: ['%locale%'] }
 
-doctrine:
-    orm:
-        dql:
-            string_functions:
-                regexp: DoctrineExtensions\Query\Mysql\Regexp
-                field: DoctrineExtensions\Query\Mysql\Field
-
 twig:
     # form_themes:
             # - ParabolFormExtensionsBundle:Form:help.html.twig

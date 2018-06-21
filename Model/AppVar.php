@@ -89,6 +89,9 @@ abstract class AppVar extends BaseEntity
      */
     protected $twigAlias = null; 
 
+
+    static protected $multipleFilesContexts = [];
+
     /**
      * Get id
      *
@@ -219,12 +222,12 @@ abstract class AppVar extends BaseEntity
 
     public function isFile()
     {
-        return $this->getFormType() == 'Symfony\Component\Form\Extension\Core\Type\FileType';
+        return $this->getFormType() == \Symfony\Component\Form\Extension\Core\Type\FileType::class || $this->getFormType() == \Parabol\FilesUploadBundle\Form\Type\BlueimpType::class;
     }
 
      public function isCollection()
     {
-        return $this->getFormType() == 'Symfony\Component\Form\Extension\Core\Type\CollectionType';
+        return $this->getFormType() == \Symfony\Component\Form\Extension\Core\Type\CollectionType::class;
     }
 
     /**
@@ -444,7 +447,7 @@ abstract class AppVar extends BaseEntity
                     $type = \Symfony\Component\Form\Extension\Core\Type\TextareaType::class;
                     break;
                 case 'file':
-                    $type = \Symfony\Component\Form\Extension\Core\Type\FileType::class;
+                    $type = \Parabol\FilesUploadBundle\Form\Type\BlueimpType::class;
                     break;
                 default:
                     if(is_array($type)) $type = \Symfony\Component\Form\Extension\Core\Type\CollectionType::class;
@@ -503,5 +506,10 @@ abstract class AppVar extends BaseEntity
         $appvar->mergeNewTranslations();
         
         return $appvar;
+    }
+
+    public static function isMultipleFilesAllowed($context)
+    {
+        return isset(self::$multipleFilesContexts[$context]);
     }
 }
