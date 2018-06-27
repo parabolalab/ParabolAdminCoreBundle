@@ -25,22 +25,38 @@ class Metatag extends \Twig_Extension
 	    );
 	}
 
+  public function renderTagAttr($attr)
+  {
+      $results = '';
+      foreach((array)$attr as $name => $value)
+      {
+          $results .= ' ' . $name . '="' . $value . '"';
+      }
+      return $results;
+  }
+
 	public function render()
 	{
 		$code = '';
 
-		foreach((array)$this->metatags as $name => $tag)
+    foreach((array)$this->metatags as $name => $tag)
 		{
 			switch($name)
 			{
+        case 'link':
+          $code .= '<link '.$this->renderTagAttr($tag['value']).' />';
+          break;
 				case 'title':
 					$code .= '<title>'.$tag['value'].'</title>';
-				default:
+        default:
 					$code .= '<meta property="'.$name.'" name="'.$name.'" content="'.$tag['value'].'">';
 			}
 
+      
+
 			$code .= "\n";
 		}
+
 
 		return $code;
 	}
