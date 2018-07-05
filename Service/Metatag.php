@@ -61,25 +61,25 @@ class Metatag extends \Twig_Extension
 		return $code;
 	}
 
-	public function addMetatags($tags, $url, $joinWith = ' - ')
+	public function addMetatags($tags, $url, $joinWith = ' - ', $overwrite = false)
 	{
 		foreach($tags as $name => $tag)
 		{
 			if($this->getMetatagUrl($name) != $url) 
 			{
 				if(isset($tag['join']) && $tag['join'] && $this->getMetatagValue($name)) $tag['value'] .= $joinWith . $this->getMetatagValue($name);
-				$this->addMetatag($name, $tag['value'], $url);
+				$this->addMetatag($name, $tag['value'], $url, $overwrite);
 			}
 		}
 
 	}
 
-	public function addMetatag($name, $value, $url = null)
+	public function addMetatag($name, $value, $url = null, $overwrite = false)
     {
     	if($value)
     	{
-    		$this->metatags[$name] = ['value' => $value, 'url' => $url];
-
+        $url = preg_replace('/^\/app_dev.php/', '', $url);
+        if(!isset($this->metatags[$name]) || $overwrite || strlen($this->metatags[$name]['url']) < strlen($url)) $this->metatags[$name] = ['value' => $value, 'url' => $url];
     	} 
     }
 

@@ -12,7 +12,7 @@ class MenuItem implements MenuItemInterface {
 	protected $role;
 	protected $parent;
 
-	public function __construct($label, $route, $routeParams = null, $icon = null, $position = null, $parent = null, $role = null, $badgeAction = null)
+	public function __construct($label, $route, $routeParams = null, $icon = null, $position = null, $parent = null, $role = null, $badgeAction = null, $badgeColor = 'primary')
 	{
 		$this->label = $label;
 		$this->route = $route;
@@ -21,7 +21,8 @@ class MenuItem implements MenuItemInterface {
 		$this->position = $position;
 		$this->role = $role;
 		$this->parent = $parent;
-        $this->badgeAction = $badgeAction;
+    $this->badgeAction = $badgeAction;
+    if($badgeColor) $this->badgeColor = $badgeColor;
 	}
 
 	public function getLabel()
@@ -55,5 +56,9 @@ class MenuItem implements MenuItemInterface {
     public function getBadgeAction()
     {
         return $this->badgeAction;
+    }
+    public function getBadgeColor()
+    {
+        return $this->badgeColor;
     }
 }

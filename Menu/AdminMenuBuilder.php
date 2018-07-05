@@ -65,7 +65,9 @@ class AdminMenuBuilder extends AdmingeneratorMenuBuilder  implements ContainerAw
                             $this
                             ->addLinkRoute($current, $child->getLabel(), $child->getRoute(), $child->getRouteParams())
                             ->setExtra('icon', $child->getIcon() ? $child->getIcon() : 'fa fa-angle-right' )
-                            ->setExtra('badgeAction', $child->getBadgeAction() ? $child->getBadgeAction() : null );
+                            ->setExtra('badgeAction', $child->getBadgeAction() ? $child->getBadgeAction() : null )
+                            ->setExtra('badgeColor', $item['current']->getBadgeColor() )
+                            ;
                         }
                     }
                 }
@@ -75,7 +77,9 @@ class AdminMenuBuilder extends AdmingeneratorMenuBuilder  implements ContainerAw
                 }
 
                 $current->setExtra('icon', $item['current']->getIcon())
-                        ->setExtra('badgeAction', $item['current']->getBadgeAction() ? $item['current']->getBadgeAction() : null );;
+                        ->setExtra('badgeAction', $item['current']->getBadgeAction() ? $item['current']->getBadgeAction() : null )
+                        ->setExtra('badgeColor', $item['current']->getBadgeColor() )
+                        ;
             }
         }
 

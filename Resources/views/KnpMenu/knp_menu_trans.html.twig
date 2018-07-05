@@ -4,6 +4,6 @@
     {% if item.getExtra('icon') is not empty %}<i class="{{ item.getExtra('icon') }}"></i>{% endif %}
     {% set labelText = item.label|trans(item.getExtra('translation_params', {}), item.getExtra('translation_domain', 'messages')) %}
     <span>{% if options.allow_safe_labels and item.getExtra('safe_label', false) %}{{ labelText|raw }}{% else %}{{ labelText }}{% endif %}</span>
-    {% if item.getExtra('badgeAction') is not empty %}<span class="pull-right-container"><span class="label label-primary pull-right">{{ render(controller(item.getExtra('badgeAction'))) }}</span>{% endif %}
+    {% if item.getExtra('badgeAction') is not empty %}<span class="pull-right-container"><span class="label label-{{ item.getExtra('badgeColor') }} pull-right">{{ render(controller(item.getExtra('badgeAction'))) }}</span>{% endif %}
     {% if item.getExtra('caret') %}<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>{% endif %}
 {% endblock %}
