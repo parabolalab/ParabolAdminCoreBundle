@@ -14,7 +14,8 @@
 {% block javascripts_head %}
     {{ parent() }}
     <script type="text/javascript">
-    var sf_env = '{{ app.environment == 'prod' ? '' : '/app_' ~ app.environment ~ '.php' }}'
+    // var sf_domainDir = '{{ app.environment == 'prod' ? '' : '/app_' ~ app.environment ~ '.php' }}'
+    var sf_env = '{{ app.environment == 'prod' ? (app.request.server.get('SCRIPT_NAME') | replace({'/app.php': ''})) : app.request.server.get('SCRIPT_NAME') }}'
 
     var colorspicker = {
         swatches: '{{ colorspickerSwatches is defined ? colorspickerSwatches : '' }}'
