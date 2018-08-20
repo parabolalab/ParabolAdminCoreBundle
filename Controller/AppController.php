@@ -87,7 +87,7 @@ class AppController extends Controller
 		        							'[Formularz]' . (isset($values['subject']) ? $values['subject'] : 'Wiadomość z formularza' )
 		        						)
 		        )
-		        ->setFrom('formularz@' .  str_replace('www.', '', $request->getHost()))
+		        ->setFrom( $this->container->hasParameter($ns.'.email') ? $this->container->getParameter($ns.'.email') : 'formularz@' .  str_replace('www.', '', $request->getHost()) )
 		        ->setTo($this->container->getParameter($ns . '.email'))
 		        ->setBody(
 		            $body,
