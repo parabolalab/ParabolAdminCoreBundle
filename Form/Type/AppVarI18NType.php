@@ -13,11 +13,8 @@ class AppVarI18NType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('translations',  \A2lix\TranslationFormBundle\Form\Type\TranslationsType::class, [
+        $translationsOptions = [
                 'label' => ' ',
-                'locales' => $options['locales'],
-                'default_locale' => ['pl'],
-                'required_locales' => [],
                 'fields' => [
                     'value' => [
                         'label' => ' ',
@@ -30,21 +27,24 @@ class AppVarI18NType extends AbstractType
                     'varLabel',
                     'help'
                 ]
-        ]);
+        ];
+
+        if($options['locales']) $translationsOptions['locales'] = $options['locales'];
+        if($options['default_locale']) $translationsOptions['default_locale'] = $options['default_locale'];
+        if($options['required_locales']) $translationsOptions['required_locales'] = $options['required_locales'];
+
+        $builder->add('translations',  \A2lix\TranslationFormBundle\Form\Type\TranslationsType::class, $translationsOptions);
     }
 
      public function configureOptions(OptionsResolver $resolver)
     {
          $resolver->setDefaults(array(
             'fieldType' => null,
-            'locales' => ['pl']
+            'locales' => null,
+            'default_locale' => null,
+            'required_locales' => null,
          ));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            
-        ));
-    }
+
 }
