@@ -50,7 +50,7 @@ class AppSettingController extends Controller
         {
             $fieldName = str_replace('.', '__',$appVar->getPropertyName());
 
-            $data = isset($currentValues[$appVar->getPropertyName()]) ? $currentValues[$appVar->getPropertyName()] : ($appVar->isCollection() ? array() : '');
+            $data = $request->isMethod(Request::METHOD_POST) ? null : isset($currentValues[$appVar->getPropertyName()]) ? $currentValues[$appVar->getPropertyName()] : ($appVar->isCollection() ? array() : '');
 
             $options = array(
                 'label' => $appVar->getVarLabel(), 
