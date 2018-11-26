@@ -49,7 +49,13 @@ function formSubmiter(e)
 						//  	//bootbox.alert("Dziekujemy za wysłąnie formularza"); 
 						//  	$parent.html(data);	
 						// }
-						// else
+            if($('#' + $form.attr('id') + '-feedback').length)
+            {
+                $form.hide();
+                $('#' + $form.attr('id') + '-feedback .feedback-body').html(data)
+                $('#' + $form.attr('id') + '-feedback').show()
+            }
+						else
 						{
 							 var $parent = $form.parent()
 							 $parent.html(data);

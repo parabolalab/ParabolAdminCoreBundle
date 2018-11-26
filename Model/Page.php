@@ -58,6 +58,11 @@ abstract class Page extends BaseEntity
      */
     protected $type;
 
+    /**
+     * @ORM\Column(name="website", type="string", length=50, nullable=true)
+     */
+    protected $website;
+
 
     /*
      * @var string
@@ -216,6 +221,29 @@ abstract class Page extends BaseEntity
     {
         return $this->type;
     }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     * @return Page
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string 
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }    
 
     public static function default_type()
     {
