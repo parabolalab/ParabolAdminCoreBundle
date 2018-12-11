@@ -329,6 +329,9 @@ $(document).ready(function () {
 
 (function ( $ ) {
 
+  
+  var admin_core_event_collection_remove = new Event('collection_remove', {bubbles: true});
+  var admin_core_event_collection_add = new Event('collection_add', {bubbles: true});
 	var CollectionHolders = {};
 
 	$.fn.admin_core_initCollection = function () {
@@ -349,6 +352,7 @@ $(document).ready(function () {
 
 				$container.append($('<a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> ' + trans('action.object.delete.label') + ' </a>').on('click', function(e){
 					e.preventDefault();
+          this.dispatchEvent(admin_core_event_collection_remove);
 					var container = $(this).parent().parent().parent();
 					$(this).parent().parent().remove()
 					var sort = container.find('input[id$=_sort]')
@@ -360,6 +364,7 @@ $(document).ready(function () {
 					}
 				}))
 			})
+
 
 			if($(this).find('input[id$=_sort]').length)
 			{
@@ -393,12 +398,16 @@ $(document).ready(function () {
 			$(this).parent().append(
 				$('<a href="#" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> ' + trans('action.object.add.label') + '</a>').on('click', function(e) {
 		        	e.preventDefault();
-		        	$(this).admin_core_addCollection();
+              $(this).admin_core_addCollection();
+              this.dispatchEvent(admin_core_event_collection_add);
+              
     			})
     		);
 
 
 	}
+
+  
 	
 	$.fn.admin_core_addCollection = function () {
 			
@@ -411,6 +420,7 @@ $(document).ready(function () {
 			var $rmContainer = ($prototype.find('> div').length ? $prototype.find('> div') : $prototype)
 			$rmContainer.append($('<a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> ' + trans('action.object.delete.label') + '</a>').on('click', function(e){
 					e.preventDefault();
+          this.dispatchEvent(admin_core_event_collection_remove);
 					var container = $(this).parent().parent().parent();
 					$(this).parent().parent().remove()
 					var sort = container.find('input[id$=_sort]')
@@ -430,11 +440,13 @@ $(document).ready(function () {
 				$prototype.addClass('sortable')
 
 			}
-
       
       $prototype.find('div[data-prototype]').each(function(){
         $(this).admin_core_initCollection();
       })
+
+      $prototype.find('input.detetimepicker').admin_core_addCalendarBtn();
+      $prototype.find('input.detetimepicker').admin_core_addRemoveBtn();
 
 			$container.append($prototype);
 			$container.data('index', index + 1)
@@ -475,8 +487,7 @@ $(document).ready(function () {
 	$.fn.admin_core_addCalendarBtn = function() {
 
 
-		// if(typeof(window['datetimepicker']) == 'function')
-		// {
+      this.parent().wrap('<div></div>')
 
 			var calBtn = $('<span class="input-group-addon add-on calendar"><span class="glyphicon-calendar glyphicon"></span></span>').click(function(){
 				$(this).parent().find('input').focus()
@@ -484,9 +495,9 @@ $(document).ready(function () {
 			this.data('dateFormat', $(this).data('date-format'));
 			this.parent().append(calBtn);
 			this.parent().addClass('input-group');
-			this.parent().css('max-width', '180px');
+			this.parent().css('max-width', $(this).data('date-format') && $(this).data('date-format').toLowerCase().indexOf('hh') !== -1 ? '220px' : '180px');
 
-			this.parent().find('span.error').each(function(){
+      this.parent().find('span.help-block').each(function(){
 				var parent = $(this).parent().parent();
 				$(this).detach().prependTo(parent);
 			});
@@ -496,8 +507,6 @@ $(document).ready(function () {
 				$(this).detach().prependTo(parent);
 			});
 
-
-
 			this.click(function(){
 				$(this).parent().find('.calendar').trigger('click')
 			})
@@ -505,8 +514,7 @@ $(document).ready(function () {
 			this.parent().datetimepicker({
 	        	useCurrent: false,
 	        	format: 'dd.MM.YYYY'
-	        });
-	    // }
+	     });
 
 	};
 

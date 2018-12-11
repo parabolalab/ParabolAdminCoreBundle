@@ -101,3 +101,5 @@ function formSubmiter(e)
 }
 
 
+window.formSubmiter = formSubmiter
+
