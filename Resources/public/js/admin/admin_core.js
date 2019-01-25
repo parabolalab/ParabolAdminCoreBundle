@@ -329,9 +329,6 @@ $(document).ready(function () {
 
 (function ( $ ) {
 
-  
-  var admin_core_event_collection_remove = new Event('collection_remove', {bubbles: true});
-  var admin_core_event_collection_add = new Event('collection_add', {bubbles: true});
 	var CollectionHolders = {};
 
 	$.fn.admin_core_initCollection = function () {
@@ -350,9 +347,13 @@ $(document).ready(function () {
 
 				$container = $(this).find(' > div')
 
-				$container.append($('<a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> ' + trans('action.object.delete.label') + ' </a>').on('click', function(e){
+        $container.find('input[type=hidden][id$=_id]').each(function(){
+          console.log($(this).val())
+          $container.find('input[data-ref]').data('ref',$(this).val())
+        })
+
+				$container.append($('<div class="text-right"><a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> ' + trans('action.object.delete.label') + ' </a><div>').on('click', function(e){
 					e.preventDefault();
-          this.dispatchEvent(admin_core_event_collection_remove);
 					var container = $(this).parent().parent().parent();
 					$(this).parent().parent().remove()
 					var sort = container.find('input[id$=_sort]')
@@ -364,7 +365,6 @@ $(document).ready(function () {
 					}
 				}))
 			})
-
 
 			if($(this).find('input[id$=_sort]').length)
 			{
@@ -398,16 +398,12 @@ $(document).ready(function () {
 			$(this).parent().append(
 				$('<a href="#" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> ' + trans('action.object.add.label') + '</a>').on('click', function(e) {
 		        	e.preventDefault();
-              $(this).admin_core_addCollection();
-              this.dispatchEvent(admin_core_event_collection_add);
-              
+		        	$(this).admin_core_addCollection();
     			})
     		);
 
 
 	}
-
-  
 	
 	$.fn.admin_core_addCollection = function () {
 			
@@ -418,9 +414,8 @@ $(document).ready(function () {
 			var $prototype = $($container.data('prototype').replace(/__name__/g, index));
 			
 			var $rmContainer = ($prototype.find('> div').length ? $prototype.find('> div') : $prototype)
-			$rmContainer.append($('<a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> ' + trans('action.object.delete.label') + '</a>').on('click', function(e){
+			$rmContainer.append($('<div class="text-right"><a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> ' + trans('action.object.delete.label') + '</a><div>').on('click', function(e){
 					e.preventDefault();
-          this.dispatchEvent(admin_core_event_collection_remove);
 					var container = $(this).parent().parent().parent();
 					$(this).parent().parent().remove()
 					var sort = container.find('input[id$=_sort]')
@@ -440,16 +435,17 @@ $(document).ready(function () {
 				$prototype.addClass('sortable')
 
 			}
+
       
       $prototype.find('div[data-prototype]').each(function(){
         $(this).admin_core_initCollection();
       })
 
-      $prototype.find('input.detetimepicker').admin_core_addCalendarBtn();
-      $prototype.find('input.detetimepicker').admin_core_addRemoveBtn();
-
 			$container.append($prototype);
 			$container.data('index', index + 1)
+
+      var eventAddCollection = new Event('collection_add');
+      $container.children().last()[0].dispatchEvent(eventAddCollection)
 			
 
 			if(!$container.hasClass('sortable-initialized') && sort.length)
@@ -487,7 +483,8 @@ $(document).ready(function () {
 	$.fn.admin_core_addCalendarBtn = function() {
 
 
-      this.parent().wrap('<div></div>')
+		// if(typeof(window['datetimepicker']) == 'function')
+		// {
 
 			var calBtn = $('<span class="input-group-addon add-on calendar"><span class="glyphicon-calendar glyphicon"></span></span>').click(function(){
 				$(this).parent().find('input').focus()
@@ -495,9 +492,9 @@ $(document).ready(function () {
 			this.data('dateFormat', $(this).data('date-format'));
 			this.parent().append(calBtn);
 			this.parent().addClass('input-group');
-			this.parent().css('max-width', $(this).data('date-format') && $(this).data('date-format').toLowerCase().indexOf('hh') !== -1 ? '220px' : '180px');
+			this.parent().css('max-width', '180px');
 
-      this.parent().find('span.help-block').each(function(){
+			this.parent().find('span.error').each(function(){
 				var parent = $(this).parent().parent();
 				$(this).detach().prependTo(parent);
 			});
@@ -507,6 +504,8 @@ $(document).ready(function () {
 				$(this).detach().prependTo(parent);
 			});
 
+
+
 			this.click(function(){
 				$(this).parent().find('.calendar').trigger('click')
 			})
@@ -514,11 +513,13 @@ $(document).ready(function () {
 			this.parent().datetimepicker({
 	        	useCurrent: false,
 	        	format: 'dd.MM.YYYY'
-	     });
+	        });
+	    // }
 
 	};
 
 	$.fn.admin_core_showDialogForm = function() {
+
 		bootbox.dialog({
 			  message: '<center style="padding: 120px 0;"><img src="/bundles/paraboladmincore/images/preloaders/loading-spin-dark.svg" ></center>',
 			  onEscape: true,
@@ -531,7 +532,6 @@ $(document).ready(function () {
 				    label: 'Save',
 				    className: 'btn-success',
 				    callback: function() {
-				    	var $form = $(this).find('form');
 				    	$.post($form.attr('action'), $form.serialize(), function(data){
 				    		$('.bootbox-body').html(data);
 				    		$('.bootbox-body .colorpicker').admin_core_colorpicker();
@@ -547,8 +547,8 @@ $(document).ready(function () {
 				    }
 				}
 			  }
-		})	
-		$.post($(this).data('dialog-form'), $(this).data(), function(data){
+		})
+		$.get($(this).data('dialog-form'), $(this).data(), function(data){
 			$('.bootbox-body').html(data)
 			$('.bootbox-body .colorpicker').admin_core_colorpicker();
 			// console.log($('.bootbox-body input[id*=url]'));
