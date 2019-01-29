@@ -25,11 +25,6 @@ class PageRepository extends \Parabol\BaseBundle\Entity\Base\BaseRepository
 					->getOneOrNullResult();
 	}
 
-  public function addSortingScope(\Doctrine\ORM\QueryBuilder $qb, $entity)
-  {
-      $qb->andWhere('e.website = :website')->setParameter('website', $entity->getWebsite());
-  }
-
 	public function sortOrder()
     {
         return 'desc';

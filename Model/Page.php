@@ -58,11 +58,6 @@ abstract class Page extends BaseEntity
      */
     protected $type;
 
-    /**
-     * @ORM\Column(name="website", type="string", length=50, nullable=true)
-     */
-    protected $website;
-
 
     /*
      * @var string

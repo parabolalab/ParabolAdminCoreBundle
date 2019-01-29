@@ -26,7 +26,7 @@ abstract class PageTranslation
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @ORM\Column(name="title", type="string", length=255)
      */
     protected $title;
 
@@ -57,6 +57,7 @@ abstract class PageTranslation
      * @ORM\Column(name="buttonLabel", type="string", length=255, nullable=true)
      */
     protected $buttonLabel;
+
 
 
     public function getSluggableFields()

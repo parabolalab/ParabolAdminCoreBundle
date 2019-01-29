@@ -29,11 +29,6 @@ function formSubmiter(e)
   			var submit = function()
   			{
           // console.log('submit?');
-
-          $form.addClass('sending');
-          var $preloader = $form.find('.preloader')
-          if($preloader.length) $preloader.show();
-
           if(typeof $(this).data('formAjax') === 'undefined' || $(this).data('formAjax') === 0)
 	  			{
             // console.log('submit');
@@ -43,8 +38,9 @@ function formSubmiter(e)
 	  			else
 	  			{
 
-					
-					
+					$form.addClass('sending');
+					var $preloader = $form.find('.preloader')
+					if($preloader.length) $preloader.show();
 					$.post($form.attr('action'), $form.serialize(), function(data){
 						$form.removeClass('sending');
 						if($preloader.length) $preloader.hide();
@@ -53,13 +49,7 @@ function formSubmiter(e)
 						//  	//bootbox.alert("Dziekujemy za wysłąnie formularza"); 
 						//  	$parent.html(data);	
 						// }
-            if($('#' + $form.attr('id') + '-feedback').length)
-            {
-                $form.hide();
-                $('#' + $form.attr('id') + '-feedback .feedback-body').html(data)
-                $('#' + $form.attr('id') + '-feedback').show()
-            }
-						else
+						// else
 						{
 							 var $parent = $form.parent()
 							 $parent.html(data);
@@ -104,6 +94,4 @@ function formSubmiter(e)
 
 }
 
-
-window.formSubmiter = formSubmiter
 
