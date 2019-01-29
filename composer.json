@@ -19,6 +19,7 @@
         "beberlei/DoctrineExtensions": "^1.0",
         "doctrine/doctrine-fixtures-bundle": "^2.4",
         "egeloen/ckeditor-bundle": "^6.0",
+        "jasny/twig-extensions": "^1.2",
         "jms/i18n-routing-bundle": "^2.0",
         "knplabs/doctrine-behaviors": "^1.4",
         "knplabs/knp-menu-bundle": "^2.1",

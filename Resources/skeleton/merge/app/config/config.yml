@@ -20,6 +20,14 @@ twig:
        cmsLogoAlt: 
        cmsName: ParabolaLab CMS
 
+doctrine:
+    dql:
+        string_functions:
+            regexp: DoctrineExtensions\Query\Mysql\Regexp
+            field: DoctrineExtensions\Query\Mysql\Field
+        datetime_functions:
+            now: DoctrineExtensions\Query\Mysql\Now
+
 # assetic:
 #     debug:          '%kernel.debug%'
 #     use_controller: false
@@ -49,8 +57,24 @@ admingenerator_generator:
 
     dashboard_route: parabol_admin_core_dashboard
     twig:
+        # use_form_resources: true
+        # use_localized_date: false
+        date_format: d.m.Y
+        datetime_format: d.m.Y H:i:s
+        # localized_date_format: medium
+        # localized_datetime_format: medium
         number_format:
             decimal: 2
+            decimal_point: ","
+            thousand_separator: ""
+    form_types:        
+        doctrine_orm:
+            guid: Symfony\Component\Form\Extension\Core\Type\TextType
+            json_array: Symfony\Component\Form\Extension\Core\Type\TextType
+    filter_types:        
+        doctrine_orm:
+            guid: Symfony\Component\Form\Extension\Core\Type\TextType
+            json_array: Symfony\Component\Form\Extension\Core\Type\TextType 
 
 knp_menu:
     twig:
