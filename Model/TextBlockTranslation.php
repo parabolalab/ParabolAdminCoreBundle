@@ -16,49 +16,18 @@ abstract class TextBlockTranslation
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=100, nullable=false)
-     */
-    private $type = 'default';
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
      *
      * @ORM\Column(name="content", type="text", nullable=true)
      */
-    private $content;
+    protected $content;
 
 
-   
-    /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return TextBlockTranslation
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
    
     /**
      * Set title

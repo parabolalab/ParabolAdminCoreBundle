@@ -16,19 +16,26 @@ abstract class TextBlock extends BaseEntity
 {
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;   
 
     /**
      * @ORM\ManyToOne(targetEntity="App\AdminCoreBundle\Entity\Page", cascade={"persist"})
      * @ORM\JoinColumn(name="page", referencedColumnName="id")
      */
-     private $page;
+     protected $page;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=100, nullable=false)
+     */
+    protected $type = 'default';
 
 
     /**
@@ -63,6 +70,30 @@ abstract class TextBlock extends BaseEntity
     public function getPage()
     {
         return $this->page;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return TextBlock
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     public function addTextBlockTranslation($value)

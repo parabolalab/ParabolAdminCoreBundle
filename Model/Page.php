@@ -69,7 +69,7 @@ abstract class Page extends BaseEntity
     /**
      * @ORM\OneToMany(targetEntity="App\AdminCoreBundle\Entity\TextBlock", mappedBy="page", orphanRemoval=true, cascade={"persist", "remove"})
      */
-    private $textBlocks;
+    protected $textBlocks;
 
     
     public function __construct() {

@@ -56,6 +56,14 @@ params:
         #     label: HTML Container CSS Styles & Classes
         # animations:
         #     label: HTML Container Animations
+        textBlocks:
+            formType: Symfony\Component\Form\Extension\Core\Type\CollectionType
+            # formType: A2lix\TranslationFormBundle\Form\Type\TranslationsType
+            addFormOptions:
+                label: Sekcje
+                entry_type: App\AdminCoreBundle\Form\Type\TextBlock\EditType
+                entry_options: 
+                     data_class: App\AdminCoreBundle\Entity\TextBlock
     object_actions:
         delete: ~
     batch_actions:

@@ -7,6 +7,11 @@ params:
     pk_requirement: ~
     i18n_catalog: Admingenerator
     fields: 
+        type:
+            formType: \Symfony\Component\Form\Extension\Core\Type\ChoiceType
+            addFormOptions:
+                choices: 
+                    Domyślny: default
         # translations:
         #     addFormOptions:
         #         fields:

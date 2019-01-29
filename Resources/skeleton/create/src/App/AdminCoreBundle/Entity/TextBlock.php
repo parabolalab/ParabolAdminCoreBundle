@@ -17,7 +17,7 @@ class TextBlock extends \Parabol\AdminCoreBundle\Model\TextBlock
 {
 	    use 
         	ORMBehaviors\Translatable\Translatable,
-        	ORMBehaviors\Sortable\Sortable
+        	ORMBehaviors\Sortable\Sortable,
         	\Parabol\FilesUploadBundle\Entity\Base\Files
         ;
 

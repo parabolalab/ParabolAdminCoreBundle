@@ -1,3 +1,8 @@
+parabol_admin_core_textBlocks:
+    resource: "@AppAdminCoreBundle/Controller/TextBlock/"
+    type:     admingenerator
+    prefix:   /text-blocks
+
 parabol_admin_core_code:
     resource: "@AppAdminCoreBundle/Controller/Code/"
     type:     admingenerator
