@@ -71,11 +71,15 @@ abstract class Page extends BaseEntity
      */
     // protected $htmlId;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="App\AdminCoreBundle\Entity\TextBlock", mappedBy="page", orphanRemoval=true, cascade={"persist", "remove"})
+     */
+    private $textBlocks;
 
     
     public function __construct() {
         // $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->textBlocks = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     // public static function loadValidatorMetadata(ClassMetadata $metadata)
@@ -221,6 +225,42 @@ abstract class Page extends BaseEntity
     {
         return $this->type;
     }
+
+   /**
+    * Add textBlock
+    *
+    * @param \App\AdminCoreBundle\Entity\TextBlock $textBlock
+    *
+    * @return Page
+    */
+    public function addTextBlock(\App\AdminCoreBundle\Entity\TextBlock $textBlock)
+    {
+        $textBlock->setPage($this);
+        $this->textBlocks[] = $textBlock;
+
+        return $this;
+    }
+
+    /**
+    * Remove textBlock
+    *
+    * @param \App\AdminCoreBundle\Entity\TextBlock $textBlock
+    */
+    public function removeTextBlock(\App\AdminCoreBundle\Entity\TextBlock $textBlock)
+    {
+        $this->textBlocks->removeElement($textBlock);
+    }
+
+    /**
+    * Get textBlocks
+    *
+    * @return \Doctrine\Common\Collections\Collection
+    */
+    public function getTextBlocks()
+    {
+        return $this->textBlocks;
+    }
+
 
     /**
      * Set website

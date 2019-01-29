@@ -1,0 +1,62 @@
+generator: admingenerator.generator.doctrine
+params:
+    model: App\AdminCoreBundle\Entity\TextBlock
+    namespace_prefix: App
+    concurrency_lock: ~
+    bundle_name: AdminCoreBundle
+    pk_requirement: ~
+    i18n_catalog: Admingenerator
+    fields: 
+        # translations:
+        #     addFormOptions:
+        #         fields:
+        #             title:
+        #                 label: 'Tytuł'
+        #             content:
+        #                 label: 'Treść'
+                # exclude_fields: [title]
+    object_actions:
+        delete: ~
+    batch_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: List for AppBundle
+            display: ~
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                delete: ~
+    excel:
+        params: ~
+        filename: ~
+        filetype: ~
+    new:
+        params:
+            title: New object for AppBundle
+            display: [type, translations, files]
+            actions:
+                save: ~
+                list: ~
+    edit:
+        params:
+            title: "You're editing the object \"%object%\"|{ %object%: TextBlock.title }|"
+            display: [type, translations, files]
+            actions:
+                save: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: TextBlock.title }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~

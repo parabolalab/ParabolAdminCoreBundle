@@ -86,7 +86,7 @@ builders:
         params:
             title: New object for AdminCoreBundle
             # display: [isEnabled, inMenu, type, parent, countries, translations, containerStyles, animations, files, color, post]
-            display: [isEnabled, inMenu, translations]
+            display: [isEnabled, inMenu, translations, textBlocks]
             actions:
                 save-and-add: 
                     label: Zapisz i dodaj nowy
@@ -96,7 +96,7 @@ builders:
         params:
             title: "You're editing the object \"%object%\"|{ %object%: Page.title }|"
             # display: [isEnabled, inMenu, type, parent, countries,translations, containerStyles, animations, files, color, post]
-            display: [isEnabled, inMenu, translations]
+            display: [isEnabled, inMenu, translations, textBlocks]
             actions:
                 save: ~
                 list: ~

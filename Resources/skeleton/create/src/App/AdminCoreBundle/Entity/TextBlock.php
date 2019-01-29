@@ -8,21 +8,20 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
- * Page
+ * TextBlock
  *
- * @ORM\Table(name="parabol_page")
- * @ORM\Entity(repositoryClass="App\AdminCoreBundle\Repository\PageRepository")
+ * @ORM\Table(name="parabol_text_block")
+ * @ORM\Entity(repositoryClass="App\AdminCoreBundle\Repository\TextBlockRepository")
  */
-class Page extends \Parabol\AdminCoreBundle\Model\Page
+class TextBlock extends \Parabol\AdminCoreBundle\Model\TextBlock
 {
 	    use 
         	ORMBehaviors\Translatable\Translatable,
         	ORMBehaviors\Sortable\Sortable
-        	// ,
-        	// \Parabol\FilesUploadBundle\Entity\Base\File
+        	\Parabol\FilesUploadBundle\Entity\Base\Files
         ;
 
-        public static function loadValidatorMetadata(ClassMetadata $metadata)
+      public static function loadValidatorMetadata(ClassMetadata $metadata)
 	    {
 
 	        $metadata->addPropertyConstraint('translations', new Assert\Valid());
