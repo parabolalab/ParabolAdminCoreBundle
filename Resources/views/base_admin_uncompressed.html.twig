@@ -73,7 +73,7 @@
 {% endblock %}
 
 {% block html_body_tag %}
-    <body class="skin-black sidebar-mini">
+    <body class="skin-black sidebar-mini {% block bodyClass %}{% endblock bodyClass %}">
 {% endblock html_body_tag %}
 
 {% block header %}
