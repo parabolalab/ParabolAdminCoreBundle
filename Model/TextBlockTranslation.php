@@ -27,6 +27,19 @@ abstract class TextBlockTranslation
      */
     protected $content;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="buttonLabel", type="string", length=255, nullable=true)
+     */
+    protected $buttonLabel;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="buttonUrl", type="string", length=255, nullable=true)
+     */
+    protected $buttonUrl;
 
    
     /**
@@ -75,6 +88,52 @@ abstract class TextBlockTranslation
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Set buttonLabel
+     *
+     * @param string $buttonLabel
+     * @return TextBlockTranslation
+     */
+    public function setButtonLabel($buttonLabel)
+    {
+        $this->buttonLabel = $buttonLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get buttonLabel
+     *
+     * @return string 
+     */
+    public function getButtonLabel()
+    {
+        return $this->buttonLabel;
+    }
+
+    /**
+     * Set buttonUrl
+     *
+     * @param string $buttonUrl
+     * @return TextBlockTranslation
+     */
+    public function setButtonUrl($buttonUrl)
+    {
+        $this->buttonUrl = $buttonUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get buttonUrl
+     *
+     * @return string 
+     */
+    public function getButtonUrl()
+    {
+        return $this->buttonUrl;
     }
 
    

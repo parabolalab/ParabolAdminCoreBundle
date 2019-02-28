@@ -21,11 +21,20 @@ class TextBlock extends \Parabol\AdminCoreBundle\Model\TextBlock
         	\Parabol\FilesUploadBundle\Entity\Base\Files
         ;
 
+      public $file;
+
       public static function loadValidatorMetadata(ClassMetadata $metadata)
 	    {
 
 	        $metadata->addPropertyConstraint('translations', new Assert\Valid());
 
 	    }
+
+	    public static function fileContexts()
+	    {
+	    	return ['files' => true, 'file' => false];
+	    }
+
+	    
 
 }
