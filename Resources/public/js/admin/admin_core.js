@@ -526,12 +526,13 @@ $(document).ready(function () {
 			  locale: 'pl',
 			  buttons: {
 			  	cancel: {
-					label: 'Cancel',
+					label: 'Anuluj',
 				},
 				save: {
-				    label: 'Save',
+				    label: 'Zapisz',
 				    className: 'btn-success',
 				    callback: function() {
+				    	var $form = $(this).find('form')
 				    	$.post($form.attr('action'), $form.serialize(), function(data){
 				    		$('.bootbox-body').html(data);
 				    		$('.bootbox-body .colorpicker').admin_core_colorpicker();

@@ -42,17 +42,19 @@ class AdminController extends Controller
     		$title = '';
     	} 
 
+        
     	$form = $this->createForm($request->get('formClass'), $entity, [
 		    'action' => $request->get('formAction'),
 		    'method' => 'POST',
 		]);
 
-		// $this->generateUrl('target_route');
-
+        // $this->generateUrl('target_route');
+        $shortName = (new \ReflectionClass($entity))->getShortName();
     	return $this->render('ParabolAdminCoreBundle:Admin/Dialog:_dialogForm.html.twig', [
     		'form' => $form->createView(),
     		'title' => $title,
-            'formParams' => [ (new \ReflectionClass($entity))->getShortName() => $entity ],
+            'formParams' => [ $shortName => $entity ],
+            'formTemplate' => preg_replace('/([a-z]+Bundle).*/','$1',strtr($request->get('formClass'), ['\\' => ''])) . ':' . $shortName . 'Edit:form.html.twig'
 	    ]);    
     }
 
