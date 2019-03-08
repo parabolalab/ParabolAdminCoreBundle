@@ -1,16 +1,54 @@
 var captches = {}
+var captchaInitialized = false
 
 $(document).ready(function(){
 
 	$('input[data-form], button[data-form], form input[data-captcha], form button[data-captcha]').click(formSubmiter)
 
+  // if($('form input[data-captcha], form button[data-captcha]').length)
+  // {
+
+      
+
+  //     initRecaptcha()
+
+
+
+      
+
+  // } 
+
 });
+
+
+function initRecaptcha()
+{
+  if(!captchaInitialized)
+  {
+      captchaInitialized = true;
+      var recaptchaScript = document.createElement('script');
+      recaptchaScript.setAttribute('src','https://www.google.com/recaptcha/api.js?render=' + $('form input[data-captcha], form button[data-captcha]').data('captcha'));
+      document.head.appendChild(recaptchaScript);  
+  }
+}
+
+function waitingForCaptcha(callback)
+{
+  setTimeout(function(){
+      if(typeof grecaptcha !== 'undefined'){
+          callback()
+      }
+      else waitingForCaptcha(callback)
+  }, 100)
+    
+}
+
 
 
 function formSubmiter(e)
 {
 
-  
+  var $button = $(this)
 	var $form = $(this).data('form') ? $('#' + $(this).data('form')) :  $(this).closest('form');
 	var formId = $form.attr('id')
 	$form.removeClass('was-validated')
@@ -64,17 +102,30 @@ function formSubmiter(e)
 
   			if(typeof $(this).data('captcha') !== 'undefined')
   			{
-  				if(typeof grecaptcha !== 'undefined' && typeof captches[formId] === 'undefined')
+
+          initRecaptcha();
+
+        
+  				if(typeof captches[formId] === 'undefined')
   				{
-  					var widgetId = grecaptcha.render($(this)[0], {
-  			          sitekey : $(this).data('captcha'),
-  			          theme : 'light',
-  			          size : 'invisible',
-  			          callback : submit.bind(this)
-  			    	});
-  				
-  					captches[formId] = widgetId
-  					grecaptcha.execute(widgetId)
+
+
+  					waitingForCaptcha(function(){
+
+                var widgetId = grecaptcha.render($button[0], {
+                  sitekey : $button.data('captcha'),
+                  theme : 'light',
+                  size : 'invisible',
+                  callback : submit.bind($button)
+              });
+          
+              captches[formId] = widgetId
+              grecaptcha.execute(widgetId)  
+
+            })
+
+
+            
   				}
   				else if(typeof grecaptcha !== 'undefined') {
   					grecaptcha.reset(captches[formId])
