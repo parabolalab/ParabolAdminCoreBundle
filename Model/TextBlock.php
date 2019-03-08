@@ -22,13 +22,7 @@ abstract class TextBlock extends BaseEntity
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;   
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\AdminCoreBundle\Entity\Page", cascade={"persist"})
-     * @ORM\JoinColumn(name="page", referencedColumnName="id")
-     */
-     protected $page;
+    protected $id;       
 
     /**
      * @var string
@@ -48,29 +42,6 @@ abstract class TextBlock extends BaseEntity
         return $this->id;
     }
 
-    /**
-     * Set page
-     *
-     * @param \App\AdminCoreBundle\Entity\Page $page
-     *
-     * @return TextBlock
-     */
-    public function setPage(\App\AdminCoreBundle\Entity\Page $page = null)
-    {
-        $this->page = $page;
-
-        return $this;
-    }
-
-    /**
-     * Get page
-     *
-     * @return \App\AdminCoreBundle\Entity\Page
-     */
-    public function getPage()
-    {
-        return $this->page;
-    }
 
     /**
      * Set type
