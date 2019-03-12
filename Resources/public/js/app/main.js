@@ -47,7 +47,6 @@ function waitingForCaptcha(callback)
 
 function formSubmiter(e)
 {
-
   var $button = $(this)
 	var $form = $(this).data('form') ? $('#' + $(this).data('form')) :  $(this).closest('form');
 	var formId = $form.attr('id')
@@ -91,7 +90,7 @@ function formSubmiter(e)
 						{
 							 var $parent = $form.parent()
 							 $parent.html(data);
-							 $parent.find('.btn-primary').click(formSubmiter)
+               $parent.find('input[data-form], button[data-form], form input[data-captcha], form button[data-captcha]').click(formSubmiter)
 						}
 
 						if(typeof grecaptcha !== 'undefined' && typeof captches[formId] === 'undefined') grecaptcha.reset(captches[formId]) 
