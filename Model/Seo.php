@@ -4,11 +4,9 @@ namespace Parabol\AdminCoreBundle\Model;
 use Doctrine\ORM\Mapping as ORM;
 use Parabol\BaseBundle\Entity\Base\BaseEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\MappedSuperclass
- * @UniqueEntity(fields={"url", "inherited"}, errorPath="url")
  */
 abstract class Seo extends BaseEntity 
 {
