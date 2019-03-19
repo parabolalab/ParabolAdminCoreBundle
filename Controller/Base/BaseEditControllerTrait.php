@@ -12,11 +12,11 @@ trait BaseEditControllerTrait {
             throw new NotFoundHttpException("The ".get_class($this->getObject)." with id $pk can't be found");
         }
 
-
+        $request = $this->get('request_stack')->getCurrentRequest();
 
         $this->preBindRequest($obj);
         $form = $this->getEditForm($obj);
-        $form->handleRequest($this->get('request_stack')->getCurrentRequest());
+        $form->handleRequest($request);
         $this->postBindRequest($form, $obj);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -38,12 +38,14 @@ trait BaseEditControllerTrait {
 	    {
 	            $this->get('session')->getFlashBag()->add('error',  $this->get('translator')->trans("action.object.edit.error", array(), 'Admingenerator') );
 	    }
-       
 
+        
+        $shortName = (new \ReflectionClass($obj))->getShortName();
         return $this->render('ParabolAdminCoreBundle:Admin/Dialog:_dialogForm.html.twig', array(
     		'form' => $form->createView(),
     		'title' => '',
-            'formParams' => [ (new \ReflectionClass($obj))->getShortName() => $obj ],
+            'formParams' => [ $shortName => $obj ],
+            'formTemplate' => preg_replace('/([a-z]+Bundle).*/','$1',strtr($this->getEditType(), ['\\' => ''])) . ':' . $shortName . 'Edit:form.html.twig'
   		
 	    ));  
 	}

@@ -23,12 +23,12 @@ abstract class PageTranslation
      */
     protected $name;
 
-    /**
+    /*
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * ORM\Column(name="title", type="string", length=255, nullable=true)
      */
-    protected $title;
+    //protected $title;
 
     /*
      * @var string
@@ -44,12 +44,12 @@ abstract class PageTranslation
      */
     // protected $subheadline;
 
-    /**
+    /*
      * @var string
      *
-     * @ORM\Column(name="content", type="text", nullable=true)
+     * ORM\Column(name="content", type="text", nullable=true)
      */
-    protected $content;
+    // protected $content;
 
     /**
      * @var string
@@ -93,22 +93,22 @@ abstract class PageTranslation
      * @param string $title
      * @return PageTranslation
      */
-    public function setTitle($title)
-    {
-        $this->title = $title;
+    // public function setTitle($title)
+    // {
+    //     $this->title = $title;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get title
      *
      * @return string 
      */
-    public function getTitle()
-    {
-        return $this->title;
-    }
+    // public function getTitle()
+    // {
+    //     return $this->title;
+    // }
 
     /**
      * Set content
@@ -116,27 +116,27 @@ abstract class PageTranslation
      * @param string $content
      * @return PageTranslation
      */
-    public function setContent($content)
-    {
-        $this->content = $content;
+    // public function setContent($content)
+    // {
+    //     $this->content = $content;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get content
      *
      * @return string 
      */
-    public function getContent()
-    {
-        return $this->content;
-    }
+    // public function getContent()
+    // {
+    //     return $this->content;
+    // }
 
-    public function getContentSections()
-    {
-        return new \Doctrine\Common\Collections\ArrayCollection(explode('<div style="page-break-after: always"><span style="display: none;">&nbsp;</span></div>', $this->content));
-    }
+    // public function getContentSections()
+    // {
+    //     return new \Doctrine\Common\Collections\ArrayCollection(explode('<div style="page-break-after: always"><span style="display: none;">&nbsp;</span></div>', $this->content));
+    // }
 
     /**
      * Set headline

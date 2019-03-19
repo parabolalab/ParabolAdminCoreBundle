@@ -352,7 +352,7 @@ $(document).ready(function () {
           $container.find('input[data-ref]').data('ref',$(this).val())
         })
 
-				$container.append($('<div class="text-right"><a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> ' + trans('action.object.delete.label') + ' </a><div>').on('click', function(e){
+				$container.append($('<div class="text-right"><a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-trash"></span> ' + trans('action.object.delete_section.label') + ' </a><div>').on('click', function(e){
 					e.preventDefault();
 					var container = $(this).parent().parent().parent();
 					$(this).parent().parent().remove()
@@ -414,7 +414,7 @@ $(document).ready(function () {
 			var $prototype = $($container.data('prototype').replace(/__name__/g, index));
 			
 			var $rmContainer = ($prototype.find('> div').length ? $prototype.find('> div') : $prototype)
-			$rmContainer.append($('<div class="text-right"><a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> ' + trans('action.object.delete.label') + '</a><div>').on('click', function(e){
+			$rmContainer.append($('<div class="text-right"><a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> ' + trans('action.object.delete_section.label') + '</a><div>').on('click', function(e){
 					e.preventDefault();
 					var container = $(this).parent().parent().parent();
 					$(this).parent().parent().remove()
@@ -526,12 +526,13 @@ $(document).ready(function () {
 			  locale: 'pl',
 			  buttons: {
 			  	cancel: {
-					label: 'Cancel',
+					label: 'Anuluj',
 				},
 				save: {
-				    label: 'Save',
+				    label: 'Zapisz',
 				    className: 'btn-success',
 				    callback: function() {
+				    	var $form = $(this).find('form')
 				    	$.post($form.attr('action'), $form.serialize(), function(data){
 				    		$('.bootbox-body').html(data);
 				    		$('.bootbox-body .colorpicker').admin_core_colorpicker();

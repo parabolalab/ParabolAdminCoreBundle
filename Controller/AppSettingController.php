@@ -45,6 +45,7 @@ class AppSettingController extends Controller
         $fileTypes = [];
         $i18nTypes = [];
         $twigableFields = [];
+        $collections = [];
 
         foreach($appVars as $appVar)
         {
@@ -82,6 +83,7 @@ class AppSettingController extends Controller
             }
             elseif($appVar->isCollection())
             {
+                $collections[] = $fieldName;
                 $options['allow_add'] = true;
                 // $options['allow_delete'] = true;
                 $options['entry_type'] = '\Parabol\AdminCoreBundle\Form\Type\DynamicType';
@@ -180,6 +182,10 @@ class AppSettingController extends Controller
                         $em->flush();
                     }
 
+                    foreach($collections as $name)
+                    {
+                        $values[$name] = $form->get($name)->getData();
+                    }
 
                     foreach($i18nTypes as $name)
                     {

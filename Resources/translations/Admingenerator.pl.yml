@@ -86,4 +86,6 @@
 list.display.one: Wyświetlanie <b role="results-count">%count%</b> rezultatu.
 action.object.add:
   label: 'Dodaj kolejny'
+action.object.delete_section:
+  label: 'Usuń sekcję'
 "Inherited": "Dziedziczony"

@@ -449,6 +449,9 @@ abstract class AppVar extends BaseEntity
                 case 'file':
                     $type = \Parabol\FilesUploadBundle\Form\Type\BlueimpType::class;
                     break;
+                case 'boolean':
+                    $type = \Symfony\Component\Form\Extension\Core\Type\CheckboxType::class;
+                    break;
                 default:
                     if(is_array($type)) $type = \Symfony\Component\Form\Extension\Core\Type\CollectionType::class;
                     else $type = \Symfony\Component\Form\Extension\Core\Type\TextType::class;

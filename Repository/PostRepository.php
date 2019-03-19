@@ -23,7 +23,8 @@ class PostRepository extends \Parabol\BaseBundle\Entity\Base\BaseRepository
                 ->andWhere('(p.displayFrom IS NULL OR p.displayFrom <= CURRENT_TIMESTAMP()) AND (p.displayTo IS NULL OR CURRENT_TIMESTAMP() >= p.displayTo)')
                 ->setParameter(':locale', $locale)
                 ->orderBy('p.displayFrom', 'DESC')
-                ->addOrderBy('p.createdAt', 'DESC');
+                ->addOrderBy('p.createdAt', 'DESC')
+		;
 
         return $qb;        
 	}
@@ -32,7 +33,7 @@ class PostRepository extends \Parabol\BaseBundle\Entity\Base\BaseRepository
 	{
 		$qb = $this->allByLocale($locale)
                 ->andWhere('p.type = :type')
-                ->setParameters(':type', $type)
+                ->setParameter(':type', $type)
                 ;
 
         return $qb;        

@@ -1,6 +1,6 @@
 <?php
 
-namespace Parabol\AdminCoreBundle\Controller;
+namespace App\AdminCoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -14,7 +14,7 @@ class PostController extends Controller
         $type = $request->get('type', 'news');
 
         $post = $this->getDoctrine()
-                    ->getRepository('ParabolAdminCoreBundle:Post')
+                    ->getRepository('AppAdminCoreBundle:Post')
                     ->findLastByTypeAndLocale($type, $request->getLocale());
 
         return $this->render('ParabolAdminCoreBundle:App/Post:_latest.html.twig', array(
@@ -29,7 +29,7 @@ class PostController extends Controller
         $type = $request->get('type', 'news');
 
         $post = $this->getDoctrine()
-                    ->getRepository('ParabolAdminCoreBundle:Post')
+                    ->getRepository('AppAdminCoreBundle:Post')
                     ->findOne($request->get('slug'), $type, $request->getLocale());
 
         return $this->render('ParabolAdminCoreBundle:App/Post:show.html.twig', array(
@@ -52,7 +52,7 @@ class PostController extends Controller
 
 
         $query = $this->getDoctrine()
-            ->getRepository('ParabolAdminCoreBundle:Post')
+            ->getRepository('AppAdminCoreBundle:Post')
             ->allByTypeAndLocale($type, $request->getLocale())
             ->setMaxResults($max)
             ->setFirstResult($max * ($page - 1))
@@ -77,7 +77,7 @@ class PostController extends Controller
         $page = $request->get('page', 1);
 
         $query = $this->getDoctrine()
-            ->getRepository('ParabolAdminCoreBundle:Post')
+            ->getRepository('AppAdminCoreBundle:Post')
             ->allByTypeAndLocale($type, $request->getLocale())
             ->setMaxResults($max)
             ->setFirstResult($max * ($page - 1))
