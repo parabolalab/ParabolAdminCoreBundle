@@ -8,7 +8,7 @@ namespace Parabol\AdminCoreBundle\Service;
 class Metatag extends \Twig_Extension
 {
 		
-	private $metatags;
+	private $metatags = [];
 
 	public function getName()
 	{
