@@ -46,6 +46,7 @@ class AppSettingController extends Controller
         $i18nTypes = [];
         $twigableFields = [];
         $collections = [];
+        $postAction = [];
 
         foreach($appVars as $appVar)
         {
@@ -99,6 +100,9 @@ class AppSettingController extends Controller
 
                 $fileTypes[] = $fieldName;
 
+
+
+
                 // $options['constraints'] = $this->
 
                 //[ 'raw' => $appVar->getFilePath(), 'parsed' => strtr( $appVar->getFilePath(), [ '%kernel.root_dir%' => $this->get('kernel')->getRootDir() ] ) ];
@@ -108,6 +112,19 @@ class AppSettingController extends Controller
                 //             // 'mimeTypes' => ['video/mp4'], 
                 //             // 'maxSize' => '95m'
                 //     ]);
+            }
+
+            if($appVar->getFieldOptions())
+            {
+                foreach($appVar->getFieldOptions() as $name => $option)
+                {
+                    $options[$name] = $option;
+                }
+            }
+
+            if($appVar->getPostAction())
+            {
+                $postAction[$fieldName] = $appVar->getPostAction();
             }
 
             if($appVar->getFormType() == 'Ivory\CKEditorBundle\Form\Type\CKEditorType')
@@ -202,6 +219,14 @@ class AppSettingController extends Controller
 
                     $yaml = str_replace('--', '__',str_replace('__', '.', Yaml::dump(array('parameters' => $values), 2)));
                     file_put_contents($fileName, $yaml);
+
+                    foreach($postAction as $name => $class)
+                    {
+
+                        $parts = explode('.', $class);    
+                        $this->get($parts[0])->{$parts[1]}($name, $values);   
+                    }
+
                     
                     $containerCache = $this->container->getParameter('kernel.root_dir').'/../var/cache/prod/appProdProjectContainer.php';
                     if(file_exists($containerCache)) unlink($containerCache);

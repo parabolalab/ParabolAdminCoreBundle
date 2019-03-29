@@ -89,6 +89,18 @@ abstract class AppVar extends BaseEntity
      */
     protected $twigAlias = null; 
 
+    /**
+     * @ORM\Column(name="post_action", type="string", length=255, nullable=true)
+     */
+    protected $postAction = null; 
+
+    /**
+     * @ORM\Column(name="field_options", type="array", nullable=true)
+     */
+    protected $fieldOptions = null; 
+
+
+
 
     static protected $multipleFilesContexts = [];
 
@@ -193,6 +205,7 @@ abstract class AppVar extends BaseEntity
     {
         return $this->propertyName;
     }
+
 
     /**
      * Set varType
@@ -427,6 +440,52 @@ abstract class AppVar extends BaseEntity
     {
         return $this->twigAlias;
     }
+
+    /**
+     * Set postAction
+     *
+     * @param string $postAction
+     * @return AppVar
+     */
+    public function setPostAction($postAction)
+    {
+        $this->postAction = $postAction;
+
+        return $this;
+    }
+
+    /**
+     * Get postAction
+     *
+     * @return string 
+     */
+    public function getPostAction()
+    {
+        return $this->postAction;
+    }
+
+
+    /**
+     * Set fieldOptions
+     *
+     * @param string $fieldOptions
+     * @return AppVar
+     */
+    public function setFieldOptions($fieldOptions)
+    {
+        $this->fieldOptions = $fieldOptions;
+        return $this;
+    }
+
+    /**
+     * Get fieldOptions
+     *
+     * @return string 
+     */
+    public function getFieldOptions()
+    {
+        return $this->fieldOptions;
+    }    
 
     public function getFormType($raw = false)
     {

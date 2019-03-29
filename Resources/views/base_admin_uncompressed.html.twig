@@ -2,7 +2,7 @@
 {#% extends 'AdmingeneratorGeneratorBundle::base_admin.html.twig' %#}
 
 {% block stylesheets %}
-	{{ parent() }}
+	{{ parent() | replace({'components/ionicons': 'components/Ionicons'}) | raw  }}
     
         <link rel="stylesheet" href="{{ asset('bundles/paraboladmincore/css/admin/admin_core.css') }}" type="text/css" media="all"/>
         <link rel="stylesheet" href="{{ asset('admin/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" type="text/css" media="all"/>
