@@ -40,6 +40,11 @@ abstract class Page extends BaseEntity
      */
     protected $inMenu = false;
 
+    /**
+     * @ORM\Column(type="boolean", name="in_footer")
+     */
+    protected $inFooter = false;
+
     /*
      * ORM\OneToMany(targetEntity="Page", mappedBy="parent")
      * ORM\OrderBy({"sort" = "ASC"})
@@ -140,6 +145,29 @@ abstract class Page extends BaseEntity
     public function getInMenu()
     {
         return $this->inMenu;
+    }
+
+    /**
+     * Set inFooter
+     *
+     * @param boolean $inFooter
+     * @return Page
+     */
+    public function setInFooter($inFooter)
+    {
+        $this->inFooter = $inFooter;
+
+        return $this;
+    }
+
+    /**
+     * Get inFooter
+     *
+     * @return boolean 
+     */
+    public function getInFooter()
+    {
+        return $this->inFooter;
     }
 
     // /**

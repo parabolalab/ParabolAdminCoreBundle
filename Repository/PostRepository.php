@@ -46,7 +46,7 @@ class PostRepository extends \Parabol\BaseBundle\Entity\Base\BaseRepository
         return $qb;            
 	}
 
-	public function findOne($slug, $type, $locale)
+	public function findOneByType($slug, $type, $locale)
 	{
 		return $this->allByTypeAndLocale($type, $locale)->setMaxResults(1)
 				->andWhere('pt.slug = :slug')
@@ -57,11 +57,22 @@ class PostRepository extends \Parabol\BaseBundle\Entity\Base\BaseRepository
         
 	}
 
-	public function findLastByTypeAndLocale($type, $locale)
-	{
-		return $this->lastByTypeAndLocale($type, $locale)->getQuery()->getOneOrNullResult();
-	}
-	
+  public function findOne($slug, $locale)
+  {
+    return $this->allByLocale($locale)->setMaxResults(1)
+        ->andWhere('pt.slug = :slug')
+        ->setParameter(':slug', $slug)
+        ->getQuery()
+        ->getOneOrNullResult();
+
+        
+  }
+
+  public function findLastByTypeAndLocale($type, $locale)
+  {
+    return $this->lastByTypeAndLocale($type, $locale)->getQuery()->getOneOrNullResult();
+  }
+
 	
 
 }
