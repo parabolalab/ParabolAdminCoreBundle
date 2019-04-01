@@ -9,6 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 class AppController extends Controller
 {
 
+  private $emailTo = null;
+  public function setEmailTo($email)
+  {
+      $this->emailTo = $email;
+  }
+
 	public function callerAction($action)
 	{
 		return $this->{$action.'Action'}();
@@ -47,8 +53,10 @@ class AppController extends Controller
 
 		$request = $this->get('request_stack')->getCurrentRequest();
 		$ns = $request->get('ns');
-
+    
 		if(!$ns) throw new Exception("ns request parameter is required.");
+
+    if(!isset($this->emailTo)) $this->emailTo = $this->container->getParameter($ns . '.email');
 
 		$captchaChalenge = $this->validateReCaptcha($request->get('g-recaptcha-response'));
 		
@@ -76,7 +84,7 @@ class AppController extends Controller
 			
 			$body = $this->renderView(
 		                $template,
-		                ['vars' => $values]
+		                $values
 		            );
 
 			$message = \Swift_Message::newInstance()
@@ -84,11 +92,11 @@ class AppController extends Controller
 		        		$this->container->hasParameter($ns . '.title') ? 
 		        					$this->container->getParameter($ns . '.title') : 
 		        						(
-		        							'[Formularz]' . (isset($values['subject']) ? $values['subject'] : 'Wiadomość z formularza' )
+		        							'[Formularz] ' . (isset($values['subject']) ? $values['subject'] : 'Wiadomość z formularza' )
 		        						)
 		        )
 		        ->setFrom( $this->container->hasParameter($ns.'.email_from') ? $this->container->getParameter($ns.'.email_from') : 'formularz@' .  str_replace('www.', '', $request->getHost()) )
-		        ->setTo($this->container->getParameter($ns . '.email'))
+		        ->setTo($this->emailTo)
 		        ->setBody(
 		            $body,
 		            'text/html'

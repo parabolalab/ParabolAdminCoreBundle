@@ -58,6 +58,12 @@ function formSubmiter(e)
 	if ($form[0].checkValidity() === false) {
         // console.log('form errors')
         $form.addClass('was-validated')
+        
+
+         $([document.documentElement, document.body]).animate({
+          scrollTop: $form.find('.form-control:invalid').first().offset().top - 120
+        }, 500);
+
         if(typeof grecaptcha !== 'undefined' && typeof captches[formId] === 'undefined') grecaptcha.reset(captches[formId]) 
   	}
   	else
