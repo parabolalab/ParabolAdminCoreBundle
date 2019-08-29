@@ -8,6 +8,7 @@ use App\AdminCoreBundle\Entity\AppVar;
 
 use Symfony\Component\Yaml\Yaml;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class AppSettingController extends Controller
 {
@@ -33,7 +34,7 @@ class AppSettingController extends Controller
                 ->getQuery()
                 ->execute();
 
-        $builder = $this->createFormBuilder();   
+        
 
         $fileName = $this->get('service_container')->getParameter('kernel.root_dir').'/config/parameters_app.yml';
 
@@ -47,6 +48,12 @@ class AppSettingController extends Controller
         $twigableFields = [];
         $collections = [];
         $postAction = [];
+
+        $ref = isset($currentValues['ref']) ? $currentValues['ref'] : uniqid();
+
+        $builder = $this->createFormBuilder(['id' => $ref, 'filesHash' => $ref]);   
+        // $builder->add('filesHash', HiddenType::class, ['data' => $ref]);
+        $builder->add('ref', HiddenType::class, ['data' => $ref]);
 
         foreach($appVars as $appVar)
         {
