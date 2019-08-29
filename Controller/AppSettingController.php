@@ -52,7 +52,7 @@ class AppSettingController extends Controller
         $ref = isset($currentValues['ref']) ? $currentValues['ref'] : uniqid();
 
         $builder = $this->createFormBuilder(['id' => $ref, 'filesHash' => $ref]);   
-        // $builder->add('filesHash', HiddenType::class, ['data' => $ref]);
+        $builder->add('filesHash', HiddenType::class, ['data' => $ref]);
         $builder->add('ref', HiddenType::class, ['data' => $ref]);
 
         foreach($appVars as $appVar)
