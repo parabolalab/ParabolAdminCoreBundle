@@ -467,3 +467,7 @@ body .box-body .datepicker  table td:first-child, .box-body .datepicker  table t
   margin-bottom: 15px !important;
   clear: both;
 }
+
+.user-panel .logo-icon { 
+	display: none;
+}
