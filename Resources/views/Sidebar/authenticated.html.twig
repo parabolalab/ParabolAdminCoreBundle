@@ -8,7 +8,11 @@
 
 <div class="user-panel bg-light">
 	<div class="pull-left image">
-        {% if cmsLogo is defined and cmsLogo %}<img src="{{ cmsLogo }}" class="" alt="{{ cmsLogoAlt }}"  />{% endif %} <span>{{ cmsName }}</span>
+        {% if cmsLogo is defined and cmsLogo %}<img src="{{ cmsLogo }}" class="logo" alt="{{ cmsLogoAlt }}"  />{% endif %} 
+        {% if cmsLogoIcon is defined and cmsLogoIcon %}<img src="{{ cmsLogoIcon }}" class="logo-icon" alt="{{ cmsLogoAlt }}"  />
+        {% else %}<span>{{ cmsName }}</span>
+        {% endif %}
+        
     </div>
 </div>
 
