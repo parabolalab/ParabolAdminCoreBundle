@@ -1,4 +1,7 @@
 parameters:
+    parabol.metatag.class: Parabol\AdminCoreBundle\Service\Metatag
+    parabol.listener.seo_request.class: Parabol\AdminCoreBundle\EventListener\SeoRequestListener
+
 services:
     
     admingen.menu.default_builder:
@@ -18,7 +21,7 @@ services:
         arguments: ['@twig', '%kernel.debug%']
 
     parabol.listener.seo_request:
-        class: Parabol\AdminCoreBundle\EventListener\SeoRequestListener
+        class: %parabol.listener.seo_request.class%
         arguments:
             - "@service_container"
             - "@doctrine.orm.entity_manager"
@@ -35,7 +38,7 @@ services:
             - { name: doctrine.event_subscriber, connection: default }
 
     parabol.metatag:
-        class: Parabol\AdminCoreBundle\Service\Metatag
+        class: %parabol.metatag.class%
         tags:
             - { name: twig.extension }
 
